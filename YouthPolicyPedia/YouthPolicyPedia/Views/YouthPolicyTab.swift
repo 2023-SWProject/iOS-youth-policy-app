@@ -10,12 +10,24 @@ import SwiftUI
 struct YouthPolicyTab: View {
     @State var searchText = ""
     @State var selectedColor = "color"
-    var colors = ["추천순", "green", "blue"]
+    var colors = ["추천순", "마감일순", "조회순", "지원금"]
 
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 HStack {
+                    VStack {
+                        HStack {
+                            Text("미정을 위한 **1건**의 정책")
+                                .font(.system(size: 25))
+                            
+                            Spacer()
+                        }
+                       
+                        Spacer()
+                    }
+                    .padding()
+                    .foregroundColor(.primary)
                     Spacer()
                     VStack {
                           Picker("Choose a color", selection: $selectedColor) {
@@ -30,49 +42,23 @@ struct YouthPolicyTab: View {
                         }
                 }
                 
-//                VStack {
-//                    HStack {
-//                        Text("**천안시** 근처")
-//                            .font(.system(size: 30))
-//                        
-//                        Spacer()
-//                    }
-//                    
-//                    HStack {
-//                        Text("청년 센터입니다")
-//                            .font(.system(size: 30))
-//                        Spacer()
-//                    }
-//                    Spacer()
-//                }
-//                .padding()
-//                .foregroundColor(.primary)
-                
-                // YouthCenterCell -> YouthCenterDetailView
-                ForEach(1...2, id: \.self) {_ in
+                ForEach(1...1, id: \.self) {_ in
                     
                     NavigationLink {
 //                        YouthCenterDetailView()
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
-                            .frame(width: UIScreen.main.bounds.width - 40, height: 120)
+                            .frame(width: UIScreen.main.bounds.width - 40, height: 80)
                             .cornerRadius(10)
                             .overlay {
                                 
                                 HStack {
                                     VStack {
-                                        Text("독거노인 ")
+                                        Text("청년 창업 지원금 보조 정책")
                                             .padding(.top, 50)
-                                            .foregroundColor(.blue)
-                                        
-                                        HStack {
-                                            Text("운영시간")
-                                                .foregroundColor(.black)
-                                            Text("08:00 - 18:00")
-                                                .foregroundColor(.secondary)
-                                                .padding(.top, 1)
-                                        }
+                                            .foregroundColor(.black)
+                                            .bold()
                                         
                                         HStack {
                                             Spacer()
@@ -89,8 +75,6 @@ struct YouthPolicyTab: View {
                                 
                             }
                     }
-
-                    
                 }
                 .padding(.bottom, 10)
             }
