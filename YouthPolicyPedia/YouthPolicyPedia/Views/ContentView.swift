@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView : View {
+    
+    @StateObject var policyStore: PolicyStore = PolicyStore()
+    
   var body: some View {
     TabView {
         YouthCenterTab()
@@ -24,6 +27,14 @@ struct ContentView : View {
         .tabItem {
           Image(systemName: "character.book.closed")
           Text("정책 용어")
+        }
+    }
+    .onAppear {
+        policyStore.fetchPolicies()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+          // 1초 후 실행될 부분
+            print(policyStore.policies)
         }
     }
   }

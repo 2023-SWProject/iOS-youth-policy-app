@@ -16,6 +16,14 @@
 		EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */; };
 		EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */; };
 		EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */; };
+		EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */; };
+		EBBA99D529EBADB400829511 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D429EBADB400829511 /* FirebaseDatabase */; };
+		EBBA99D729EBADB400829511 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */; };
+		EBBA99D929EBADB400829511 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D829EBADB400829511 /* FirebaseFirestore */; };
+		EBBA99DB29EBADB400829511 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99DA29EBADB400829511 /* FirebaseFirestoreSwift */; };
+		EBBA99DF29EBAE3500829511 /* Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBA99DE29EBAE3500829511 /* Policy.swift */; };
+		EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBA99E229EBAEEB00829511 /* PolicyStore.swift */; };
+		EBBA99E529EBB40900829511 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBA99E429EBB40900829511 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +37,10 @@
 		EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterTab.swift; sourceTree = "<group>"; };
 		EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyTab.swift; sourceTree = "<group>"; };
 		EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyGlossaryTab.swift; sourceTree = "<group>"; };
+		EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EBBA99DE29EBAE3500829511 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
+		EBBA99E229EBAEEB00829511 /* PolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStore.swift; sourceTree = "<group>"; };
+		EBBA99E429EBB40900829511 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +48,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBBA99D729EBADB400829511 /* FirebaseDatabaseSwift in Frameworks */,
+				EBBA99D529EBADB400829511 /* FirebaseDatabase in Frameworks */,
+				EBBA99D929EBADB400829511 /* FirebaseFirestore in Frameworks */,
+				EBBA99DB29EBADB400829511 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +77,10 @@
 		EB73524B29D737450045A713 /* YouthPolicyPedia */ = {
 			isa = PBXGroup;
 			children = (
+				EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */,
 				EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */,
+				EBBA99E129EBAED300829511 /* ViewModels */,
+				EBBA99DD29EBAE2100829511 /* Model */,
 				EB73525A29D737FD0045A713 /* Views */,
 				EB73525029D737450045A713 /* Assets.xcassets */,
 				EB73525229D737450045A713 /* Preview Content */,
@@ -87,6 +106,7 @@
 				EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */,
 				EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */,
 				EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */,
+				EBBA99E429EBB40900829511 /* TestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -96,6 +116,22 @@
 			children = (
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		EBBA99DD29EBAE2100829511 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EBBA99DE29EBAE3500829511 /* Policy.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EBBA99E129EBAED300829511 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EBBA99E229EBAEEB00829511 /* PolicyStore.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,6 +150,12 @@
 			dependencies = (
 			);
 			name = YouthPolicyPedia;
+			packageProductDependencies = (
+				EBBA99D429EBADB400829511 /* FirebaseDatabase */,
+				EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */,
+				EBBA99D829EBADB400829511 /* FirebaseFirestore */,
+				EBBA99DA29EBADB400829511 /* FirebaseFirestoreSwift */,
+			);
 			productName = YouthPolicyPedia;
 			productReference = EB73524929D737450045A713 /* YouthPolicyPedia.app */;
 			productType = "com.apple.product-type.application";
@@ -142,6 +184,9 @@
 				Base,
 			);
 			mainGroup = EB73524029D737450045A713;
+			packageReferences = (
+				EBBA99D329EBADB400829511 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = EB73524A29D737450045A713 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -158,6 +203,7 @@
 			files = (
 				EB73525429D737450045A713 /* Preview Assets.xcassets in Resources */,
 				EB73525129D737450045A713 /* Assets.xcassets in Resources */,
+				EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +220,10 @@
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
+				EBBA99E529EBB40900829511 /* TestView.swift in Sources */,
+				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
+				EBBA99DF29EBAE3500829511 /* Policy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +424,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EBBA99D329EBADB400829511 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EBBA99D429EBADB400829511 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBBA99D329EBADB400829511 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBBA99D329EBADB400829511 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		EBBA99D829EBADB400829511 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBBA99D329EBADB400829511 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		EBBA99DA29EBADB400829511 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBBA99D329EBADB400829511 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EB73524129D737450045A713 /* Project object */;
 }
