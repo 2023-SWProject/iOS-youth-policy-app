@@ -17,7 +17,7 @@ class PolicyStore: ObservableObject {
     func fetchPolicies() {
         
         print("fetch start")
-        database.collection("NewData")
+        database.collection("TestData")
             .getDocuments { (snapshot, error) in
                 self.policies.removeAll()
                 
@@ -27,30 +27,27 @@ class PolicyStore: ObservableObject {
                         
                         let docData = document.data()
                         
-                        let bizTycdSelq: String = docData["bizTycdSel"] as? String ?? ""
-                        let bizidq: String = docData["bizid"] as? String ?? ""
-//                        var polybiztyq: String = docData["polybizty"] as? String ?? ""
-//                        var polybizsjnmq: String = docData["polybizsjnm"] as? String ?? ""
-//                        var polyitcncnq: String = docData["polyitcncn"] as? String ?? ""
-//                        var plcytpnmq: String = docData["plcytpnm"] as? String ?? ""
-//                        var sporscvlq: String = docData["sporscvl"] as? String ?? ""
-//                        var sporcnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var ageinfoq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var empmsttscnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var accrrqiscnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var majrrqiscnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var splzrlmrqiscnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var cnsgnmorq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var rqutprdcnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var qutproccnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var jdgnprescnq: String = docData["bizTycdSel"] as? String ?? ""
-//                        var rquturlaq: String = docData["bizTycdSel"] as? String ?? ""
-                        
-                        
-                        let policiesData: Policy = Policy(bizTycdSel: bizTycdSelq, bizid: bizidq)
-                        
-//                        let policiesData: Policy = Policy(bizTycdSel: bizTycdSelq, bizid: bizidq, polybizty: polybiztyq, polybizsjnm: polybizsjnmq, polyitcncn: polyitcncnq, plcytpnm: plcytpnmq, sporscvl: sporscvlq, sporcn: sporcnq, ageinfo: ageinfoq, empmsttscn: empmsttscnq, accrrqiscn: accrrqiscnq, majrrqiscn: majrrqiscnq, splzrlmrqiscn: splzrlmrqiscnq, cnsgnmor: cnsgnmorq, rqutprdcn: rqutprdcnq, qutproccn: qutproccnq, jdgnprescn: jdgnprescnq, rquturla: rquturlaq)
-                        
+                        let serialNumber: String = docData["bizTycdSel"] as? String ?? ""
+                        let bizid: String = docData["bizid"] as? String ?? ""
+//                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                        let title: String = docData["polybizsjnm"] as? String ?? ""
+//                        var polyitcncn: String = docData["polyitcncn"] as? String ?? ""
+//                        var plcytpnm: String = docData["plcytpnm"] as? String ?? ""
+//                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                        var content: String = docData["sporcn"] as? String ?? ""
+                        let reqAge: String = docData["ageinfo"] as? String ?? ""
+//                        var empmsttscn: String = docData["empmsttscn"] as? String ?? ""
+//                        var accrrqiscn: String = docData["accrrqiscn"] as? String ?? ""
+//                        var majrrqiscn: String = docData["majrrqiscn"] as? String ?? ""
+//                        var splzrlmrqiscn: String = docData["splzrlmrqiscn"] as? String ?? ""
+//                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                        let period: String = docData["rqutprdcn"] as? String ?? ""
+                        let procedure: String = docData["qutproccn"] as? String ?? ""
+//                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                        let siteURL: String = docData["rquturla"] as? String ?? ""
+                                                
+                        let policiesData: Policy = Policy(serialNumber: serialNumber, bizid: bizid, title: title, content: content, reqAge: reqAge, period: period, procedure: procedure, siteURL: siteURL)
+
                         self.policies.append(policiesData)
                     }
                 }

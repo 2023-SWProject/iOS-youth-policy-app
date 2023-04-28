@@ -16,6 +16,7 @@
 		EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */; };
 		EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */; };
 		EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */; };
+		EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */; };
 		EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */; };
 		EBBA99D529EBADB400829511 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D429EBADB400829511 /* FirebaseDatabase */; };
 		EBBA99D729EBADB400829511 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */; };
@@ -37,6 +38,7 @@
 		EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterTab.swift; sourceTree = "<group>"; };
 		EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyTab.swift; sourceTree = "<group>"; };
 		EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyGlossaryTab.swift; sourceTree = "<group>"; };
+		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
 		EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBBA99DE29EBAE3500829511 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		EBBA99E229EBAEEB00829511 /* PolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStore.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */,
 				EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */,
 				EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */,
+				EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */,
 				EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */,
 				EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */,
 				EBBA99E429EBB40900829511 /* TestView.swift */,
@@ -219,6 +222,7 @@
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */,
+				EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E529EBB40900829511 /* TestView.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,

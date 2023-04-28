@@ -12,6 +12,17 @@ struct TestView: View {
     
     var body: some View {
         VStack {
+            
+            List(policyStore.policies, id: \.bizid) { policy in
+                Text("정책명 : \(policy.title)")
+                Text("가능 나이 : \(policy.reqAge)")
+                Text("신청절차 : \(policy.procedure)")
+                Text("신청가능기간 : \(policy.period)")
+                Text("URL : \(policy.siteURL)")
+            }
+            
+            Spacer()
+            
             Button {
                 policyStore.fetchPolicies()
             } label: {

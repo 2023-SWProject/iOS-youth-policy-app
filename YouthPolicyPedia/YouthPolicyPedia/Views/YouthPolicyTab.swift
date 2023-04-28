@@ -8,44 +8,42 @@
 import SwiftUI
 
 struct YouthPolicyTab: View {
+    @EnvironmentObject var policyStore: PolicyStore
     @State var searchText = ""
-    @State var selectedColor = "color"
-    var colors = ["추천순", "마감일순", "조회순", "지원금"]
-
+    @State var selectedFilter = "추천순"
+    var filterOptions = ["추천순", "마감일순", "조회순", "지원금순"]
+    var userName = "미정"
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 HStack {
                     VStack {
                         HStack {
-                            Text("미정을 위한 **1건**의 정책")
+                            Text("**\(userName)님**을 위한 **\(policyStore.policies.count)건**의 정책")
                                 .font(.system(size: 25))
-                            
                             Spacer()
                         }
-                       
                         Spacer()
                     }
                     .padding()
                     .foregroundColor(.primary)
                     Spacer()
                     VStack {
-                          Picker("Choose a color", selection: $selectedColor) {
-                            ForEach(colors, id: \.self) {
-                              Text($0)
+                        Picker("필터고르기", selection: $selectedFilter) {
+                            ForEach(filterOptions, id: \.self) {
+                                Text($0)
                             }
-                          }
-                          .pickerStyle(.menu)
-                          
-                          .cornerRadius(15)
-                          
                         }
+                        .pickerStyle(.menu)
+                        .cornerRadius(15)
+                    }
                 }
                 
-                ForEach(1...1, id: \.self) {_ in
-                    
+                ForEach(policyStore.policies, id: \.bizid) { policy in
                     NavigationLink {
 //                        YouthCenterDetailView()
+                        PolicyDetailView(policy: policy)
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
@@ -55,7 +53,7 @@ struct YouthPolicyTab: View {
                                 
                                 HStack {
                                     VStack {
-                                        Text("청년 창업 지원금 보조 정책")
+                                        Text("\(policy.title)")
                                             .padding(.top, 50)
                                             .foregroundColor(.black)
                                             .bold()
@@ -82,11 +80,11 @@ struct YouthPolicyTab: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         
-            .searchable(
-                text: $searchText,
-                placement: SearchFieldPlacement.automatic,
-                prompt: "정책을 찾아보세요"
-            )
+        .searchable(
+            text: $searchText,
+            placement: SearchFieldPlacement.automatic,
+            prompt: "정책을 찾아보세요"
+        )
         
     }
 }

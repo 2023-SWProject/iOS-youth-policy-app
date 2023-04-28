@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView : View {
     
-    @StateObject var policyStore: PolicyStore = PolicyStore()
+    @EnvironmentObject var policyStore: PolicyStore
     
   var body: some View {
     TabView {
