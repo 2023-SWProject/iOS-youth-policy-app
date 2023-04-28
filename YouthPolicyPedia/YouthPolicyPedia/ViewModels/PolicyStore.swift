@@ -34,7 +34,7 @@ class PolicyStore: ObservableObject {
 //                        var polyitcncn: String = docData["polyitcncn"] as? String ?? ""
 //                        var plcytpnm: String = docData["plcytpnm"] as? String ?? ""
 //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                        var content: String = docData["sporcn"] as? String ?? ""
+                        let content: String = docData["sporcn"] as? String ?? ""
                         let reqAge: String = docData["ageinfo"] as? String ?? ""
 //                        var empmsttscn: String = docData["empmsttscn"] as? String ?? ""
 //                        var accrrqiscn: String = docData["accrrqiscn"] as? String ?? ""
