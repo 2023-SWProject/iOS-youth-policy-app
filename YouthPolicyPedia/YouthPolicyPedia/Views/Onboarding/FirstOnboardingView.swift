@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import LottieUI
 
 struct FirstOnboardingView: View {
     @Binding var isShowingOnboardingView: Bool
@@ -36,22 +37,28 @@ struct FirstOnboardingView: View {
             
             Spacer()
             
-            ForEach(1..<4) {_ in
+            ForEach(0..<3) {i in
                 Rectangle()
                     .foregroundColor(.gray.opacity(0.2))
                     .frame(width: UIScreen.main.bounds.width - 100, height: 70)
                     .cornerRadius(15)
                     .overlay {
                         HStack {
-                            Image(systemName: "hare")
-                                .padding(.leading, 50)
-                            Spacer()
+                            LottieView("\(onboardingText.exampleLottie[i])")
+                                .play(true)
+                                .frame(width: 100)
                             VStack {
-                                Text("청년희망키움통장")
-                                    .foregroundColor(.gray)
-                                    .font(.footnote)
-                                Text("최대 538,000원")
-                                    .bold()
+                                HStack {
+                                    Text("\(onboardingText.exampleTitle[i])")
+                                        .foregroundColor(.gray)
+                                        .font(.footnote)
+                                    Spacer()
+                                }
+                                HStack {
+                                    Text("\(onboardingText.exampleMoney[i])")
+                                        .bold()
+                                    Spacer()
+                                }
                             }
                             Spacer()
                         }
