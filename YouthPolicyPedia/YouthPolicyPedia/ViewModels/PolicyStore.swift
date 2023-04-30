@@ -17,7 +17,9 @@ class PolicyStore: ObservableObject {
     func fetchPolicies() {
         
         print("fetch start")
-        database.collection("TestData")
+        database.collection("NewTestData")
+//            .whereField("ageinfo", isEqualTo: "제한없음")
+//            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
             .getDocuments { (snapshot, error) in
                 self.policies.removeAll()
                 

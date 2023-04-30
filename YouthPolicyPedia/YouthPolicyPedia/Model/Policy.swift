@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Policy: Codable {
+struct Policy: Codable, Identifiable {
+    var id = UUID()
     var serialNumber: String       // 정책일련번호         // Serial Number
     var bizid: String            // 정책 ID
 //    var polybizty: String      // 기관 및 지자체 구분
