@@ -40,6 +40,8 @@ class PolicyStore: ObservableObject {
     let database = Firestore.firestore()
     
     func fetchPolicies() {
+        // TODO: myAge 매개변수로 받아주기
+        var myAge = 25
         
         print("fetch start")
 //        database.collection("NewTestData")
@@ -62,10 +64,9 @@ class PolicyStore: ObservableObject {
 //            .whereField("splzrlmrqiscn", in: [])                              // 참여요건 - 특화분야
         
         
-            .whereField("polyBizSecd", in: ["003002011", "003002011001"])
+        // TODO: 지역 코드 생성해서 매개변수 넣어주기
+            .whereField("polyBizSecd", in: ["003002011", "003002011001"]) // 현재 [충남, 천안] 선택 상태
 //            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
-        
-        
         
             .getDocuments { (snapshot, error) in
                 self.policies.removeAll()
@@ -84,7 +85,7 @@ class PolicyStore: ObservableObject {
                         let type: String = docData["plcytpnm"] as? String ?? ""
 //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
                         let content: String = docData["sporcn"] as? String ?? ""
-                        let reqAge: String = docData["ageinfo"] as? String ?? ""
+                        let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
                         let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
                         let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
                         let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
@@ -95,14 +96,32 @@ class PolicyStore: ObservableObject {
 //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                         let siteURL: String = docData["rquturla"] as? String ?? ""
                         let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                                                
+
+                        
+                        // MARK: 나이 필터링
+                        // TODO: 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리하기
+                        // 나이 String 에서 숫자만 필터링
+                        var ages = reqAge.filter {
+                            $0.isNumber
+                        }
+
+                        // 숫자가 4개가 아닌경우 탈출
+                        guard ages.count == 4 else { continue }
+
+                        var age1: String = String(String(ages).prefix(2))
+                        var age2: String = String(String(ages).suffix(2))
+
+                        guard Int(age1)! <= myAge && myAge <= Int(age2)! else {
+                            continue
+                        }
+                        //
+                        
                         let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
 
                         self.policies.append(policiesData)
                     }
                 }
             }
-        
         print("fetch complete")
     }
 }

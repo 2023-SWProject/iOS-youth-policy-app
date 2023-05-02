@@ -46,6 +46,19 @@ struct SetFilterTestView: View {
                     print(policyStore.plcytpnmSet)
                     print(policyStore.splzrlmrqiscnSet)
                     print(policyStore.polyBizSecdSet)
+                    
+                    
+//                    var ages = policyStore.ageinfoSet.map {
+//                        $0.filter {
+//                            $0.isNumber
+//                        }
+//                    }
+//                    
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+//                        var ageNumCount = ages.map { $0.count }
+//                        var ageSet = Set(ageNumCount)
+//                        print(ageSet)
+//                    }
                 }
             }
             
