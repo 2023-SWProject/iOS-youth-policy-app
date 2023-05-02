@@ -18,16 +18,19 @@ class PolicyStore: ObservableObject {
     @Published var majrrqiscnSet: Set<String> = []
     @Published var plcytpnmSet: Set<String> = []
     @Published var splzrlmrqiscnSet: Set<String> = []
+    @Published var polyBizSecdSet: Set<String> = []
+    
 
     func arrayToSet() {
         for i in 0..<policies.count {
             accrrqiscnSet.insert(policies[i].reqEducation)
             ageinfoSet.insert(policies[i].reqAge)
-            bizTycdSelSet.insert(policies[i].locationCode)
+            bizTycdSelSet.insert(policies[i].detailType)
             empmsttscnSet.insert(policies[i].reqEmploymentStatus)
             majrrqiscnSet.insert(policies[i].reqMajor)
             plcytpnmSet.insert(policies[i].type)
             splzrlmrqiscnSet.insert(policies[i].reqSpecializedField)
+            polyBizSecdSet.insert(policies[i].locationCode)
         }
     }
     
@@ -39,8 +42,8 @@ class PolicyStore: ObservableObject {
     func fetchPolicies() {
         
         print("fetch start")
-        database.collection("NewTestData")
-//        database.collection("NewData")
+//        database.collection("NewTestData")
+        database.collection("PolicyData")
         ///
         /// 전체 데이터 패치 후
         /// Set 이용해서 선택 항목 추리기
@@ -59,7 +62,7 @@ class PolicyStore: ObservableObject {
 //            .whereField("splzrlmrqiscn", in: [])                              // 참여요건 - 특화분야
         
         
-        
+            .whereField("polyBizSecd", in: ["003002011", "003002011001"])
 //            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
         
         
@@ -73,7 +76,7 @@ class PolicyStore: ObservableObject {
                         
                         let docData = document.data()
                         
-                        let locationCode: String = docData["bizTycdSel"] as? String ?? ""
+                        let detailType: String = docData["bizTycdSel"] as? String ?? ""
                         let bizid: String = docData["bizid"] as? String ?? ""
 //                        var polybizty: String = docData["polybizty"] as? String ?? ""
                         let title: String = docData["polybizsjnm"] as? String ?? ""
@@ -91,8 +94,9 @@ class PolicyStore: ObservableObject {
                         let procedure: String = docData["qutproccn"] as? String ?? ""
 //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                         let siteURL: String = docData["rquturla"] as? String ?? ""
+                        let locationCode: String = docData["polyBizSecd"] as? String ?? ""
                                                 
-                        let policiesData: Policy = Policy(locationCode: locationCode, bizid: bizid, title: title, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL)
+                        let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
 
                         self.policies.append(policiesData)
                     }

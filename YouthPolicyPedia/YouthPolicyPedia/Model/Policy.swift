@@ -9,7 +9,7 @@ import Foundation
 
 struct Policy: Codable, Identifiable {
     var id = UUID()
-    var locationCode: String             // 지역일련번호         // locationCode
+    var detailType: String               // 세부 정책 유형         // detailType
     var bizid: String                    // 정책 ID
 //    var polybizty: String              // 기관 및 지자체 구분
     var title: String                    // 정책명              // title
@@ -26,5 +26,6 @@ struct Policy: Codable, Identifiable {
     var period: String                   // 신청기간           // Application period
     var procedure: String                // 신청절차           // procedure
 //    var jdgnprescn: String             // 심사발표           // announcement
-    var siteURL: String                  //사이트 링크 주소      // url
+    var siteURL: String                  // 사이트 링크 주소      // url
+    var locationCode: String             // 지역 코드
 }

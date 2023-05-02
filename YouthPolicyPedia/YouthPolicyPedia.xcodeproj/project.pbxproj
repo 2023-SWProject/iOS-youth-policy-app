@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */; };
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
+		EB2D51362A00DF6700E00E84 /* AgeTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeTestView.swift */; };
 		EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB60251329FF833F003CAD21 /* SetFilterTestView.swift */; };
 		EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */; };
 		EB73524F29D737450045A713 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73524E29D737450045A713 /* ContentView.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterDetailView.swift; sourceTree = "<group>"; };
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
+		EB2D51352A00DF6700E00E84 /* AgeTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeTestView.swift; sourceTree = "<group>"; };
 		EB60251329FF833F003CAD21 /* SetFilterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterTestView.swift; sourceTree = "<group>"; };
 		EB73524929D737450045A713 /* YouthPolicyPedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouthPolicyPedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyPediaApp.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				EBBA99E429EBB40900829511 /* TestView.swift */,
+				EB2D51352A00DF6700E00E84 /* AgeTestView.swift */,
 				EB60251329FF833F003CAD21 /* SetFilterTestView.swift */,
 				EB73524E29D737450045A713 /* ContentView.swift */,
 				EB73526329D73D320045A713 /* Onboarding */,
@@ -261,6 +264,7 @@
 				EB73524F29D737450045A713 /* ContentView.swift in Sources */,
 				EB7CB90929FC2A6F00BF7BFC /* SelectConditionView.swift in Sources */,
 				EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */,
+				EB2D51362A00DF6700E00E84 /* AgeTestView.swift in Sources */,
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */,

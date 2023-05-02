@@ -29,6 +29,7 @@ struct SetFilterTestView: View {
             Text("\(policyStore.majrrqiscnSet.count)")
             Text("\(policyStore.plcytpnmSet.count)")
             Text("\(policyStore.splzrlmrqiscnSet.count)")
+            Text("\(policyStore.polyBizSecdSet.count)")
         }
         .onAppear {
             policyStore.fetchPolicies()
@@ -44,6 +45,7 @@ struct SetFilterTestView: View {
                     print(policyStore.majrrqiscnSet)
                     print(policyStore.plcytpnmSet)
                     print(policyStore.splzrlmrqiscnSet)
+                    print(policyStore.polyBizSecdSet)
                 }
             }
             
