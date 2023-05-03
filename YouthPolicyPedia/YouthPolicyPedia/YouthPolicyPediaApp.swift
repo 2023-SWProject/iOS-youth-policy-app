@@ -27,15 +27,16 @@ struct YouthPolicyPediaApp: App {
     init() {
         FirebaseApp.configure()
         UserDefaults.standard.set(true, forKey: "isShowingOnboardingView") // 온보딩 계속 보이게 임시로 해놓음
+        UserDefaults.standard.set(true, forKey: "isShowingInputAgeView") // 온보딩 계속 보이게 임시로 해놓음
     }
     
     var body: some Scene {
         WindowGroup {
             NavigationView {
+//                SelectConditionView()
 //                AgeTestView()
-                SetFilterTestView()
-//                ContentView()
-                //          TestView()
+//                SetFilterTestView()
+                ContentView()
                     .environmentObject(PolicyStore())
             }
         }

@@ -11,11 +11,14 @@ struct ContentView : View {
     
     @EnvironmentObject var policyStore: PolicyStore
     @State var isShowingOnboardingView: Bool = UserDefaults.standard.object(forKey: "isShowingOnboardingView") as? Bool ?? true
+    @State var isShowingInputAgeView: Bool = UserDefaults.standard.object(forKey: "isShowingInputAgeView") as? Bool ?? true
     
     var body: some View {
         ZStack {
             if isShowingOnboardingView {
                 FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
+            } else if isShowingInputAgeView {
+                InputAgeView(isShowingInputAgeView: $isShowingInputAgeView)
             } else {
                 TabView {
                     YouthCenterTab()
@@ -35,7 +38,7 @@ struct ContentView : View {
                         }
                 }
                 .onAppear {
-                    policyStore.fetchPolicies()
+                    policyStore.fetchPolicies(myAge: Int(policyStore.myAge) ?? 0)
                     
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
                         // 1초 후 실행될 부분

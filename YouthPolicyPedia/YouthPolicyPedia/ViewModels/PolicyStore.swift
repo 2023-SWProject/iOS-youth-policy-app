@@ -10,7 +10,6 @@ import Firebase
 import FirebaseFirestore
 
 class PolicyStore: ObservableObject {
-    
     @Published var accrrqiscnSet: Set<String> = []
     @Published var ageinfoSet: Set<String> = []
     @Published var bizTycdSelSet: Set<String> = []
@@ -20,7 +19,6 @@ class PolicyStore: ObservableObject {
     @Published var splzrlmrqiscnSet: Set<String> = []
     @Published var polyBizSecdSet: Set<String> = []
     
-
     func arrayToSet() {
         for i in 0..<policies.count {
             accrrqiscnSet.insert(policies[i].reqEducation)
@@ -34,14 +32,15 @@ class PolicyStore: ObservableObject {
         }
     }
     
-    
     @Published var policies = [Policy]()
+    @Published var myAge = ""
     
     let database = Firestore.firestore()
     
-    func fetchPolicies() {
+    // MARK: - 데이터 fetch
+    func fetchPolicies(myAge: Int) {
         // TODO: myAge 매개변수로 받아주기
-        var myAge = 25
+//        var myAge = 1
         
         print("fetch start")
 //        database.collection("NewTestData")
@@ -98,23 +97,70 @@ class PolicyStore: ObservableObject {
                         let locationCode: String = docData["polyBizSecd"] as? String ?? ""
 
                         
-                        // MARK: 나이 필터링
-                        // TODO: 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리하기
+                        // MARK: - 나이 필터링
+                        // TODO: 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리하기 -> 테스트 필요
                         // 나이 String 에서 숫자만 필터링
                         var ages = reqAge.filter {
                             $0.isNumber
                         }
+                        
+                        let ageNumberCount = ages.count
+                        
+                        switch ageNumberCount {
+                        case 0:
+                            print("0 -> pass")
+                        case 1:
+                            print("1 -> pass")
+                        case 2:
+                            print("2")
+                            // 두개일 경우 원본 나이에서 '이상'이 들어가는지 '이하'가 들어가는지 판단후 00 앞에 붙이거나 99 를 뒤에 붙인다.
+                            // ex) 만 18세 이상 -> 1899
+                            //     만 30세 이하 -> 0030
+                            var age1 = "00"
+                            var age2 = "00"
+                            
+                            if reqAge.contains("이상") {
+                                age1 = ages
+                                age2 = "99"
+                            } else if reqAge.contains("이하") {
+                                age1 = "00"
+                                age2 = ages
+                            } else {
+                                print("case 2 예외")
+                            }
+                            
+                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                        case 3:
+                            print("3")
+                            
+                            // ex) 만 100세 이하
+                            guard !(ages.contains("이하")) else { continue }
+                            
+                            // ex) 만 0세 ~ 30세
+                            let age1: String = "0" + String(String(ages).prefix(1))
+                            let age2: String = String(String(ages).suffix(2))
+                            
+                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                        case 4:
+                            print("4")
+//                            guard ages.count == 4 else { continue }
 
-                        // 숫자가 4개가 아닌경우 탈출
-                        guard ages.count == 4 else { continue }
+                            let age1: String = String(String(ages).prefix(2))
+                            let age2: String = String(String(ages).suffix(2))
 
-                        var age1: String = String(String(ages).prefix(2))
-                        var age2: String = String(String(ages).suffix(2))
-
-                        guard Int(age1)! <= myAge && myAge <= Int(age2)! else {
-                            continue
+                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                        case 5:
+                            // ex) 만 10세 ~ 999세
+                            print("5")
+                            
+                            let age1: String = String(String(ages).prefix(2))
+                            let age2: String = "99"
+                            
+                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                        default:
+                            print("default -> pass")
                         }
-                        //
+                        // MARK: - 나이 필터링 끝
                         
                         let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
 

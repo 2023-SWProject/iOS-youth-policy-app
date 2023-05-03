@@ -32,7 +32,7 @@ struct SetFilterTestView: View {
             Text("\(policyStore.polyBizSecdSet.count)")
         }
         .onAppear {
-            policyStore.fetchPolicies()
+            policyStore.fetchPolicies(myAge: Int(policyStore.myAge) ?? 0)
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
                 policyStore.arrayToSet()
