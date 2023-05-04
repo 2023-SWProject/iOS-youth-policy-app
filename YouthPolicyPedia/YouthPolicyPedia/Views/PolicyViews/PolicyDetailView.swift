@@ -11,19 +11,113 @@ struct PolicyDetailView: View {
     var policy: Policy
     
     var body: some View {
-        VStack {
-            Text("정책명 : \(policy.title)")
-            Text("정책설명 : \(policy.content)")
-            Text("신청가능 나이 : \(policy.reqAge)")
-            Text("신청절차 : \(policy.procedure)")
-            Text("신청가능기간 : \(policy.period)")
-            Text("URL : \(policy.siteURL)")
+        ScrollView {
+            HStack {
+                Text("\(policy.title)")
+                    .frame(alignment: .leading)
+                    .bold()
+                    .font(.system(.title))
+                    .padding(.vertical, 20)
+                
+                Spacer()
+            }
+            .padding()
+            
+            HStack {
+                Text("\(policy.introduction)")
+                    .font(.system(size: 13))
+                
+                Spacer()
+            }
+            .padding()
+            
+            Group {
+                HStack {
+                    Text("신청 기간")
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                
+                Text("\(policy.period)")
+                    .padding()
+            }
+            
+            Group {
+                HStack {
+                    Text("신청 자격")
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                
+                HStack {
+                    VStack {
+                        HStack {
+                            Text("연령 : \(policy.reqAge)")
+                            Spacer()
+                        }
+                        HStack {
+                            Text("학력 : \(policy.reqEducation)")
+                            Spacer()
+                        }
+                        HStack {
+                            Text("전공 : \(policy.reqMajor)")
+                            Spacer()
+                        }
+                        HStack {
+                            Text("취업 상태 : \(policy.reqEmploymentStatus)")
+                            Spacer()
+                        }
+                        HStack {
+                            Text("특화 분야 : \(policy.reqSpecializedField)")
+                            Spacer()
+                        }
+                    }
+                    Spacer()
+                }
+                .padding()
+            }
+            
+            Group {
+                HStack {
+                    Text("신청 절차")
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                
+                HStack {
+                    Image(systemName: "arrow.right")
+                        .bold()
+                    Text("\(policy.procedure)")
+                    Spacer()
+                }
+                .padding()
+            }
+            
+            Group {
+                HStack {
+                    Text("관련 사이트")
+                        .bold()
+                    Spacer()
+                }
+                .padding()
+                
+                HStack {
+                    Image(systemName: "arrow.right")
+                        .bold()
+                    Text("\(policy.siteURL)")
+                    Spacer()
+                }
+                .padding()
+            }
         }
     }
 }
 
-//struct PolicyDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PolicyDetailView()
-//    }
-//}
+struct PolicyDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        PolicyDetailView(policy: Policy(detailType: "", bizid: "", title: "지역특화 청년무역전문가 양성", introduction: "청년의 내 집 마련 지원을 위해 청약 기능에 우대금리와 비과세 혜택을 제공", type: "", content: "", reqAge: "만 18세 ~ 50세", reqEmploymentStatus: "재직자 불가", reqEducation: "제한없음", reqMajor: "제한없음", reqSpecializedField: "미적 감각이 뛰어나신 분", period: "2022.1.1. ~2022.12.31.(연중 상시)", procedure: "문화재단 직접 모집", siteURL: "https://www.cacf.or.kr/", locationCode: ""))
+    }
+}

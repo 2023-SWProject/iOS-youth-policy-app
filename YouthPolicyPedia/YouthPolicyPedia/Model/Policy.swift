@@ -12,8 +12,8 @@ struct Policy: Codable, Identifiable {
     var detailType: String               // 세부 정책 유형         // detailType
     var bizid: String                    // 정책 ID
 //    var polybizty: String              // 기관 및 지자체 구분
-    var title: String                    // 정책명              // title
-//    var polyitcncn: String             // 정책소개            // introduction
+    var title: String                    // 정책명              // polybizsjnm
+    var introduction: String             // 정책소개            //  polyitcncn
     var type: String                     // 정책유형            // type
 //    var sporscvl: String               // 지원규모            // scale
     var content: String                  // 지원내용            // content

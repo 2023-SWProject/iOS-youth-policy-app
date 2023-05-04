@@ -80,7 +80,7 @@ class PolicyStore: ObservableObject {
                         let bizid: String = docData["bizid"] as? String ?? ""
 //                        var polybizty: String = docData["polybizty"] as? String ?? ""
                         let title: String = docData["polybizsjnm"] as? String ?? ""
-//                        var polyitcncn: String = docData["polyitcncn"] as? String ?? ""
+                        let introduction: String = docData["polyitcncn"] as? String ?? ""
                         let type: String = docData["plcytpnm"] as? String ?? ""
 //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
                         let content: String = docData["sporcn"] as? String ?? ""
@@ -162,7 +162,7 @@ class PolicyStore: ObservableObject {
                         }
                         // MARK: - 나이 필터링 끝
                         
-                        let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                        let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
 
                         self.policies.append(policiesData)
                     }
