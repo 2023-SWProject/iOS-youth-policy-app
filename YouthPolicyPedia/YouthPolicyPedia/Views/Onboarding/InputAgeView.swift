@@ -20,20 +20,20 @@ struct InputAgeView: View {
             TextField("나이", text: $policyStore.myAge)
                 .bold()
                 .font(.system(size: 27))
-                .border(Color.orange, width: 3)
+                .padding()
             
             Button {
                 UserDefaults.standard.set(false, forKey: "isShowingInputAgeView")
                 isShowingInputAgeView.toggle()
             } label: {
                 Text("확인하기")
-                    .bold()
                     .frame(width: UIScreen.main.bounds.width - 30, height: 50)
-                    .background(Color.blue)
+                    .background(policyStore.myAge == "" ? Color.gray : Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(13)
             }
             .padding()
+            .disabled(policyStore.myAge == "")
         }
     }
 }

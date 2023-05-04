@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB0F7EA92A024140002061D7 /* InputAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F7EA82A024140002061D7 /* InputAgeView.swift */; };
 		EB0F7EAC2A02442D002061D7 /* PLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F7EAB2A02442D002061D7 /* PLocation.swift */; };
+		EB0F7EB22A0249C6002061D7 /* TestChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F7EB12A0249C6002061D7 /* TestChoiceView.swift */; };
 		EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */; };
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
 		EB2D51362A00DF6700E00E84 /* AgeTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeTestView.swift */; };
@@ -20,7 +21,6 @@
 		EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */; };
 		EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */; };
 		EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */; };
-		EB7CB90929FC2A6F00BF7BFC /* SelectConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90829FC2A6F00BF7BFC /* SelectConditionView.swift */; };
 		EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */; };
 		EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */; };
 		EB7CB91A29FC4F2800BF7BFC /* LottieUI in Frameworks */ = {isa = PBXBuildFile; productRef = EB7CB91929FC4F2800BF7BFC /* LottieUI */; };
@@ -37,6 +37,7 @@
 /* Begin PBXFileReference section */
 		EB0F7EA82A024140002061D7 /* InputAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAgeView.swift; sourceTree = "<group>"; };
 		EB0F7EAB2A02442D002061D7 /* PLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLocation.swift; sourceTree = "<group>"; };
+		EB0F7EB12A0249C6002061D7 /* TestChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChoiceView.swift; sourceTree = "<group>"; };
 		EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterDetailView.swift; sourceTree = "<group>"; };
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
 		EB2D51352A00DF6700E00E84 /* AgeTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeTestView.swift; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterTab.swift; sourceTree = "<group>"; };
 		EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyTab.swift; sourceTree = "<group>"; };
 		EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyGlossaryTab.swift; sourceTree = "<group>"; };
-		EB7CB90829FC2A6F00BF7BFC /* SelectConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectConditionView.swift; sourceTree = "<group>"; };
 		EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingView.swift; sourceTree = "<group>"; };
 		EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingText.swift; sourceTree = "<group>"; };
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
@@ -116,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				EB2D51352A00DF6700E00E84 /* AgeTestView.swift */,
+				EB0F7EB12A0249C6002061D7 /* TestChoiceView.swift */,
 				EB60251329FF833F003CAD21 /* SetFilterTestView.swift */,
 				EB73524E29D737450045A713 /* ContentView.swift */,
 				EB73526329D73D320045A713 /* Onboarding */,
@@ -129,7 +130,6 @@
 		EB73526329D73D320045A713 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				EB7CB90829FC2A6F00BF7BFC /* SelectConditionView.swift */,
 				EB0F7EA82A024140002061D7 /* InputAgeView.swift */,
 				EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */,
 			);
@@ -265,7 +265,6 @@
 			files = (
 				EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */,
 				EB73524F29D737450045A713 /* ContentView.swift in Sources */,
-				EB7CB90929FC2A6F00BF7BFC /* SelectConditionView.swift in Sources */,
 				EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */,
 				EB2D51362A00DF6700E00E84 /* AgeTestView.swift in Sources */,
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
@@ -276,6 +275,7 @@
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
+				EB0F7EB22A0249C6002061D7 /* TestChoiceView.swift in Sources */,
 				EB0F7EAC2A02442D002061D7 /* PLocation.swift in Sources */,
 				EB0F7EA92A024140002061D7 /* InputAgeView.swift in Sources */,
 				EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */,
@@ -408,6 +408,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YouthPolicyPedia/Preview Content\"";
+				DEVELOPMENT_TEAM = 4JL8SRWP2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -437,6 +438,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YouthPolicyPedia/Preview Content\"";
+				DEVELOPMENT_TEAM = 4JL8SRWP2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -18,7 +18,7 @@ struct ContentView : View {
             if isShowingOnboardingView {
                 FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
             } else if isShowingInputAgeView {
-                InputAgeView(isShowingInputAgeView: $isShowingInputAgeView)
+                TestChoiceView(gotoNextPage: $isShowingInputAgeView)
             } else {
                 TabView {
                     YouthCenterTab()
