@@ -12,6 +12,7 @@ struct LocationSelectView: View {
     @EnvironmentObject var policyStore: PolicyStore
     
     let locations = ["서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"]
+        .sorted()
     @State private var selectedCount = 0
     
     var body: some View {
@@ -90,6 +91,7 @@ struct locationListItem: View {
         .contentShape(Rectangle())
         .onTapGesture {
             if selectedCount == 0 {
+                policyStore.detailLocation = policyStore.giveDetailLocation(location)
                 selectedCount += 1
                 isSelected = true
                 selectedLocation = location

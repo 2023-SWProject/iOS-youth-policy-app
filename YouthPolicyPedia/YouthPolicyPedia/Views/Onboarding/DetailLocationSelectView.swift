@@ -13,8 +13,6 @@ struct DetailLocationSelectView: View {
     
     @Binding var isShowingSelectView: Bool
     
-    var detailLocations: [String] = ["종로구", "중구용", "산구성", "동구광", "진구동", "대문구", "중랑구", "성북구", "강북구", "도봉구", "노원구", "은평구", "서대문구", "마포구", "양천구", "강서구", "구로구", "금천구", "영등포구", "동작구", "관악구", "서초구", "강남구", "송파구"].sorted()
-    
     @State private var selectedCount = 0
     
     var body: some View {
@@ -51,7 +49,7 @@ struct DetailLocationSelectView: View {
             .padding()
             
             ScrollView {
-                ForEach(detailLocations, id: \.self) { location in
+                ForEach(policyStore.detailLocation, id: \.self) { location in
                     DetailLocationListItem(location: location, selectedLocation: $policyStore.selectedDetailLocation, selectedCount: $selectedCount)
                 }
                 Rectangle()
