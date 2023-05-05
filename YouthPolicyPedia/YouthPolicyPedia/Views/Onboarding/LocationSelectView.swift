@@ -11,8 +11,11 @@ struct LocationSelectView: View {
     
     @EnvironmentObject var policyStore: PolicyStore
     
-    let locations = ["서울", "부산", "대구", "인천", "광주", "대전", "울산", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주", "세종"]
-        .sorted()
+//    003002001 :서울 | 003002002 :부산 | 003002003 :대구 | 003002004 :인천 | 003002005 :광주 | 003002006 :대전 | 003002007 :울산 | 003002008 :경기 | 003002009 :강원 | 003002010 :충북 | 003002011 :충남 | 003002012 :전북 | 003002013 :전남 | 003002014 :경북 | 003002015 :경남 | 003002016 :제주 | 003002017 :세종 |
+    
+    
+    let locations: [String: String] = ["경남": "003002015", "전북": "003002012", "광주": "003002005", "서울": "003002001", "대구": "003002003", "인천": "003002004", "울산": "003002007", "제주": "003002016", "전남": "003002013", "충남": "003002011", "경기": "003002008", "경북": "003002014", "강원": "003002009", "대전": "003002006", "세종": "003002017", "부산": "003002002", "충북": "003002010"]
+    
     @State private var selectedCount = 0
     
     var body: some View {
@@ -49,8 +52,8 @@ struct LocationSelectView: View {
             .padding()
             
             ScrollView {
-                ForEach(locations, id: \.self) { location in
-                    locationListItem(location: location, selectedLocation: $policyStore.selectedLocation, selectedCount: $selectedCount)
+                ForEach(locations.sorted(by: <), id: \.key) { location, code in
+                    locationListItem(locationName: location, locationCode: code, selectedLocation: $policyStore.selectedLocation, selectedCount: $selectedCount)
                 }
                 Rectangle()
                     .frame(height: 40)
@@ -71,13 +74,14 @@ struct locationListItem: View {
     @EnvironmentObject var policyStore: PolicyStore
     
     @State private var isSelected: Bool = false
-    var location: String
-    @Binding var selectedLocation: String
+    var locationName: String
+    var locationCode: String
+    @Binding var selectedLocation: [String: String]
     @Binding var selectedCount: Int
     
     var body: some View {
         HStack {
-            Text("\(location)")
+            Text("\(locationName)")
                 .foregroundColor(isSelected ? .black : .black.opacity(0.6))
                 .bold()
                 .padding()
@@ -91,15 +95,15 @@ struct locationListItem: View {
         .contentShape(Rectangle())
         .onTapGesture {
             if selectedCount == 0 {
-                policyStore.detailLocation = policyStore.giveDetailLocation(location)
+                selectedLocation = [locationName:locationCode]
+                policyStore.detailLocation = policyStore.giveDetailLocation(locationName)
                 selectedCount += 1
                 isSelected = true
-                selectedLocation = location
                 policyStore.pageNumber = -1
-            } else if selectedLocation == location {
+            } else if selectedLocation == [locationName:locationCode] {
                 selectedCount -= 1
                 isSelected = false
-                selectedLocation = ""
+                selectedLocation = [:]
             }
             print(selectedLocation)
         }

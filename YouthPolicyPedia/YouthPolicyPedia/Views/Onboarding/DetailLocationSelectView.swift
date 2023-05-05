@@ -21,7 +21,7 @@ struct DetailLocationSelectView: View {
                 Button {
                     print("뒤로가기")
                     policyStore.pageNumber = 0
-                    policyStore.selectedDetailLocation = []
+                    policyStore.selectedDetailLocation = [:]
                 } label: {
                     Image(systemName: "chevron.left")
                         .bold()
@@ -49,8 +49,8 @@ struct DetailLocationSelectView: View {
             .padding()
             
             ScrollView {
-                ForEach(policyStore.detailLocation, id: \.self) { location in
-                    DetailLocationListItem(location: location, selectedLocation: $policyStore.selectedDetailLocation, selectedCount: $selectedCount)
+                ForEach(policyStore.detailLocation.sorted(by: <), id: \.key) { location, code in
+                    DetailLocationListItem(locationName: location, locationCode: code , selectedLocation: $policyStore.selectedDetailLocation, selectedCount: $selectedCount)
                 }
                 Rectangle()
                     .frame(height: 40)
@@ -60,6 +60,7 @@ struct DetailLocationSelectView: View {
             // MARK: - 다음으로 넘어가는 버튼
             if selectedCount > 0 {
                 Button {
+                    policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
                     UserDefaults.standard.set(false, forKey: "isShowingSelectView")
                     isShowingSelectView.toggle()
                 } label: {
@@ -86,13 +87,14 @@ struct DetailLocationListItem: View {
     @EnvironmentObject var policyStore: PolicyStore
     
     @State private var isSelected: Bool = false
-    var location: String
-    @Binding var selectedLocation: [String]
+    var locationName: String
+    var locationCode: String
+    @Binding var selectedLocation: [String: String]
     @Binding var selectedCount: Int
     
     var body: some View {
         HStack {
-            Text("\(location)")
+            Text("\(locationName)")
                 .foregroundColor(isSelected ? .black : .black.opacity(0.6))
                 .bold()
                 .padding()
@@ -105,14 +107,15 @@ struct DetailLocationListItem: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            if selectedLocation.contains(location) {
+            if (selectedLocation[locationName] != nil) {
                 selectedCount -= 1
                 isSelected = false
-                selectedLocation.remove(at: selectedLocation.firstIndex(of: location) ?? 0)
+//                selectedLocation.remove(at: selectedLocation.firstIndex(of: location) ?? 0)
+                selectedLocation[locationName] = nil
             } else if selectedCount >= 0 {
                 selectedCount += 1
                 isSelected = true
-                selectedLocation.append(location)
+                selectedLocation[locationName] = locationCode
             }
             print(selectedLocation)
         }
