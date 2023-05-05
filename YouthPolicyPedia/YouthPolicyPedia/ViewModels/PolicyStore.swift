@@ -10,6 +10,7 @@ import Firebase
 import FirebaseFirestore
 
 class PolicyStore: ObservableObject {
+    // MARK: - [Deprecated]
     @Published var accrrqiscnSet: Set<String> = []
     @Published var ageinfoSet: Set<String> = []
     @Published var bizTycdSelSet: Set<String> = []
@@ -18,7 +19,7 @@ class PolicyStore: ObservableObject {
     @Published var plcytpnmSet: Set<String> = []
     @Published var splzrlmrqiscnSet: Set<String> = []
     @Published var polyBizSecdSet: Set<String> = []
-    
+
     func arrayToSet() {
         for i in 0..<policies.count {
             accrrqiscnSet.insert(policies[i].reqEducation)
@@ -31,7 +32,23 @@ class PolicyStore: ObservableObject {
             polyBizSecdSet.insert(policies[i].locationCode)
         }
     }
+
+    @Published var pageNumber = 0
     
+    // MARK: - 사용자 선택하는 변수
+    @Published var selectedLocation = ""
+    @Published var selectedDetailLocation: [String] = []
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // MARK: - 데이터 부분
     @Published var policies = [Policy]()
     @Published var myAge = ""
     
@@ -100,7 +117,7 @@ class PolicyStore: ObservableObject {
                         // MARK: - 나이 필터링
                         // TODO: 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리하기 -> 테스트 필요
                         // 나이 String 에서 숫자만 필터링
-                        var ages = reqAge.filter {
+                        let ages = reqAge.filter {
                             $0.isNumber
                         }
                         

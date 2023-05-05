@@ -11,14 +11,15 @@ struct ContentView : View {
     
     @EnvironmentObject var policyStore: PolicyStore
     @State var isShowingOnboardingView: Bool = UserDefaults.standard.object(forKey: "isShowingOnboardingView") as? Bool ?? true
-    @State var isShowingInputAgeView: Bool = UserDefaults.standard.object(forKey: "isShowingInputAgeView") as? Bool ?? true
+    @State var isShowingSelectView: Bool = UserDefaults.standard.object(forKey: "isShowingSelectView") as? Bool ?? true
     
     var body: some View {
         ZStack {
             if isShowingOnboardingView {
                 FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
-            } else if isShowingInputAgeView {
-                TestChoiceView(gotoNextPage: $isShowingInputAgeView)
+            } else if isShowingSelectView {
+                SelectView(isShowingSelectView: $isShowingSelectView)
+//                TestChoiceView(gotoNextPage: $isShowingInputAgeView)
             } else {
                 TabView {
                     YouthCenterTab()
