@@ -16,6 +16,7 @@ struct AgeSelectView: View {
     @Binding var isShowingSelectView: Bool
     
     @State var isShowingSheet = false
+    @State var isShowingButton = false
     
     var body: some View{
         VStack {
@@ -52,38 +53,40 @@ struct AgeSelectView: View {
             .contentShape(Rectangle())
             .onTapGesture {
                 isShowingSheet = true
+                isShowingButton = true
             }
             
             Spacer()
             
-            Button {
-                policyStore.userAge = 계산할나이.year ?? 0
-                print(policyStore.userAge)
-                UserDefaults.standard.set(false, forKey: "isShowingSelectView")
-                isShowingSelectView.toggle()
-            } label: {
-                Text("나이 입력하기")
-                    .bold()
-                    .frame(width: UIScreen.main.bounds.width - 30, height: 52)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(13)
+            if isShowingButton {
+                Button {
+                    policyStore.userAge = 계산할나이.year ?? 0
+                    print(policyStore.userAge)
+                    UserDefaults.standard.set(false, forKey: "isShowingSelectView")
+                    isShowingSelectView.toggle()
+                } label: {
+                    Text("나이 입력하기")
+                        .bold()
+                        .frame(width: UIScreen.main.bounds.width - 30, height: 52)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(13)
+                }
             }
-
-            .sheet(isPresented: $isShowingSheet) {
-                Group {
-                    DatePicker("Birth date:", selection: $birthDate, in: ...Date(), displayedComponents: .date)
-                        .datePickerStyle(WheelDatePickerStyle())
-                        .font(.title)
-                        .labelsHidden()
-                    
-                }.onChange(of: birthDate, perform: { value in
-                    age = Calendar.current.dateComponents([.year, .month, .day], from: birthDate)
-                    계산할나이 = Calendar.current.dateComponents([.year], from: birthDate, to: Date())
-                })
-                    .presentationDetents([.height(200), .medium, .large])
-                    .presentationDragIndicator(.hidden)
-            }
+        }
+        .sheet(isPresented: $isShowingSheet) {
+            Group {
+                DatePicker("Birth date:", selection: $birthDate, in: ...Date(), displayedComponents: .date)
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .font(.title)
+                    .labelsHidden()
+                
+            }.onChange(of: birthDate, perform: { value in
+                age = Calendar.current.dateComponents([.year, .month, .day], from: birthDate)
+                계산할나이 = Calendar.current.dateComponents([.year], from: birthDate, to: Date())
+            })
+                .presentationDetents([.height(200), .medium, .large])
+                .presentationDragIndicator(.hidden)
         }
     }
 }
