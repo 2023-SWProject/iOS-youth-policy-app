@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EB0F7EA92A024140002061D7 /* InputAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F7EA82A024140002061D7 /* InputAgeView.swift */; };
-		EB0F7EB22A0249C6002061D7 /* TestChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F7EB12A0249C6002061D7 /* TestChoiceView.swift */; };
 		EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */; };
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
-		EB2D51362A00DF6700E00E84 /* AgeTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeTestView.swift */; };
+		EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */; };
 		EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB60251329FF833F003CAD21 /* SetFilterTestView.swift */; };
 		EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111642A04DFB700D2B769 /* LocationSelectView.swift */; };
 		EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */; };
@@ -37,11 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EB0F7EA82A024140002061D7 /* InputAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAgeView.swift; sourceTree = "<group>"; };
-		EB0F7EB12A0249C6002061D7 /* TestChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChoiceView.swift; sourceTree = "<group>"; };
 		EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterDetailView.swift; sourceTree = "<group>"; };
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
-		EB2D51352A00DF6700E00E84 /* AgeTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeTestView.swift; sourceTree = "<group>"; };
+		EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectView.swift; sourceTree = "<group>"; };
 		EB60251329FF833F003CAD21 /* SetFilterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterTestView.swift; sourceTree = "<group>"; };
 		EB6111642A04DFB700D2B769 /* LocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLocationSelectView.swift; sourceTree = "<group>"; };
@@ -119,8 +115,6 @@
 		EB73525A29D737FD0045A713 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB2D51352A00DF6700E00E84 /* AgeTestView.swift */,
-				EB0F7EB12A0249C6002061D7 /* TestChoiceView.swift */,
 				EB60251329FF833F003CAD21 /* SetFilterTestView.swift */,
 				EB73524E29D737450045A713 /* ContentView.swift */,
 				EB73526329D73D320045A713 /* Onboarding */,
@@ -134,7 +128,7 @@
 		EB73526329D73D320045A713 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				EB0F7EA82A024140002061D7 /* InputAgeView.swift */,
+				EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */,
 				EB6111642A04DFB700D2B769 /* LocationSelectView.swift */,
 				EB6111682A050B0800D2B769 /* SelectView.swift */,
 				EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */,
@@ -231,11 +225,12 @@
 			};
 			buildConfigurationList = EB73524429D737450045A713 /* Build configuration list for PBXProject "YouthPolicyPedia" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = EB73524029D737450045A713;
 			packageReferences = (
@@ -272,7 +267,7 @@
 				EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */,
 				EB73524F29D737450045A713 /* ContentView.swift in Sources */,
 				EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */,
-				EB2D51362A00DF6700E00E84 /* AgeTestView.swift in Sources */,
+				EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */,
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */,
@@ -282,10 +277,8 @@
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
-				EB0F7EB22A0249C6002061D7 /* TestChoiceView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,
 				EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */,
-				EB0F7EA92A024140002061D7 /* InputAgeView.swift in Sources */,
 				EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */,
 				EBBA99DF29EBAE3500829511 /* Policy.swift in Sources */,
 			);

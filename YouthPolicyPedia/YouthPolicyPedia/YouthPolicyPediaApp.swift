@@ -33,9 +33,7 @@ struct YouthPolicyPediaApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-//                SelectConditionView()
-//                AgeTestView()
-//                SetFilterTestView()
+//                AgeSelectView()
                 ContentView()
                     .environmentObject(PolicyStore())
             }

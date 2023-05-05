@@ -11,7 +11,7 @@ struct DetailLocationSelectView: View {
     
     @EnvironmentObject var policyStore: PolicyStore
     
-    @Binding var isShowingSelectView: Bool
+//    @Binding var isShowingSelectView: Bool
     
     @State private var selectedCount = 0
     
@@ -61,8 +61,9 @@ struct DetailLocationSelectView: View {
             if selectedCount > 0 {
                 Button {
                     policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
-                    UserDefaults.standard.set(false, forKey: "isShowingSelectView")
-                    isShowingSelectView.toggle()
+                    policyStore.pageNumber = 2
+//                    UserDefaults.standard.set(false, forKey: "isShowingSelectView")
+//                    isShowingSelectView.toggle()
                 } label: {
                     Text("지역 선택하기")
                         .bold()

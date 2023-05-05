@@ -19,7 +19,6 @@ struct ContentView : View {
                 FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
             } else if isShowingSelectView {
                 SelectView(isShowingSelectView: $isShowingSelectView)
-//                TestChoiceView(gotoNextPage: $isShowingInputAgeView)
             } else {
                 TabView {
                     YouthCenterTab()
@@ -39,7 +38,7 @@ struct ContentView : View {
                         }
                 }
                 .onAppear {
-                    policyStore.fetchPolicies(myAge: Int(policyStore.myAge) ?? 0)
+                    policyStore.fetchPolicies(userAge: policyStore.userAge)
                     
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
                         // 1초 후 실행될 부분

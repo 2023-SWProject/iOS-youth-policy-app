@@ -40,8 +40,7 @@ class PolicyStore: ObservableObject {
     // MARK: - 사용자 선택하는 변수 -
     @Published var selectedLocation: [String: String] = [:]
     @Published var selectedDetailLocation: [String: String] = [:]
-    
-    
+    @Published var userAge: Int = 0
     
     
     // MARK: - 쿼리 변수
@@ -90,12 +89,11 @@ class PolicyStore: ObservableObject {
     
     // MARK: - 데이터 부분
     @Published var policies = [Policy]()
-    @Published var myAge = ""
     
     let database = Firestore.firestore()
     
     // MARK: - 데이터 fetch -
-    func fetchPolicies(myAge: Int) {
+    func fetchPolicies(userAge: Int) {
         
         print("fetch start")
         database.collection("PolicyData")
@@ -176,7 +174,7 @@ class PolicyStore: ObservableObject {
                                 print("case 2 예외")
                             }
                             
-                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         case 3:
                             print("3")
                             
@@ -187,7 +185,7 @@ class PolicyStore: ObservableObject {
                             let age1: String = "0" + String(String(ages).prefix(1))
                             let age2: String = String(String(ages).suffix(2))
                             
-                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         case 4:
                             print("4")
 //                            guard ages.count == 4 else { continue }
@@ -195,7 +193,7 @@ class PolicyStore: ObservableObject {
                             let age1: String = String(String(ages).prefix(2))
                             let age2: String = String(String(ages).suffix(2))
 
-                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         case 5:
                             // ex) 만 10세 ~ 999세
                             print("5")
@@ -203,7 +201,7 @@ class PolicyStore: ObservableObject {
                             let age1: String = String(String(ages).prefix(2))
                             let age2: String = "99"
                             
-                            guard Int(age1)! <= myAge && myAge <= Int(age2)! else { continue }
+                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         default:
                             print("default -> pass")
                         }

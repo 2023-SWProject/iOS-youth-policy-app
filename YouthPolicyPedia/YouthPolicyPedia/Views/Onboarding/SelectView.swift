@@ -19,7 +19,10 @@ struct SelectView: View {
                 LocationSelectView()
                     .transition(.opacity.animation(.easeIn(duration: 0.4)))
             } else if policyStore.pageNumber == 1 {
-                DetailLocationSelectView(isShowingSelectView: $isShowingSelectView)
+                DetailLocationSelectView()
+                    .transition(.opacity.animation(.easeOut(duration: 0.4)))
+            } else if policyStore.pageNumber == 2 {
+                AgeSelectView(isShowingSelectView: $isShowingSelectView)
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))
             } else if policyStore.pageNumber == -1 {
                 Text("")
