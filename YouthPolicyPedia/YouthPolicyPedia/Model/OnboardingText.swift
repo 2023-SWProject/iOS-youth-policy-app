@@ -28,5 +28,5 @@ struct OnboardingText {
     
     let exampleLottie: [String] = ["Lego", "Bus", "Pig"]
     let exampleTitle: [String] = ["청년키움통장", "버스비환급정책", "학자금지원"]
-    let exampleMoney: [String] = ["최대 538,000원", "최대 300,000원", "최대 100원"]
+    let exampleMoney: [String] = ["최대 538,000원", "최대 300,000원", "최대 1,000,000원"]
 }

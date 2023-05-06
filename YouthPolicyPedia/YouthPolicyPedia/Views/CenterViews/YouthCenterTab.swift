@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct YouthCenterTab: View {
+    
+    @EnvironmentObject var policyStore: PolicyStore
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -21,7 +24,8 @@ struct YouthCenterTab: View {
                                 Image(systemName: "location.fill")
                                     .foregroundColor(.purple.opacity(0.8))
                                     .padding(-5)
-                                Text("천안시")
+//                                Text("천안시")
+                                Text(policyStore.selectedLocation.first!.key)
                                     .foregroundColor(.white)
                                     .font(.headline)
                             }
@@ -32,7 +36,7 @@ struct YouthCenterTab: View {
                 
                 VStack {
                     HStack {
-                        Text("**천안시** 근처")
+                        Text("**\(policyStore.selectedDetailLocation.first!.key)** 근처")
                             .font(.system(size: 30))
                         
                         Spacer()
