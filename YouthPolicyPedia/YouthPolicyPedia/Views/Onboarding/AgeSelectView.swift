@@ -14,6 +14,7 @@ struct AgeSelectView: View {
     @State private var 계산할나이: DateComponents = DateComponents()
     
     @Binding var isShowingSelectView: Bool
+    @Binding var isShowingOnboardingView: Bool
     
     @State var isShowingSheet = false
     @State var isShowingButton = false
@@ -62,7 +63,22 @@ struct AgeSelectView: View {
             if isShowingButton {
                 Button {
                     policyStore.userAge = 계산할나이.year ?? 0
-                    print(policyStore.userAge)
+                    
+                    // MARK: - 유저디폴트에 정보 저장
+                    let userLocationInformation = policyStore.selectedLocation
+//                    print(type(of: userLocationInformation))
+                    UserDefaults.standard.set(userLocationInformation, forKey: "myLocation")
+//                    print(type(of: UserDefaults.standard.dictionary(forKey: <#T##String#>)))
+                    
+                    let userDetailLocationInformation = policyStore.selectedDetailLocation  //["key1": "value1", "key2": "value2"]
+                    UserDefaults.standard.set(userDetailLocationInformation, forKey: "myDetailLocation")
+                    
+                    let userAgeInformation = policyStore.userAge
+                    UserDefaults.standard.set(userAgeInformation, forKey: "myAge")
+                    
+                    
+                    UserDefaults.standard.set(false, forKey: "isShowingOnboardingView")
+                    isShowingOnboardingView.toggle()
                     UserDefaults.standard.set(false, forKey: "isShowingSelectView")
                     isShowingSelectView.toggle()
                 } label: {

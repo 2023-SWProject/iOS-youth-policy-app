@@ -21,6 +21,7 @@
 		EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */; };
 		EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */; };
 		EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */; };
+		EB78FAD02A062DBD00094D00 /* Tex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78FACF2A062DBD00094D00 /* Tex.swift */; };
 		EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */; };
 		EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */; };
 		EB7CB91A29FC4F2800BF7BFC /* LottieUI in Frameworks */ = {isa = PBXBuildFile; productRef = EB7CB91929FC4F2800BF7BFC /* LottieUI */; };
@@ -50,6 +51,7 @@
 		EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterTab.swift; sourceTree = "<group>"; };
 		EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyTab.swift; sourceTree = "<group>"; };
 		EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyGlossaryTab.swift; sourceTree = "<group>"; };
+		EB78FACF2A062DBD00094D00 /* Tex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tex.swift; sourceTree = "<group>"; };
 		EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingView.swift; sourceTree = "<group>"; };
 		EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingText.swift; sourceTree = "<group>"; };
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				EB60251329FF833F003CAD21 /* SetFilterTestView.swift */,
+				EB78FACF2A062DBD00094D00 /* Tex.swift */,
 				EB73524E29D737450045A713 /* ContentView.swift */,
 				EB73526329D73D320045A713 /* Onboarding */,
 				EB7CB90A29FC2CEA00BF7BFC /* CenterViews */,
@@ -279,6 +282,7 @@
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,
 				EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */,
+				EB78FAD02A062DBD00094D00 /* Tex.swift in Sources */,
 				EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */,
 				EBBA99DF29EBAE3500829511 /* Policy.swift in Sources */,
 			);

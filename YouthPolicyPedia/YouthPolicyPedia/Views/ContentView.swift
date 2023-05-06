@@ -15,10 +15,10 @@ struct ContentView : View {
     
     var body: some View {
         ZStack {
-            if isShowingOnboardingView {
-                FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
-            } else if isShowingSelectView {
-                SelectView(isShowingSelectView: $isShowingSelectView)
+//            if isShowingOnboardingView {
+//                FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
+            if isShowingSelectView {
+                SelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
             } else {
                 TabView {
                     YouthCenterTab()
@@ -38,12 +38,22 @@ struct ContentView : View {
                         }
                 }
                 .onAppear {
-                    policyStore.fetchPolicies(userAge: policyStore.userAge)
+                    policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
+                    print(policyStore.userAge)
+                    print(policyStore.ArrayForLocationQuery)
                     
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
-                        // 1초 후 실행될 부분
-                        print(policyStore.policies)
-                    }
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                        policyStore.fetchPolicies(userAge: policyStore.userAge)
+//                    }
+//                    print("이전 정보")
+//                    print(UserDefaults.standard.dictionary(forKey: "myLocation") ?? ["이전정보": "없음"])
+//                    
+//                    print("이후 정보 업데이트")
+//                    print(UserDefaults.standard.dictionary(forKey: "myLocation") ?? ["이후정보": "없음"])
+                    
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+//                        print(policyStore.policies)
+//                    }
                 }
             }
         }

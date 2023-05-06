@@ -25,7 +25,7 @@ struct YouthCenterTab: View {
                                     .foregroundColor(.purple.opacity(0.8))
                                     .padding(-5)
 //                                Text("천안시")
-                                Text(policyStore.selectedLocation.first!.key)
+                                Text(policyStore.selectedLocation.first?.key ?? "")
                                     .foregroundColor(.white)
                                     .font(.headline)
                             }
@@ -36,7 +36,7 @@ struct YouthCenterTab: View {
                 
                 VStack {
                     HStack {
-                        Text("**\(policyStore.selectedDetailLocation.first!.key)** 근처")
+                        Text("**\(policyStore.selectedDetailLocation.first?.key ?? "")** 근처")
                             .font(.system(size: 30))
                         
                         Spacer()

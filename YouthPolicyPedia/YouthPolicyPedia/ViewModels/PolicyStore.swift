@@ -35,12 +35,13 @@ class PolicyStore: ObservableObject {
     
     // MARK:  .-
 
-    @Published var pageNumber = 0
+    @Published var pageNumber = -2
     
     // MARK: - 사용자 선택하는 변수 -
-    @Published var selectedLocation: [String: String] = [:]
-    @Published var selectedDetailLocation: [String: String] = [:]
-    @Published var userAge: Int = 0
+    @Published var selectedLocation: [String: String] = ((UserDefaults.standard.dictionary(forKey: "myLocation") ?? [:]) as? [String: String] ?? [:])
+    @Published var selectedDetailLocation: [String: String] = ((UserDefaults.standard.dictionary(forKey: "myDetailLocation") ?? [:]) as? [String: String] ?? [:])
+    
+    @Published var userAge: Int = UserDefaults.standard.integer(forKey: "myAge")
     
     
     // MARK: - 쿼리 변수
@@ -72,7 +73,7 @@ class PolicyStore: ObservableObject {
         }
     }
     
-    // MARK: - 지역 선택시 상세지역 반환 하는 함수
+    // MARK: - 지역 코드 쿼리를 위해 코드만 빼주는 함수
     func locationStringToCode(_ selectedLocation: [String: String], selectedDetailLocation: [String: String]) -> [String] {
         var arr: [String] = []
         
@@ -153,11 +154,13 @@ class PolicyStore: ObservableObject {
                         
                         switch ageNumberCount {
                         case 0:
-                            print("0 -> pass")
+//                            print("0 -> pass")
+                            continue
                         case 1:
-                            print("1 -> pass")
+//                            print("1 -> pass")
+                            continue
                         case 2:
-                            print("2")
+//                            print("2")
                             // 두개일 경우 원본 나이에서 '이상'이 들어가는지 '이하'가 들어가는지 판단후 00 앞에 붙이거나 99 를 뒤에 붙인다.
                             // ex) 만 18세 이상 -> 1899
                             //     만 30세 이하 -> 0030
@@ -176,7 +179,7 @@ class PolicyStore: ObservableObject {
                             
                             guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         case 3:
-                            print("3")
+//                            print("3")
                             
                             // ex) 만 100세 이하
                             guard !(ages.contains("이하")) else { continue }
@@ -187,7 +190,7 @@ class PolicyStore: ObservableObject {
                             
                             guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         case 4:
-                            print("4")
+//                            print("4")
 //                            guard ages.count == 4 else { continue }
 
                             let age1: String = String(String(ages).prefix(2))
@@ -196,14 +199,15 @@ class PolicyStore: ObservableObject {
                             guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         case 5:
                             // ex) 만 10세 ~ 999세
-                            print("5")
+//                            print("5")
                             
                             let age1: String = String(String(ages).prefix(2))
                             let age2: String = "99"
                             
                             guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
                         default:
-                            print("default -> pass")
+//                            print("default -> pass")
+                            continue
                         }
                         // MARK: 나이 필터링 끝 -
                         

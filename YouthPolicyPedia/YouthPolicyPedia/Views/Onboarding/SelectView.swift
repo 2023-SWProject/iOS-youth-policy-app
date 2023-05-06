@@ -12,17 +12,20 @@ struct SelectView: View {
     @EnvironmentObject var policyStore: PolicyStore
     
     @Binding var isShowingSelectView: Bool
+    @Binding var isShowingOnboardingView: Bool
     
     var body: some View {
         ZStack {
-            if policyStore.pageNumber == 0 {
+            if policyStore.pageNumber == -2 {
+                FirstOnboardingView()
+            } else if policyStore.pageNumber == 0 {
                 LocationSelectView()
                     .transition(.opacity.animation(.easeIn(duration: 0.4)))
             } else if policyStore.pageNumber == 1 {
                 DetailLocationSelectView()
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))
             } else if policyStore.pageNumber == 2 {
-                AgeSelectView(isShowingSelectView: $isShowingSelectView)
+                AgeSelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))
             } else if policyStore.pageNumber == -1 {
                 Text("")

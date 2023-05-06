@@ -9,7 +9,10 @@ import SwiftUI
 import LottieUI
 
 struct FirstOnboardingView: View {
-    @Binding var isShowingOnboardingView: Bool
+    
+    @EnvironmentObject var policyStore: PolicyStore
+    
+//    @Binding var isShowingOnboardingView: Bool
     let onboardingText = OnboardingText()
     
     let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
@@ -68,8 +71,9 @@ struct FirstOnboardingView: View {
             Spacer()
             
             Button {
-                UserDefaults.standard.set(false, forKey: "isShowingOnboardingView")
-                isShowingOnboardingView.toggle()
+//                UserDefaults.standard.set(false, forKey: "isShowingOnboardingView")
+//                isShowingOnboardingView.toggle()
+                policyStore.pageNumber = 0
             } label: {
                 Text("지금 시작하기")
                     .bold()
