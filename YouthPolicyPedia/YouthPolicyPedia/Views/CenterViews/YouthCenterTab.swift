@@ -55,8 +55,10 @@ struct YouthCenterTab: View {
                 // YouthCenterCell -> YouthCenterDetailView
                 ForEach(1...2, id: \.self) {_ in
                     
-                    NavigationLink {
-                        YouthCenterDetailView()
+//                    NavigationLink {
+//                        YouthCenterDetailView()
+                    Button {
+                        print("업데이트 예정입니다.")
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))

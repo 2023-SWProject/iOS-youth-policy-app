@@ -14,8 +14,10 @@ struct YouthPolicyGlossaryTab: View {
         NavigationStack {
             ScrollView {
                 ForEach(1...10, id: \.self) {_ in
-                    NavigationLink {
-                        GlossaryDetailView()
+//                    NavigationLink {
+//                        GlossaryDetailView()
+                    Button {
+                        print("업데이트 예정입니다.")
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
@@ -43,7 +45,6 @@ struct YouthPolicyGlossaryTab: View {
                                     VStack {
                                         Text("무급가족종사자")
                                             .padding(.top, 50)
-                                            .padding(.trailing, 120)
                                             .foregroundColor(.black)
 
                                         HStack {
