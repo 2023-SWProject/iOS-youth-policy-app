@@ -66,9 +66,7 @@ struct AgeSelectView: View {
                     
                     // MARK: - 유저디폴트에 정보 저장
                     let userLocationInformation = policyStore.selectedLocation
-//                    print(type(of: userLocationInformation))
                     UserDefaults.standard.set(userLocationInformation, forKey: "myLocation")
-//                    print(type(of: UserDefaults.standard.dictionary(forKey: <#T##String#>)))
                     
                     let userDetailLocationInformation = policyStore.selectedDetailLocation  //["key1": "value1", "key2": "value2"]
                     UserDefaults.standard.set(userDetailLocationInformation, forKey: "myDetailLocation")

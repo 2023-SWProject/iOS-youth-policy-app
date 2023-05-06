@@ -15,8 +15,6 @@ struct ContentView : View {
     
     var body: some View {
         ZStack {
-//            if isShowingOnboardingView {
-//                FirstOnboardingView(isShowingOnboardingView: $isShowingOnboardingView)
             if isShowingSelectView {
                 SelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
             } else {
@@ -39,18 +37,11 @@ struct ContentView : View {
                 }
                 .onAppear {
                     policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
-                    print(policyStore.userAge)
-                    print(policyStore.ArrayForLocationQuery)
                     
-//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                    // policyStore.ArrayForLocationQuery 쿼리 패치 완료 후 패치하기 위한 조건문
+                    if policyStore.ArrayForLocationQuery != [] {
                         policyStore.fetchPolicies(userAge: policyStore.userAge)
-//                    }
-//                    print("이전 정보")
-//                    print(UserDefaults.standard.dictionary(forKey: "myLocation") ?? ["이전정보": "없음"])
-//                    
-//                    print("이후 정보 업데이트")
-//                    print(UserDefaults.standard.dictionary(forKey: "myLocation") ?? ["이후정보": "없음"])
-                    
+                    }
 //                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
 //                        print(policyStore.policies)
 //                    }

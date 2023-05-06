@@ -31,8 +31,6 @@ struct LocationSelectView: View {
                 Spacer()
             }
             .padding()
-            // 임시 선택 갯수 표시
-            //            Text("\(selectedCount) / 1")
             
             VStack {
                 HStack {
