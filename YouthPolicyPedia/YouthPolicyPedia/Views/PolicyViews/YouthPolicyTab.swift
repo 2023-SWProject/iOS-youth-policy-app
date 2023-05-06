@@ -12,7 +12,7 @@ struct YouthPolicyTab: View {
     @State var searchText = ""
     @State var selectedFilter = "추천순"
     var filterOptions = ["추천순", "마감일순", "조회순", "지원금순"]
-    var userName = "미정"
+    var userName = "당"
     
     @Binding var isShowingSelectView: Bool
     @Binding var isShowingOnboardingView: Bool
@@ -23,7 +23,7 @@ struct YouthPolicyTab: View {
                 HStack {
                     VStack {
                         HStack {
-                            Text("**\(userName)님**을 위한 **\(policyStore.policies.count)건**의 정책")
+                            Text("**\(userName)신**을 위한 **\(policyStore.policies.count)건**의 정책")
                                 .font(.system(size: 25))
                             Spacer()
                         }

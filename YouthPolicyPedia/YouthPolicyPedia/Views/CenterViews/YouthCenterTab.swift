@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct YouthCenterTab: View {
     
     @EnvironmentObject var policyStore: PolicyStore
+    
+    @State private var isShowingAlert = false
     
     var body: some View {
         NavigationStack {
@@ -58,6 +61,7 @@ struct YouthCenterTab: View {
 //                    NavigationLink {
 //                        YouthCenterDetailView()
                     Button {
+                        isShowingAlert.toggle()
                         print("업데이트 예정입니다.")
                     } label: {
                         Rectangle()
@@ -114,6 +118,15 @@ struct YouthCenterTab: View {
                     
                 }
                 .padding(.bottom, 10)
+            }
+            .toast(isPresenting: $isShowingAlert) {
+                
+                // `.alert` is the default displayMode
+    //            AlertToast(type: .regular, title: "Message Sent!")
+                
+                //Choose .hud to toast alert from the top of the screen
+    //            AlertToast(displayMode: .hud, type: .systemImage("hare", Color.red), title: "Message Sent!")
+                AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
             }
 //            .navigationTitle("청년 센터")
         }
