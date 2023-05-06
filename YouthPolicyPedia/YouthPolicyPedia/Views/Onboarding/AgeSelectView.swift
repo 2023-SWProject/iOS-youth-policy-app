@@ -75,10 +75,10 @@ struct AgeSelectView: View {
                     UserDefaults.standard.set(userAgeInformation, forKey: "myAge")
                     
                     
-                    UserDefaults.standard.set(false, forKey: "isShowingOnboardingView")
-                    isShowingOnboardingView.toggle()
+//                    UserDefaults.standard.set(false, forKey: "isShowingOnboardingView")
+//                    isShowingOnboardingView = false
                     UserDefaults.standard.set(false, forKey: "isShowingSelectView")
-                    isShowingSelectView.toggle()
+                    isShowingSelectView = false
                 } label: {
                     Text("나이 입력하기")
                         .bold()

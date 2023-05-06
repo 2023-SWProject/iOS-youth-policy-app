@@ -26,7 +26,7 @@ struct LocationSelectView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .bold()
-                        .foregroundColor(.black)
+                        .foregroundColor(.clear)
                 }
                 Spacer()
             }

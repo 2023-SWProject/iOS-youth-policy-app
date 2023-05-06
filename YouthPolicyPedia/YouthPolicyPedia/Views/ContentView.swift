@@ -24,7 +24,7 @@ struct ContentView : View {
                             Image(systemName: "door.right.hand.closed")
                             Text("청년 공간")
                         }
-                    YouthPolicyTab()
+                    YouthPolicyTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                         .tabItem {
                             Image(systemName: "square.on.square.badge.person.crop.fill")
                             Text("청년 정책")

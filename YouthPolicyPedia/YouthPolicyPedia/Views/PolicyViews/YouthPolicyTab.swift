@@ -14,6 +14,9 @@ struct YouthPolicyTab: View {
     var filterOptions = ["추천순", "마감일순", "조회순", "지원금순"]
     var userName = "미정"
     
+    @Binding var isShowingSelectView: Bool
+    @Binding var isShowingOnboardingView: Bool
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -78,6 +81,16 @@ struct YouthPolicyTab: View {
             }
             .navigationTitle("청년 정책")
             .navigationBarTitleDisplayMode(.inline)
+            
+            .toolbar {
+                
+                NavigationLink {
+                    SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+                } label: {
+                    Image(systemName: "person.circle")
+                }
+
+            }
         }
         
         .searchable(
@@ -89,8 +102,8 @@ struct YouthPolicyTab: View {
     }
 }
 
-struct YouthPolicyTab_Previews: PreviewProvider {
-    static var previews: some View {
-        YouthPolicyTab()
-    }
-}
+//struct YouthPolicyTab_Previews: PreviewProvider {
+//    static var previews: some View {
+//        YouthPolicyTab()
+//    }
+//}
