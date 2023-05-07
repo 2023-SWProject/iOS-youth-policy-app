@@ -11,7 +11,7 @@ struct YouthPolicyTab: View {
     @EnvironmentObject var policyStore: PolicyStore
     @State var searchText = ""
     @State var selectedFilter = "추천순"
-    var filterOptions = ["추천순", "마감일순", "조회순", "지원금순"]
+    var filterOptions = ["추천순", "마감일순", "조회순", "지원금순", "기능구현중.."]
     var userName = "당"
     
     @Binding var isShowingSelectView: Bool
@@ -45,11 +45,10 @@ struct YouthPolicyTab: View {
                 
                 ForEach(policyStore.policies, id: \.bizid) { policy in
                     NavigationLink {
-//                        YouthCenterDetailView()
                         PolicyDetailView(policy: policy)
                     } label: {
                         Rectangle()
-                            .foregroundColor(.yellow.opacity(0.2))
+                            .foregroundColor(.cyan.opacity(0.1))
                             .frame(width: UIScreen.main.bounds.width - 40, height: 80)
                             .cornerRadius(10)
                             .overlay {
@@ -62,10 +61,15 @@ struct YouthPolicyTab: View {
                                             .bold()
                                         
                                         HStack {
-                                            Spacer()
                                             
-                                            Image(systemName: "chevron.right")
-                                                .foregroundColor(.blue)
+//                                            Text("\(policy.content)")
+//                                                .font(.system(size: 10))
+//                                                .foregroundColor(.black)
+//                                                .lineLimit(2)
+                                            Spacer()
+//
+//                                            Image(systemName: "chevron.right")
+//                                                .foregroundColor(.blue)
                                         }
                                         .padding(.bottom, 40)
                                         .padding()
@@ -102,8 +106,9 @@ struct YouthPolicyTab: View {
     }
 }
 
-//struct YouthPolicyTab_Previews: PreviewProvider {
-//    static var previews: some View {
-//        YouthPolicyTab()
-//    }
-//}
+struct YouthPolicyTab_Previews: PreviewProvider {
+    static var previews: some View {
+        YouthPolicyTab(isShowingSelectView: .constant(false), isShowingOnboardingView: .constant(false))
+            .environmentObject(PolicyStore())
+    }
+}

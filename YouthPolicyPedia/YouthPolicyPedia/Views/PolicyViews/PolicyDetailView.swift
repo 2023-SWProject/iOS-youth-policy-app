@@ -12,24 +12,38 @@ struct PolicyDetailView: View {
     
     var body: some View {
         ScrollView {
-            HStack {
-                Text("\(policy.title)")
-                    .frame(alignment: .leading)
-                    .bold()
-                    .font(.system(.title))
-                    .padding(.vertical, 20)
+            VStack {
+                HStack {
+                    Text("\(policy.title)")
+                        .frame(alignment: .leading)
+                        .bold()
+                        .font(.system(.title))
+                        .padding(.vertical, 20)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
                 
-                Spacer()
+                Rectangle()
+                    .frame(width: UIScreen.main.bounds.width - 25, height: 1.5)
+                    .foregroundColor(.yellow)
+                    .offset(y: -20)
             }
-            .padding()
             
-            HStack {
-                Text("\(policy.introduction)")
-                    .font(.system(size: 13))
+            ZStack {
+                HStack {
+                    Spacer()
+                    Text("\(policy.introduction)")
+                        .font(.system(size: 13))
+                    Spacer()
+                }
+                .padding()
                 
-                Spacer()
+                Rectangle()
+                    .frame(width: UIScreen.main.bounds.width - 30)
+                    .foregroundColor(.blue.opacity(0.1))
+                    .cornerRadius(10)
             }
-            .padding()
             
             Group {
                 HStack {
@@ -51,32 +65,40 @@ struct PolicyDetailView: View {
                 }
                 .padding()
                 
-                HStack {
-                    VStack {
-                        HStack {
-                            Text("연령 : \(policy.reqAge)")
-                            Spacer()
+                ZStack {
+                    HStack {
+                        VStack {
+                            HStack {
+                                
+                                Text(" - 연령 : \(policy.reqAge)")
+                                Spacer()
+                            }
+                            HStack {
+                                Text(" - 학력 : \(policy.reqEducation)")
+                                Spacer()
+                            }
+                            HStack {
+                                Text(" - 전공 : \(policy.reqMajor)")
+                                Spacer()
+                            }
+                            HStack {
+                                Text(" - 취업 상태 : \(policy.reqEmploymentStatus)")
+                                Spacer()
+                            }
+                            HStack {
+                                Text(" - 특화 분야 : \(policy.reqSpecializedField)")
+                                Spacer()
+                            }
                         }
-                        HStack {
-                            Text("학력 : \(policy.reqEducation)")
-                            Spacer()
-                        }
-                        HStack {
-                            Text("전공 : \(policy.reqMajor)")
-                            Spacer()
-                        }
-                        HStack {
-                            Text("취업 상태 : \(policy.reqEmploymentStatus)")
-                            Spacer()
-                        }
-                        HStack {
-                            Text("특화 분야 : \(policy.reqSpecializedField)")
-                            Spacer()
-                        }
+                        Spacer()
                     }
-                    Spacer()
+                    .padding()
+                    
+                    Rectangle()
+                        .frame(width: UIScreen.main.bounds.width - 30)
+                        .foregroundColor(.blue.opacity(0.1))
+                        .cornerRadius(10)
                 }
-                .padding()
             }
             
             Group {
