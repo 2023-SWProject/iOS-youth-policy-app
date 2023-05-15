@@ -144,7 +144,7 @@ class PolicyStore: ObservableObject {
 
                         
                         // MARK: - 나이 필터링
-                        // 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리 -> 테스트 필요
+                        // 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리
                         // 나이 String 에서 숫자만 필터링
                         let ages = reqAge.filter {
                             $0.isNumber

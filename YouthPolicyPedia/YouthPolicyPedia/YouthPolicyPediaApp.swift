@@ -8,6 +8,8 @@
 import SwiftUI
 import FirebaseCore
 
+// TODO: 상태 입력 화면에서 항목 추가하기
+// FIXME: 중앙 부처인 것들 임의의 코드 한개 부여하기
 
 //class AppDelegate: NSObject, UIApplicationDelegate {
 //    func application(_ application: UIApplication,

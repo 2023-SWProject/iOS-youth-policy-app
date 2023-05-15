@@ -24,7 +24,10 @@ struct AgeSelectView: View {
             HStack {
                 Button {
                     print("뒤로가기")
+                    // 초기화
                     policyStore.pageNumber = 0
+                    policyStore.selectedDetailLocation = [:]
+                    policyStore.selectedLocation = [:]
                 } label: {
                     Image(systemName: "chevron.left")
                         .bold()

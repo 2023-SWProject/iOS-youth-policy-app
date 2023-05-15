@@ -23,6 +23,9 @@ struct LocationSelectView: View {
             HStack {
                 Button {
                     print("뒤로가기")
+                    // 초기화
+                    policyStore.selectedDetailLocation = [:]
+                    policyStore.selectedLocation = [:]
                 } label: {
                     Image(systemName: "chevron.left")
                         .bold()
