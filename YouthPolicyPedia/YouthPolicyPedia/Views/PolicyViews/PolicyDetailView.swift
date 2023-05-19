@@ -130,13 +130,16 @@ struct PolicyDetailView: View {
                     Image(systemName: "arrow.right")
                         .bold()
                     
-                    Button {
-                        buttonAction("\(policy.siteURL)", .link)
-                    } label: {
+                    if policy.siteURL.prefix(1) == "h" {
+                        Button {
+                            buttonAction("\(policy.siteURL)", .link)
+                        } label: {
+                            Text("\(policy.siteURL)")
+                        }
+                    } else {
                         Text("\(policy.siteURL)")
                     }
-
-//                    Text("\(policy.siteURL)")
+                    
                     Spacer()
                 }
                 .padding()
