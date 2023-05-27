@@ -98,6 +98,7 @@ class PolicyStore: ObservableObject {
         
         print("fetch start")
         database.collection("PolicyData")
+//        database.collection("PolicyData_522_1") Test 용 임시 collection
         /// 매개변수 쿼리에 넣어주기
         // TODO: 퀴리할 매개변수 넣어주기
         
@@ -111,6 +112,7 @@ class PolicyStore: ObservableObject {
         
         // 지역 코드 쿼리
             .whereField("polyBizSecd", in: ArrayForLocationQuery)
+//            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
 //            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
         
             .getDocuments { (snapshot, error) in
@@ -143,76 +145,77 @@ class PolicyStore: ObservableObject {
                         let locationCode: String = docData["polyBizSecd"] as? String ?? ""
 
                         
-                        // MARK: - 나이 필터링
+                        // MARK: - 나이 필터링 -> 이상함 없애야함
                         // 나이 숫자 [0, 1, 2, 3, 4, 5] 까지 예외 처리
                         // 나이 String 에서 숫자만 필터링
-                        let ages = reqAge.filter {
-                            $0.isNumber
-                        }
-                        
-                        let ageNumberCount = ages.count
-                        
-                        switch ageNumberCount {
-                        case 0:
-//                            print("0 -> pass")
-                            continue
-                        case 1:
-//                            print("1 -> pass")
-                            continue
-                        case 2:
-//                            print("2")
-                            // 두개일 경우 원본 나이에서 '이상'이 들어가는지 '이하'가 들어가는지 판단후 00 앞에 붙이거나 99 를 뒤에 붙인다.
-                            // ex) 만 18세 이상 -> 1899
-                            //     만 30세 이하 -> 0030
-                            var age1 = "00"
-                            var age2 = "00"
-                            
-                            if reqAge.contains("이상") {
-                                age1 = ages
-                                age2 = "99"
-                            } else if reqAge.contains("이하") {
-                                age1 = "00"
-                                age2 = ages
-                            } else {
-                                print("case 2 예외")
-                            }
-                            
-                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
-                        case 3:
-//                            print("3")
-                            
-                            // ex) 만 100세 이하
-                            guard !(ages.contains("이하")) else { continue }
-                            
-                            // ex) 만 0세 ~ 30세
-                            let age1: String = "0" + String(String(ages).prefix(1))
-                            let age2: String = String(String(ages).suffix(2))
-                            
-                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
-                        case 4:
-//                            print("4")
-//                            guard ages.count == 4 else { continue }
-
-                            let age1: String = String(String(ages).prefix(2))
-                            let age2: String = String(String(ages).suffix(2))
-
-                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
-                        case 5:
-                            // ex) 만 10세 ~ 999세
-//                            print("5")
-                            
-                            let age1: String = String(String(ages).prefix(2))
-                            let age2: String = "99"
-                            
-                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
-                        default:
-//                            print("default -> pass")
-                            continue
-                        }
+//                        let ages = reqAge.filter {
+//                            $0.isNumber
+//                        }
+//
+//                        let ageNumberCount = ages.count
+//
+//                        switch ageNumberCount {
+//                        case 0:
+////                            print("0 -> pass")
+//                            continue
+//                        case 1:
+////                            print("1 -> pass")
+//                            continue
+//                        case 2:
+////                            print("2")
+//                            // 두개일 경우 원본 나이에서 '이상'이 들어가는지 '이하'가 들어가는지 판단후 00 앞에 붙이거나 99 를 뒤에 붙인다.
+//                            // ex) 만 18세 이상 -> 1899
+//                            //     만 30세 이하 -> 0030
+//                            var age1 = "00"
+//                            var age2 = "00"
+//
+//                            if reqAge.contains("이상") {
+//                                age1 = ages
+//                                age2 = "99"
+//                            } else if reqAge.contains("이하") {
+//                                age1 = "00"
+//                                age2 = ages
+//                            } else {
+//                                print("case 2 예외")
+//                            }
+//
+//                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
+//                        case 3:
+////                            print("3")
+//
+//                            // ex) 만 100세 이하
+//                            guard !(ages.contains("이하")) else { continue }
+//
+//                            // ex) 만 0세 ~ 30세
+//                            let age1: String = "0" + String(String(ages).prefix(1))
+//                            let age2: String = String(String(ages).suffix(2))
+//
+//                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
+//                        case 4:
+////                            print("4")
+////                            guard ages.count == 4 else { continue }
+//
+//                            let age1: String = String(String(ages).prefix(2))
+//                            let age2: String = String(String(ages).suffix(2))
+//
+//                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
+//                        case 5:
+//                            // ex) 만 10세 ~ 999세
+////                            print("5")
+//
+//                            let age1: String = String(String(ages).prefix(2))
+//                            let age2: String = "99"
+//
+//                            guard Int(age1)! <= userAge && userAge <= Int(age2)! else { continue }
+//                        default:
+////                            print("default -> pass")
+//                            continue
+//                        }
                         // MARK: 나이 필터링 끝 -
                         
                         let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
 
+                        print(bizid)
                         self.policies.append(policiesData)
                     }
                 }
