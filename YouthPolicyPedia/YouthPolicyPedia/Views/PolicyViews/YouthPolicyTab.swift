@@ -86,15 +86,16 @@ struct YouthPolicyTab: View {
             .navigationTitle("청년 정책")
             .navigationBarTitleDisplayMode(.inline)
             
-            .toolbar {
-                
-                NavigationLink {
-                    SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
-                } label: {
-                    Image(systemName: "person.circle")
-                }
-
-            }
+            // 마이페이지 탭 따로 빼서 주석처리함
+//            .toolbar {
+//
+//                NavigationLink {
+//                    SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+//                } label: {
+//                    Image(systemName: "person.circle")
+//                }
+//
+//            }
         }
         
         .searchable(

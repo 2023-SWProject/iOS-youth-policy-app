@@ -97,8 +97,8 @@ class PolicyStore: ObservableObject {
     func fetchPolicies(userAge: Int) {
         
         print("fetch start")
-        database.collection("PolicyData")
-//        database.collection("PolicyData_522_1") Test 용 임시 collection
+//        database.collection("PolicyData")
+        database.collection("PolicyData_522_1") // Test용 임시 collection
         /// 매개변수 쿼리에 넣어주기
         // TODO: 퀴리할 매개변수 넣어주기
         
@@ -111,8 +111,8 @@ class PolicyStore: ObservableObject {
 //            .whereField("splzrlmrqiscn", in: [])                              // 참여요건 - 특화분야
         
         // 지역 코드 쿼리
-            .whereField("polyBizSecd", in: ArrayForLocationQuery)
-//            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
+//            .whereField("polyBizSecd", in: ArrayForLocationQuery)
+            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
 //            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
         
             .getDocuments { (snapshot, error) in

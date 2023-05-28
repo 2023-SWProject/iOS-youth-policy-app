@@ -10,6 +10,7 @@
 		EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */; };
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
 		EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */; };
+		EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */; };
 		EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB60251329FF833F003CAD21 /* SetFilterTestView.swift */; };
 		EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111642A04DFB700D2B769 /* LocationSelectView.swift */; };
 		EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */; };
@@ -40,6 +41,7 @@
 		EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterDetailView.swift; sourceTree = "<group>"; };
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
 		EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectView.swift; sourceTree = "<group>"; };
+		EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTab.swift; sourceTree = "<group>"; };
 		EB60251329FF833F003CAD21 /* SetFilterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterTestView.swift; sourceTree = "<group>"; };
 		EB6111642A04DFB700D2B769 /* LocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLocationSelectView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB30AFFA2A231D9800DBF3FF /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		EB73524029D737450045A713 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +136,7 @@
 				EB7CB90A29FC2CEA00BF7BFC /* CenterViews */,
 				EB7CB90C29FC2D0600BF7BFC /* PolicyViews */,
 				EB7CB90B29FC2D0400BF7BFC /* GlossaryViews */,
+				EB30AFFA2A231D9800DBF3FF /* MyPage */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,6 +297,7 @@
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */,
+				EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */,
 				EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */,
 				EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */,
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,

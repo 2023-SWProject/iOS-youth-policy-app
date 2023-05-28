@@ -34,6 +34,11 @@ struct ContentView : View {
                             Image(systemName: "character.book.closed")
                             Text("정책 용어")
                         }
+                    MyPageTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+                        .tabItem {
+                            Image(systemName: "person.circle")
+                            Text("내 정보")
+                        }
                 }
                 .onAppear {
                     policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
