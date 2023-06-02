@@ -11,7 +11,6 @@
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
 		EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */; };
 		EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */; };
-		EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB60251329FF833F003CAD21 /* SetFilterTestView.swift */; };
 		EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111642A04DFB700D2B769 /* LocationSelectView.swift */; };
 		EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */; };
 		EB6111692A050B0800D2B769 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111682A050B0800D2B769 /* SelectView.swift */; };
@@ -42,7 +41,6 @@
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
 		EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectView.swift; sourceTree = "<group>"; };
 		EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTab.swift; sourceTree = "<group>"; };
-		EB60251329FF833F003CAD21 /* SetFilterTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterTestView.swift; sourceTree = "<group>"; };
 		EB6111642A04DFB700D2B769 /* LocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111682A050B0800D2B769 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 		EB73525A29D737FD0045A713 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB60251329FF833F003CAD21 /* SetFilterTestView.swift */,
 				EB73524E29D737450045A713 /* ContentView.swift */,
 				EB78FAD12A06438800094D00 /* Setting */,
 				EB73526329D73D320045A713 /* Onboarding */,
@@ -292,7 +289,6 @@
 			files = (
 				EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */,
 				EB73524F29D737450045A713 /* ContentView.swift in Sources */,
-				EB60251429FF833F003CAD21 /* SetFilterTestView.swift in Sources */,
 				EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */,
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,

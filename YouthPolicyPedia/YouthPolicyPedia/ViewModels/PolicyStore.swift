@@ -10,31 +10,6 @@ import Firebase
 import FirebaseFirestore
 
 class PolicyStore: ObservableObject {
-    // MARK: - [Deprecated]
-    @Published var accrrqiscnSet: Set<String> = []
-    @Published var ageinfoSet: Set<String> = []
-    @Published var bizTycdSelSet: Set<String> = []
-    @Published var empmsttscnSet: Set<String> = []
-    @Published var majrrqiscnSet: Set<String> = []
-    @Published var plcytpnmSet: Set<String> = []
-    @Published var splzrlmrqiscnSet: Set<String> = []
-    @Published var polyBizSecdSet: Set<String> = []
-
-    func arrayToSet() {
-        for i in 0..<policies.count {
-            accrrqiscnSet.insert(policies[i].reqEducation)
-            ageinfoSet.insert(policies[i].reqAge)
-            bizTycdSelSet.insert(policies[i].detailType)
-            empmsttscnSet.insert(policies[i].reqEmploymentStatus)
-            majrrqiscnSet.insert(policies[i].reqMajor)
-            plcytpnmSet.insert(policies[i].type)
-            splzrlmrqiscnSet.insert(policies[i].reqSpecializedField)
-            polyBizSecdSet.insert(policies[i].locationCode)
-        }
-    }
-    
-    // MARK:  .-
-
     @Published var pageNumber = -2
     
     // MARK: - 사용자 선택하는 변수 -
