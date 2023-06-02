@@ -10,31 +10,6 @@ import Firebase
 import FirebaseFirestore
 
 class PolicyStore: ObservableObject {
-    // MARK: - [Deprecated]
-    @Published var accrrqiscnSet: Set<String> = []
-    @Published var ageinfoSet: Set<String> = []
-    @Published var bizTycdSelSet: Set<String> = []
-    @Published var empmsttscnSet: Set<String> = []
-    @Published var majrrqiscnSet: Set<String> = []
-    @Published var plcytpnmSet: Set<String> = []
-    @Published var splzrlmrqiscnSet: Set<String> = []
-    @Published var polyBizSecdSet: Set<String> = []
-
-    func arrayToSet() {
-        for i in 0..<policies.count {
-            accrrqiscnSet.insert(policies[i].reqEducation)
-            ageinfoSet.insert(policies[i].reqAge)
-            bizTycdSelSet.insert(policies[i].detailType)
-            empmsttscnSet.insert(policies[i].reqEmploymentStatus)
-            majrrqiscnSet.insert(policies[i].reqMajor)
-            plcytpnmSet.insert(policies[i].type)
-            splzrlmrqiscnSet.insert(policies[i].reqSpecializedField)
-            polyBizSecdSet.insert(policies[i].locationCode)
-        }
-    }
-    
-    // MARK:  .-
-
     @Published var pageNumber = -2
     
     // MARK: - 사용자 선택하는 변수 -
@@ -97,8 +72,8 @@ class PolicyStore: ObservableObject {
     func fetchPolicies(userAge: Int) {
         
         print("fetch start")
-        database.collection("PolicyData")
-//        database.collection("PolicyData_522_1") Test 용 임시 collection
+//        database.collection("PolicyData")
+        database.collection("PolicyData_522_1") // Test용 임시 collection
         /// 매개변수 쿼리에 넣어주기
         // TODO: 퀴리할 매개변수 넣어주기
         
@@ -111,8 +86,8 @@ class PolicyStore: ObservableObject {
 //            .whereField("splzrlmrqiscn", in: [])                              // 참여요건 - 특화분야
         
         // 지역 코드 쿼리
-            .whereField("polyBizSecd", in: ArrayForLocationQuery)
-//            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
+//            .whereField("polyBizSecd", in: ArrayForLocationQuery)
+            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
 //            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
         
             .getDocuments { (snapshot, error) in
