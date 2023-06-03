@@ -41,6 +41,7 @@ struct ContentView : View {
                         }
                 }
                 .onAppear {
+                    print("USER AGE: \(policyStore.userAge)")
                     policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
                     
                     // policyStore.ArrayForLocationQuery 쿼리 패치 완료 후 패치하기 위한 조건문
