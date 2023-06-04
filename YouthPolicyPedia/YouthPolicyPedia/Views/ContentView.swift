@@ -54,6 +54,11 @@ struct ContentView : View {
                 }
             }
         }
+        .onAppear {
+            print("\(policyStore.eduQuery)")
+            print("\(policyStore.empQuery)")
+            print("\(policyStore.speQuery)")
+        }
         
     }
 }

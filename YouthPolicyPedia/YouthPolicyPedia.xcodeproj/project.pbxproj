@@ -27,6 +27,8 @@
 		EB7CB91A29FC4F2800BF7BFC /* LottieUI in Frameworks */ = {isa = PBXBuildFile; productRef = EB7CB91929FC4F2800BF7BFC /* LottieUI */; };
 		EB7FCF942A0685CF009BAAE7 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = EB7FCF932A0685CF009BAAE7 /* AlertToast */; };
 		EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */; };
+		EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E202A2C04CE0049ED0A /* EducationView.swift */; };
+		EBB35E242A2C73D80049ED0A /* CELLTESTVIEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */; };
 		EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */; };
 		EBBA99D529EBADB400829511 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D429EBADB400829511 /* FirebaseDatabase */; };
 		EBBA99D729EBADB400829511 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */; };
@@ -56,6 +58,8 @@
 		EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingView.swift; sourceTree = "<group>"; };
 		EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingText.swift; sourceTree = "<group>"; };
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
+		EBB35E202A2C04CE0049ED0A /* EducationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationView.swift; sourceTree = "<group>"; };
+		EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CELLTESTVIEW.swift; sourceTree = "<group>"; };
 		EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBBA99DE29EBAE3500829511 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		EBBA99E229EBAEEB00829511 /* PolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStore.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 			children = (
 				EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */,
 				EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */,
+				EBB35E222A2C73BE0049ED0A /* VIEWTEST */,
 				EBBA99DD29EBAE2100829511 /* Model */,
 				EBBA99E129EBAED300829511 /* ViewModels */,
 				EB73525A29D737FD0045A713 /* Views */,
@@ -141,11 +146,9 @@
 		EB73526329D73D320045A713 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */,
-				EB6111642A04DFB700D2B769 /* LocationSelectView.swift */,
 				EB6111682A050B0800D2B769 /* SelectView.swift */,
-				EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */,
 				EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */,
+				EBB35E1F2A2C04780049ED0A /* Condition */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -183,6 +186,25 @@
 				EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */,
 			);
 			path = PolicyViews;
+			sourceTree = "<group>";
+		};
+		EBB35E1F2A2C04780049ED0A /* Condition */ = {
+			isa = PBXGroup;
+			children = (
+				EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */,
+				EB6111642A04DFB700D2B769 /* LocationSelectView.swift */,
+				EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */,
+				EBB35E202A2C04CE0049ED0A /* EducationView.swift */,
+			);
+			path = Condition;
+			sourceTree = "<group>";
+		};
+		EBB35E222A2C73BE0049ED0A /* VIEWTEST */ = {
+			isa = PBXGroup;
+			children = (
+				EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */,
+			);
+			path = VIEWTEST;
 			sourceTree = "<group>";
 		};
 		EBBA99DD29EBAE2100829511 /* Model */ = {
@@ -295,11 +317,13 @@
 				EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */,
 				EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */,
 				EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */,
+				EBB35E242A2C73D80049ED0A /* CELLTESTVIEW.swift in Sources */,
 				EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */,
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
+				EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,
 				EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */,
 				EB78FAD32A0643A700094D00 /* SettingView.swift in Sources */,

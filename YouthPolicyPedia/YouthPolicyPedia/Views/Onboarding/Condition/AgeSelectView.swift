@@ -24,10 +24,21 @@ struct AgeSelectView: View {
             HStack {
                 Button {
                     print("뒤로가기")
+                    // TODO: 만약 앱을 여기서 강제종료하면 앱이 복구 불가능 하다.
+                    // 처음 앱을 켰을때 쿼리 변수가 안골라져 있다면 다 초기화 해버리기? 해바라기
                     // 초기화
-                    policyStore.pageNumber = 0
-                    policyStore.selectedDetailLocation = [:]
-                    policyStore.selectedLocation = [:]
+                    policyStore.pageNumber = 2
+                    // MARK: - 유저 디폴트, 스토어에 쿼리 변수 초기화
+                    let myEdu: [String] = []
+                    UserDefaults.standard.set(myEdu, forKey: "myEdu")
+                    let myEmp: [String] = []
+                    UserDefaults.standard.set(myEmp, forKey: "myEmp")
+                    let mySpe: [String] = []
+                    UserDefaults.standard.set(mySpe, forKey: "mySpe")
+                    
+                    policyStore.eduQuery = myEdu
+                    policyStore.empQuery = myEmp
+                    policyStore.speQuery = mySpe
                 } label: {
                     Image(systemName: "chevron.left")
                         .bold()
@@ -71,15 +82,12 @@ struct AgeSelectView: View {
                     let userLocationInformation = policyStore.selectedLocation
                     UserDefaults.standard.set(userLocationInformation, forKey: "myLocation")
                     
-                    let userDetailLocationInformation = policyStore.selectedDetailLocation  //["key1": "value1", "key2": "value2"]
+                    let userDetailLocationInformation = policyStore.selectedDetailLocation
                     UserDefaults.standard.set(userDetailLocationInformation, forKey: "myDetailLocation")
                     
                     let userAgeInformation = policyStore.userAge
                     UserDefaults.standard.set(userAgeInformation, forKey: "myAge")
                     
-                    
-//                    UserDefaults.standard.set(false, forKey: "isShowingOnboardingView")
-//                    isShowingOnboardingView = false
                     UserDefaults.standard.set(false, forKey: "isShowingSelectView")
                     isShowingSelectView = false
                 } label: {

@@ -17,12 +17,9 @@ struct SettingView: View {
     var body: some View {
         VStack {
             Button {
-//                SelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                 policyStore.pageNumber = 0
                 
-                // 유저 디폴트 초기화
-//                UserDefaults.standard.set(true, forKey: "isShowingOnboardingView")
-//                isShowingOnboardingView = true
+                // MARK: - 유저디폴트 초기화
                 UserDefaults.standard.set(true, forKey: "isShowingSelectView")
                 isShowingSelectView = true
                 
@@ -30,7 +27,7 @@ struct SettingView: View {
                 UserDefaults.standard.set(userLocationInformation, forKey: "myLocation")
                 policyStore.selectedLocation = [:]
                 
-                let userDetailLocationInformation: [String: String] = [:]  //["key1": "value1", "key2": "value2"]
+                let userDetailLocationInformation: [String: String] = [:]
                 UserDefaults.standard.set(userDetailLocationInformation, forKey: "myDetailLocation")
                 policyStore.selectedDetailLocation = [:]
                 

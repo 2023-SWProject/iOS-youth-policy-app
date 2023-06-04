@@ -25,6 +25,9 @@ struct SelectView: View {
                 DetailLocationSelectView()
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))
             } else if policyStore.pageNumber == 2 {
+                EducationView()
+                    .transition(.opacity.animation(.easeOut(duration: 0.4)))
+            } else if policyStore.pageNumber == 100 {
                 AgeSelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))
             } else if policyStore.pageNumber == -1 {
@@ -36,6 +39,9 @@ struct SelectView: View {
                         }
                     }
             }
+        }
+        .onAppear {
+            print(isShowingOnboardingView)
         }
     }
 }
