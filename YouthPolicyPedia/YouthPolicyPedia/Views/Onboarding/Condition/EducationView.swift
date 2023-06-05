@@ -60,7 +60,7 @@ struct EducationView: View {
                     Spacer()
                 }
                 HStack {
-                    ForEach(Range(0...3)) { i in
+                    ForEach(0...3, id: \.self) { i in
                             Button {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
@@ -86,7 +86,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(4...6)) { i in
+                    ForEach(4...6, id: \.self) { i in
                             Button {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
@@ -112,7 +112,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(7...8)) { i in
+                    ForEach(7...8, id: \.self) { i in
                             Button {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
@@ -147,7 +147,7 @@ struct EducationView: View {
                     Spacer()
                 }
                 HStack {
-                    ForEach(Range(0...3)) { i in
+                    ForEach(0...3, id: \.self) { i in
                             Button {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
@@ -173,7 +173,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(4...6)) { i in
+                    ForEach(4...6, id: \.self) { i in
                             Button {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
@@ -199,7 +199,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(7...8)) { i in
+                    ForEach(7...8, id: \.self) { i in
                             Button {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
@@ -234,7 +234,7 @@ struct EducationView: View {
                     Spacer()
                 }
                 HStack {
-                    ForEach(Range(0...2)) { i in
+                    ForEach(0...2, id: \.self) { i in
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
@@ -260,7 +260,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(3...5)) { i in
+                    ForEach(3...5, id: \.self) { i in
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
@@ -286,7 +286,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(6...7)) { i in
+                    ForEach(6...7, id: \.self) { i in
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
