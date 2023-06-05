@@ -26,10 +26,10 @@ struct EducationView: View {
     let speNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7",]
     @State var speSelectArr: [String] = []
     
-    @State private var isOver15 = false
+    @State private var isOver12 = false
     @State private var selectCount = 0
     
-    func checkSelectCountOver15 () -> Bool {
+    func checkSelectCountOver12 () -> Bool {
         return selectCount >= 12
     }
     
@@ -70,7 +70,7 @@ struct EducationView: View {
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -96,7 +96,7 @@ struct EducationView: View {
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -122,7 +122,7 @@ struct EducationView: View {
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -157,7 +157,7 @@ struct EducationView: View {
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -183,7 +183,7 @@ struct EducationView: View {
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -209,7 +209,7 @@ struct EducationView: View {
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -244,7 +244,7 @@ struct EducationView: View {
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -270,7 +270,7 @@ struct EducationView: View {
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -296,7 +296,7 @@ struct EducationView: View {
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver15()
+                                isOver15 = checkSelectCountOver12()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -328,17 +328,16 @@ struct EducationView: View {
                 policyStore.empQuery = myEmp
                 policyStore.speQuery = mySpe
             } label: {
-                Text("다음으로 넘어가기")
+                Text(selectCount == 0 ? "건너뛰기" : "다음으로 넘어가기")
                     .bold()
                     .frame(width: UIScreen.main.bounds.width - 30, height: 52)
-                    .background(selectCount >= 12 ? Color.gray : Color.blue)
+                    .background(selectCount == 0 ? Color.blue.opacity(0.3) : selectCount >= 12 ? Color.gray : Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(13)
             }
-            .opacity(!empSelectArr.isEmpty && !eduSelectArr.isEmpty && !speSelectArr.isEmpty ? 1 : 0)
             .disabled(selectCount >= 12)
         }
-        .toast(isPresenting: $isOver15) {
+        .toast(isPresenting: $isOver12) {
             AlertToast(displayMode: .hud, type: .error(.red), title: "15 이하로 골라주세요")
         }
     }
