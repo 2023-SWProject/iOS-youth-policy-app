@@ -82,22 +82,448 @@ class PolicyStore: ObservableObject {
     
     // MARK: - 데이터 fetch -
     func fetchPolicies(userAge: Int) {
-        var innerEduQuery = eduQuery
-        var innerEmpQuery = empQuery
-        var innerSpeQuery = speQuery
-        innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-        innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-        innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-        
         print("fetch start")
-//        database.collection("PolicyData")
-        database.collection("PolicyData_603") // Test용 임시 collection
-            .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-            .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-            .whereFilter(Filter.orFilter([
-                Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-                Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-                Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+        let eduCount = eduQuery.count
+        let empCount = empQuery.count
+        let speCount = speQuery.count
+        
+        if speCount > 0 && empCount > 0 && eduCount > 0 {
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if eduCount > 0 && empCount == 0 && speCount == 0 { // edu만 골랐을 경우
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+//                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+//                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if empCount > 0 && eduCount == 0 && speCount == 0 { // emp만 골랐을 경우
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+//                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+//                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if speCount > 0 && eduCount == 0 && empCount == 0 { // spe만 골랐을 경우
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+//                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+//                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if eduCount == 0 && empCount > 0 && speCount > 0 { // edu만 안 골랐을 경우
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+//                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if empCount == 0 && eduCount > 0 && speCount > 0 { // emp만 안 골랐을 경우
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+//                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if speCount == 0 && empCount > 0 && eduCount > 0 { // spe만 안 골랐을 경우
+            var innerEduQuery = eduQuery
+            var innerEmpQuery = empQuery
+            var innerSpeQuery = speQuery
+            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .whereFilter(Filter.orFilter([
+                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+//                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                            ]))
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else if speCount == 0 && empCount == 0 && eduCount == 0 { // 모두 안골랐을 경우
+            
+            database.collection("PolicyData_603")
+                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                .getDocuments { (snapshot, error) in
+                    self.policies.removeAll()
+                    
+                    if let snapshot {
+                        for document in snapshot.documents {
+    //                        let id: String = document.documentID
+                            let docData = document.data()
+                            
+                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                            let bizid: String = docData["bizid"] as? String ?? ""
+    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                            let title: String = docData["polybizsjnm"] as? String ?? ""
+                            let introduction: String = docData["polyitcncn"] as? String ?? ""
+                            let type: String = docData["plcytpnm"] as? String ?? ""
+    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                            let content: String = docData["sporcn"] as? String ?? ""
+                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                            let period: String = docData["rqutprdcn"] as? String ?? ""
+                            let procedure: String = docData["qutproccn"] as? String ?? ""
+    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                            let siteURL: String = docData["rquturla"] as? String ?? ""
+                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            
+                            // 임시 쿼리 확인차 선언
+//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                            
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+
+                            print(splzrlmrqiscnTt)
+                            self.policies.append(policiesData)
+                        }
+                    }
+                }
+        } else {
+            fatalError("ERR")
+        }
+    }
+}
+
+
+
 //                            Filter.whereField("1인가구여부", isEqualTo: "-"),
 //                            Filter.whereField("homelessWhether", isEqualTo: "-"),
 //                            Filter.whereField("schoolYearSystem", isEqualTo: "-"),
@@ -107,48 +533,3 @@ class PolicyStore: ObservableObject {
 //                            Filter.whereField("신혼부부", isEqualTo: "-"),
 //                            Filter.whereField("중위소득", isEqualTo: "-"),
 //                            Filter.whereField("차상위계층", isEqualTo: "-"),
-                        ]))
-//            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
-//            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
-        
-            .getDocuments { (snapshot, error) in
-                self.policies.removeAll()
-                
-                if let snapshot {
-                    for document in snapshot.documents {
-//                        let id: String = document.documentID
-                        
-                        let docData = document.data()
-                        
-                        let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                        let bizid: String = docData["bizid"] as? String ?? ""
-//                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                        let title: String = docData["polybizsjnm"] as? String ?? ""
-                        let introduction: String = docData["polyitcncn"] as? String ?? ""
-                        let type: String = docData["plcytpnm"] as? String ?? ""
-//                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                        let content: String = docData["sporcn"] as? String ?? ""
-                        let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                        let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                        let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                        let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                        let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-//                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                        let period: String = docData["rqutprdcn"] as? String ?? ""
-                        let procedure: String = docData["qutproccn"] as? String ?? ""
-//                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                        let siteURL: String = docData["rquturla"] as? String ?? ""
-                        let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                        let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                        let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                        
-                        let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
-
-                        print(splzrlmrqiscnTt)
-                        self.policies.append(policiesData)
-                    }
-                }
-            }
-        print("fetch complete")
-    }
-}
