@@ -70,7 +70,7 @@ struct EducationView: View {
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -96,7 +96,7 @@ struct EducationView: View {
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -122,7 +122,7 @@ struct EducationView: View {
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -157,7 +157,7 @@ struct EducationView: View {
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -183,7 +183,7 @@ struct EducationView: View {
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -209,7 +209,7 @@ struct EducationView: View {
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -244,7 +244,7 @@ struct EducationView: View {
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -270,7 +270,7 @@ struct EducationView: View {
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -296,7 +296,7 @@ struct EducationView: View {
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
                                     selectCount -= 1
                                 }
-                                isOver15 = checkSelectCountOver12()
+                                isOver12 = checkSelectCountOver12()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
