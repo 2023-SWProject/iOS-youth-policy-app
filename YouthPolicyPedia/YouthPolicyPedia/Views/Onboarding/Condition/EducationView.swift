@@ -30,7 +30,7 @@ struct EducationView: View {
     @State private var selectCount = 0
     
     func checkSelectCountOver12 () -> Bool {
-        return selectCount >= 12
+        return selectCount > 12
     }
     
     
@@ -331,14 +331,14 @@ struct EducationView: View {
                 Text(selectCount == 0 ? "건너뛰기" : "다음으로 넘어가기")
                     .bold()
                     .frame(width: UIScreen.main.bounds.width - 30, height: 52)
-                    .background(selectCount == 0 ? Color.blue.opacity(0.3) : selectCount >= 12 ? Color.gray : Color.blue)
+                    .background(selectCount == 0 ? Color.blue.opacity(0.3) : selectCount > 12 ? Color.gray : Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(13)
             }
-            .disabled(selectCount >= 12)
+            .disabled(selectCount > 12)
         }
         .toast(isPresenting: $isOver12) {
-            AlertToast(displayMode: .hud, type: .error(.red), title: "15 이하로 골라주세요")
+            AlertToast(displayMode: .hud, type: .error(.red), title: "항목 개수를 12개 이하로 줄여주세요")
         }
     }
 }
