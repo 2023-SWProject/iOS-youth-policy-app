@@ -12,25 +12,25 @@ struct EducationView: View {
     @EnvironmentObject var policyStore: PolicyStore
     
     @State private var isPushEduArr: [Bool] = Array(repeating: false, count: 10)
-    let eduName: [String] = ["고졸 미만", "고교 재학", "고졸 예정", "고교 졸업", "대학 재학", "대졸 예정", "대학 졸업", "석사 박사", "제한없음" ,"???"]
-    let eduNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7", "8", "9"]
+    let eduName: [String] = ["고졸 미만", "고교 재학", "고졸 예정", "고교 졸업", "대학 재학", "대졸 예정", "대학 졸업", "석사 박사", "제한없음"]
+    let eduNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7", "8"]
     @State var eduSelectArr: [String] = []
     
     @State private var isPushEmpArr: [Bool] = Array(repeating: false, count: 10)
-    let empName: [String] = ["재직자", "자영업자", "미취업자", "프리랜서", "일용근로자", "예비창업자", "단기근로자", "영농종사자", "제한없음" ,"???"]
-    let empNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7", "8", "9"]
+    let empName: [String] = ["재직자", "자영업자", "미취업자", "프리랜서", "일용근로자", "예비창업자", "단기근로자", "영농종사자", "제한없음"]
+    let empNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7", "8"]
     @State var empSelectArr: [String] = []
     
     @State private var isPushSpeArr: [Bool] = Array(repeating: false, count: 9)
-    let speName: [String] = ["중소기업", "여성", "저소득층", "장애인", "농업인", "군인", "지역인재", "제한없음","???"]
-    let speNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7", "8"]
+    let speName: [String] = ["중소기업", "여성", "저소득층", "장애인", "농업인", "군인", "지역인재", "제한없음"]
+    let speNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7",]
     @State var speSelectArr: [String] = []
     
     @State private var isOver15 = false
     @State private var selectCount = 0
     
     func checkSelectCountOver15 () -> Bool {
-        return selectCount >= 15
+        return selectCount >= 12
     }
     
     
@@ -86,7 +86,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(4...7)) { i in
+                    ForEach(Range(4...6)) { i in
                             Button {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
@@ -112,7 +112,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(8...9)) { i in
+                    ForEach(Range(7...8)) { i in
                             Button {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
@@ -199,7 +199,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(7...9)) { i in
+                    ForEach(Range(7...8)) { i in
                             Button {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
@@ -234,7 +234,7 @@ struct EducationView: View {
                     Spacer()
                 }
                 HStack {
-                    ForEach(Range(0...3)) { i in
+                    ForEach(Range(0...2)) { i in
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
@@ -260,7 +260,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(4...6)) { i in
+                    ForEach(Range(3...5)) { i in
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
@@ -286,7 +286,7 @@ struct EducationView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(7...8)) { i in
+                    ForEach(Range(6...7)) { i in
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
@@ -331,12 +331,12 @@ struct EducationView: View {
                 Text("다음으로 넘어가기")
                     .bold()
                     .frame(width: UIScreen.main.bounds.width - 30, height: 52)
-                    .background(selectCount >= 15 ? Color.gray : Color.blue)
+                    .background(selectCount >= 12 ? Color.gray : Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(13)
             }
             .opacity(!empSelectArr.isEmpty && !eduSelectArr.isEmpty && !speSelectArr.isEmpty ? 1 : 0)
-            .disabled(selectCount >= 15)
+            .disabled(selectCount >= 12)
         }
         .toast(isPresenting: $isOver15) {
             AlertToast(displayMode: .hud, type: .error(.red), title: "15 이하로 골라주세요")
