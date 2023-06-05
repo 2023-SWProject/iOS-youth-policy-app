@@ -82,6 +82,12 @@ class PolicyStore: ObservableObject {
     
     // MARK: - 데이터 fetch -
     func fetchPolicies(userAge: Int) {
+        var innerEduQuery = eduQuery
+        var innerEmpQuery = empQuery
+        var innerSpeQuery = speQuery
+        innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+        innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+        innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
         
         print("fetch start")
 //        database.collection("PolicyData")
@@ -89,9 +95,9 @@ class PolicyStore: ObservableObject {
             .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
             .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
             .whereFilter(Filter.orFilter([
-                            Filter.whereField("accrrqiscnTt", arrayContainsAny: eduQuery), // 학력
-                            Filter.whereField("empmsttscnTt", arrayContainsAny: empQuery), // 고용
-                            Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: speQuery), // 특화
+                Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
 //                            Filter.whereField("1인가구여부", isEqualTo: "-"),
 //                            Filter.whereField("homelessWhether", isEqualTo: "-"),
 //                            Filter.whereField("schoolYearSystem", isEqualTo: "-"),
