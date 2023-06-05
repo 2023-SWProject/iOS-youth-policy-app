@@ -25,6 +25,15 @@ class PolicyStore: ObservableObject {
     @Published var empQuery: [String] = ((UserDefaults.standard.array(forKey: "myEmp") ?? []) as? [String] ?? [])
     @Published var speQuery: [String] = ((UserDefaults.standard.array(forKey: "mySpe") ?? []) as? [String] ?? [])
     
+    @Published var 무주택자: String = ""
+    @Published var 년제학교: String = ""
+    @Published var 일인가구: String = ""
+    @Published var 신혼부부: String = ""
+    @Published var 농업인: String = ""
+    @Published var 소상공인: String = ""
+    @Published var 차상위계층: String = ""
+    @Published var 기초생활및생계급여: String = ""
+    
     // MARK: - 지역 선택시 상세지역 반환 하는 함수
     var detailLocation: [String: String] = [:] // 변환 변수
     
@@ -83,6 +92,15 @@ class PolicyStore: ObservableObject {
                             Filter.whereField("accrrqiscnTt", arrayContainsAny: eduQuery), // 학력
                             Filter.whereField("empmsttscnTt", arrayContainsAny: empQuery), // 고용
                             Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: speQuery), // 특화
+//                            Filter.whereField("1인가구여부", isEqualTo: "-"),
+//                            Filter.whereField("homelessWhether", isEqualTo: "-"),
+//                            Filter.whereField("schoolYearSystem", isEqualTo: "-"),
+//                            Filter.whereField("기초생활및생계급여", isEqualTo: "-"),
+//                            Filter.whereField("농업인", isEqualTo: "-"),
+//                            Filter.whereField("소상공인", isEqualTo: "-"),
+//                            Filter.whereField("신혼부부", isEqualTo: "-"),
+//                            Filter.whereField("중위소득", isEqualTo: "-"),
+//                            Filter.whereField("차상위계층", isEqualTo: "-"),
                         ]))
 //            .whereField("test", arrayContainsAny: ["3", "1"]) // "test" 필드에 ["3", "1"] 중 한개라도 있을경우 가져옴
 //            .whereField("polybizsjnm", isEqualTo: "2022 취업지원대상자 취업능력개발비용 지원")
@@ -115,10 +133,12 @@ class PolicyStore: ObservableObject {
 //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                         let siteURL: String = docData["rquturla"] as? String ?? ""
                         let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                        let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                        let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                         
                         let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
 
-                        print(bizid)
+                        print(splzrlmrqiscnTt)
                         self.policies.append(policiesData)
                     }
                 }

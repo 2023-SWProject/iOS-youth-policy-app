@@ -27,6 +27,9 @@ struct SelectView: View {
             } else if policyStore.pageNumber == 2 {
                 EducationView()
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))
+//            } else if policyStore.pageNumber == 3 {
+//                IncomeView()
+//                    .transition(.opacity.animation(.easeOut(duration: 0.4)))
             } else if policyStore.pageNumber == 100 {
                 AgeSelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                     .transition(.opacity.animation(.easeOut(duration: 0.4)))

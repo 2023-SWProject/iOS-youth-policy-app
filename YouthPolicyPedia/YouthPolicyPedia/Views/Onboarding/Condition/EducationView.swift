@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct EducationView: View {
     @EnvironmentObject var policyStore: PolicyStore
@@ -25,6 +26,14 @@ struct EducationView: View {
     let speNum: [String] = ["0", "1" ,"2", "3", "4", "5", "6", "7", "8"]
     @State var speSelectArr: [String] = []
     
+    @State private var isOver15 = false
+    @State private var selectCount = 0
+    
+    func checkSelectCountOver15 () -> Bool {
+        return selectCount >= 15
+    }
+    
+    
     var body: some View {
         VStack {
             HStack {
@@ -42,7 +51,6 @@ struct EducationView: View {
                 Spacer()
             }
             .padding()
-            Spacer()
             // MARK: - 학력
             Group {
                 HStack {
@@ -57,9 +65,12 @@ struct EducationView: View {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
                                     eduSelectArr.append(eduNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -80,9 +91,12 @@ struct EducationView: View {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
                                     eduSelectArr.append(eduNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -103,9 +117,12 @@ struct EducationView: View {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
                                     eduSelectArr.append(eduNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(eduSelectArr)")
                             } label: {
                                 Text("\(eduName[i])")
@@ -135,9 +152,12 @@ struct EducationView: View {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
                                     empSelectArr.append(empNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -158,9 +178,12 @@ struct EducationView: View {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
                                     empSelectArr.append(empNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -181,9 +204,12 @@ struct EducationView: View {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
                                     empSelectArr.append(empNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(empSelectArr)")
                             } label: {
                                 Text("\(empName[i])")
@@ -213,9 +239,12 @@ struct EducationView: View {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
                                     speSelectArr.append(speNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -236,9 +265,12 @@ struct EducationView: View {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
                                     speSelectArr.append(speNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -259,9 +291,12 @@ struct EducationView: View {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
                                     speSelectArr.append(speNum[i])
+                                    selectCount += 1
                                 } else { // 다시 누르면 삭제
                                     speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    selectCount -= 1
                                 }
+                                isOver15 = checkSelectCountOver15()
                                 print("\(speSelectArr)")
                             } label: {
                                 Text("\(speName[i])")
@@ -279,7 +314,7 @@ struct EducationView: View {
             Spacer()
             Button {
                 print("다음으로 넘어가기")
-                policyStore.pageNumber = 100 // 나이로 넘어가기
+                policyStore.pageNumber = 100 // 추가 항목으로 넘어가기
                 
                 // MARK: - 유저 디폴트, 스토어에 쿼리 변수 저장
                 let myEdu: [String] = eduSelectArr
@@ -296,11 +331,15 @@ struct EducationView: View {
                 Text("다음으로 넘어가기")
                     .bold()
                     .frame(width: UIScreen.main.bounds.width - 30, height: 52)
-                    .background(Color.blue)
+                    .background(selectCount >= 15 ? Color.gray : Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(13)
             }
             .opacity(!empSelectArr.isEmpty && !eduSelectArr.isEmpty && !speSelectArr.isEmpty ? 1 : 0)
+            .disabled(selectCount >= 15)
+        }
+        .toast(isPresenting: $isOver15) {
+            AlertToast(displayMode: .hud, type: .error(.red), title: "15 이하로 골라주세요")
         }
     }
 }

@@ -55,9 +55,12 @@ struct ContentView : View {
             }
         }
         .onAppear {
-            print("\(policyStore.eduQuery)")
-            print("\(policyStore.empQuery)")
-            print("\(policyStore.speQuery)")
+            print("\(policyStore.eduQuery) edu : \(policyStore.eduQuery.count)")
+            print("\(policyStore.empQuery) emp : \(policyStore.empQuery.count)")
+            print("\(policyStore.speQuery) spe : \(policyStore.speQuery.count)")
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                print(policyStore.policies.count)
+            }
         }
         
     }
