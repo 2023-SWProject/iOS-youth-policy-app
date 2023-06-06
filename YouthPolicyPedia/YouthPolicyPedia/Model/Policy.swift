@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Policy: Codable, Identifiable {
+struct Policy: Codable, Identifiable, Hashable {
     var id = UUID()
     var detailType: String               // 세부 정책 유형         // detailType
     var bizid: String                    // 정책 ID

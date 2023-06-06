@@ -16,18 +16,6 @@ struct YouthPolicyTab: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-//                HStack {
-//                    VStack {
-//                        HStack {
-//                            Text("**미정이**의 추천 정책")
-//                                .font(.system(size: 25))
-//                        }
-//                        Spacer()
-//                    }
-//                    .padding()
-//                    .foregroundColor(.primary)
-//                }
-
                 showRowFilteredBy(\.신혼부부, "신혼부부")
                 showRowFilteredBy(\.일인가구, "일인가구")
                 showRowFilteredBy(\.농업인, "농업인")
@@ -78,8 +66,8 @@ struct YouthPolicyTab: View {
             }
             .navigationTitle("미정이의 추천 정책")
             .toolbar {
-                Button {
-                    print("123")
+                NavigationLink {
+                    SearchView()
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.black)
