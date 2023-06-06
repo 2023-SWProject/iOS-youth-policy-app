@@ -130,12 +130,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -185,12 +193,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -240,12 +256,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -295,12 +319,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -350,12 +382,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -405,12 +445,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -460,12 +508,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)
@@ -504,12 +560,20 @@ class PolicyStore: ObservableObject {
     //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
                             let siteURL: String = docData["rquturla"] as? String ?? ""
                             let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                            let tags: String = docData["plcytpnm"] as? String ?? ""
+                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                            let 농업인: String = docData["농업인"] as? String ?? ""
+                            let 소상공인: String = docData["소상공인"] as? String ?? ""
+                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
                             
                             // 임시 쿼리 확인차 선언
 //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
                             let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
                             
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode)
+                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
                             print(splzrlmrqiscnTt)
                             self.policies.append(policiesData)

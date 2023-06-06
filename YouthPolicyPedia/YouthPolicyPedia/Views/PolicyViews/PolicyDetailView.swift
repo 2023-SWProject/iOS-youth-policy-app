@@ -190,8 +190,8 @@ struct PolicyDetailView: View {
       }
 }
 
-struct PolicyDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        PolicyDetailView(policy: Policy(detailType: "", bizid: "", title: "지역특화 청년무역전문가 양성", introduction: "청년의 내 집 마련 지원을 위해 청약 기능에 우대금리와 비과세 혜택을 제공", type: "", content: "", reqAge: "만 18세 ~ 50세", reqEmploymentStatus: "재직자 불가", reqEducation: "제한없음", reqMajor: "제한없음", reqSpecializedField: "미적 감각이 뛰어나신 분", period: "2022.1.1. ~2022.12.31.(연중 상시)", procedure: "문화재단 직접 모집", siteURL: "https://www.cacf.or.kr/", locationCode: ""))
-    }
-}
+//struct PolicyDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PolicyDetailView(policy: Policy(detailType: "", bizid: "", title: "지역특화 청년무역전문가 양성", introduction: "청년의 내 집 마련 지원을 위해 청약 기능에 우대금리와 비과세 혜택을 제공", type: "", content: "", reqAge: "만 18세 ~ 50세", reqEmploymentStatus: "재직자 불가", reqEducation: "제한없음", reqMajor: "제한없음", reqSpecializedField: "미적 감각이 뛰어나신 분", period: "2022.1.1. ~2022.12.31.(연중 상시)", procedure: "문화재단 직접 모집", siteURL: "https://www.cacf.or.kr/", locationCode: "", 신혼부부: "1", tags: "정책 참여"))
+//    }
+//}

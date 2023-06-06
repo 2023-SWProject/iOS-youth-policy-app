@@ -49,7 +49,9 @@ struct ContentView : View {
                         policyStore.fetchPolicies(userAge: policyStore.userAge)
                     }
 //                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
-//                        print(policyStore.policies)
+//                        for p in policyStore.policies {
+//                            print("\(p.tags)")
+//                        }
 //                    }
                 }
             }
