@@ -11,7 +11,6 @@
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
 		EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */; };
 		EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */; };
-		EB5622162A32057F00683AD2 /* Aid_SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5622152A32057F00683AD2 /* Aid_SectionView.swift */; };
 		EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111642A04DFB700D2B769 /* LocationSelectView.swift */; };
 		EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */; };
 		EB6111692A050B0800D2B769 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111682A050B0800D2B769 /* SelectView.swift */; };
@@ -30,7 +29,7 @@
 		EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */; };
 		EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E202A2C04CE0049ED0A /* EducationView.swift */; };
 		EBB35E242A2C73D80049ED0A /* CELLTESTVIEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */; };
-		EBB35E282A2C9F780049ED0A /* [x]IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E272A2C9F780049ED0A /* [x]IncomeView.swift */; };
+		EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E272A2C9F780049ED0A /* IncomeView.swift */; };
 		EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */; };
 		EBBA99D529EBADB400829511 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D429EBADB400829511 /* FirebaseDatabase */; };
 		EBBA99D729EBADB400829511 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */; };
@@ -46,7 +45,6 @@
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
 		EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectView.swift; sourceTree = "<group>"; };
 		EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTab.swift; sourceTree = "<group>"; };
-		EB5622152A32057F00683AD2 /* Aid_SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aid_SectionView.swift; sourceTree = "<group>"; };
 		EB6111642A04DFB700D2B769 /* LocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111682A050B0800D2B769 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
@@ -64,7 +62,7 @@
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
 		EBB35E202A2C04CE0049ED0A /* EducationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationView.swift; sourceTree = "<group>"; };
 		EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CELLTESTVIEW.swift; sourceTree = "<group>"; };
-		EBB35E272A2C9F780049ED0A /* [x]IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[x]IncomeView.swift"; sourceTree = "<group>"; };
+		EBB35E272A2C9F780049ED0A /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
 		EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBBA99DE29EBAE3500829511 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		EBBA99E229EBAEEB00829511 /* PolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStore.swift; sourceTree = "<group>"; };
@@ -92,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */,
+				EB78FAD12A06438800094D00 /* Setting */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -139,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				EB73524E29D737450045A713 /* ContentView.swift */,
-				EB78FAD12A06438800094D00 /* Setting */,
 				EB73526329D73D320045A713 /* Onboarding */,
 				EB7CB90A29FC2CEA00BF7BFC /* CenterViews */,
 				EB7CB90C29FC2D0600BF7BFC /* PolicyViews */,
@@ -202,7 +200,7 @@
 				EB6111642A04DFB700D2B769 /* LocationSelectView.swift */,
 				EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */,
 				EBB35E202A2C04CE0049ED0A /* EducationView.swift */,
-				EBB35E272A2C9F780049ED0A /* [x]IncomeView.swift */,
+				EBB35E272A2C9F780049ED0A /* IncomeView.swift */,
 			);
 			path = Condition;
 			sourceTree = "<group>";
@@ -211,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */,
-				EB5622152A32057F00683AD2 /* Aid_SectionView.swift */,
 			);
 			path = VIEWTEST;
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 			files = (
 				EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */,
 				EB73524F29D737450045A713 /* ContentView.swift in Sources */,
-				EB5622162A32057F00683AD2 /* Aid_SectionView.swift in Sources */,
 				EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */,
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
@@ -333,7 +329,7 @@
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
-				EBB35E282A2C9F780049ED0A /* [x]IncomeView.swift in Sources */,
+				EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
 				EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,

@@ -332,7 +332,7 @@ struct EducationView: View {
             Spacer()
             Button {
                 print("다음으로 넘어가기")
-                policyStore.pageNumber = 100 // 추가 항목으로 넘어가기
+                policyStore.pageNumber = 3 // 추가 항목으로 넘어가기
                 
                 // MARK: - 유저 디폴트, 스토어에 쿼리 변수 저장
                 let myEdu: [String] = eduSelectArr

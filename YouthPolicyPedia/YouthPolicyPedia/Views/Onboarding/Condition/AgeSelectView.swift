@@ -49,9 +49,9 @@ struct AgeSelectView: View {
             .padding()
             
             HStack {
-                Text("생년월일을 입력해주세요.")
+                Text("생년월일을 입력해주세요")
                     .bold()
-                    .font(.system(size: 20))
+                    .font(.system(size: 25))
                 Spacer()
             }
             .padding()

@@ -20,6 +20,7 @@ struct SettingView: View {
                 policyStore.pageNumber = 0
                 
                 // MARK: - 유저디폴트 초기화
+                // 전체를 다 초기화할 이유가 있나??
                 UserDefaults.standard.set(true, forKey: "isShowingSelectView")
                 isShowingSelectView = true
                 
