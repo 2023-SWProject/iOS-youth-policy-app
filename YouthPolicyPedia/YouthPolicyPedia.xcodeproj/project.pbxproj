@@ -30,7 +30,7 @@
 		EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */; };
 		EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E202A2C04CE0049ED0A /* EducationView.swift */; };
 		EBB35E242A2C73D80049ED0A /* CELLTESTVIEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */; };
-		EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E272A2C9F780049ED0A /* IncomeView.swift */; };
+		EBB35E282A2C9F780049ED0A /* [x]IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB35E272A2C9F780049ED0A /* [x]IncomeView.swift */; };
 		EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */; };
 		EBBA99D529EBADB400829511 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D429EBADB400829511 /* FirebaseDatabase */; };
 		EBBA99D729EBADB400829511 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EBBA99D629EBADB400829511 /* FirebaseDatabaseSwift */; };
@@ -64,7 +64,7 @@
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
 		EBB35E202A2C04CE0049ED0A /* EducationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationView.swift; sourceTree = "<group>"; };
 		EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CELLTESTVIEW.swift; sourceTree = "<group>"; };
-		EBB35E272A2C9F780049ED0A /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
+		EBB35E272A2C9F780049ED0A /* [x]IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[x]IncomeView.swift"; sourceTree = "<group>"; };
 		EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EBBA99DE29EBAE3500829511 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		EBBA99E229EBAEEB00829511 /* PolicyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStore.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 				EB6111642A04DFB700D2B769 /* LocationSelectView.swift */,
 				EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */,
 				EBB35E202A2C04CE0049ED0A /* EducationView.swift */,
-				EBB35E272A2C9F780049ED0A /* IncomeView.swift */,
+				EBB35E272A2C9F780049ED0A /* [x]IncomeView.swift */,
 			);
 			path = Condition;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
-				EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */,
+				EBB35E282A2C9F780049ED0A /* [x]IncomeView.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
 				EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,

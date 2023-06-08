@@ -91,6 +91,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
@@ -154,6 +157,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
@@ -217,6 +223,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
@@ -280,6 +289,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
@@ -343,6 +355,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
@@ -406,6 +421,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
@@ -469,6 +487,9 @@ class PolicyStore: ObservableObject {
             var innerEduQuery = eduQuery
             var innerEmpQuery = empQuery
             var innerSpeQuery = speQuery
+            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
             innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
             innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
