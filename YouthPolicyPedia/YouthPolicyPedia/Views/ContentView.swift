@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView : View {
     
     @EnvironmentObject var policyStore: PolicyStore
+    @EnvironmentObject var centerStore: CenterStore
     @State var isShowingOnboardingView: Bool = UserDefaults.standard.object(forKey: "isShowingOnboardingView") as? Bool ?? true
     @State var isShowingSelectView: Bool = UserDefaults.standard.object(forKey: "isShowingSelectView") as? Bool ?? true
     
@@ -46,6 +47,7 @@ struct ContentView : View {
                     
                     // policyStore.ArrayForLocationQuery 쿼리 패치 완료 후 패치하기 위한 조건문
                     if policyStore.ArrayForLocationQuery != [] {
+                        centerStore.fetchCenters()
                         policyStore.fetchPolicies(userAge: policyStore.userAge)
                     }
 //                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {

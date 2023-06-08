@@ -9,9 +9,8 @@ import SwiftUI
 import AlertToast
 
 struct YouthCenterTab: View {
-    
     @EnvironmentObject var policyStore: PolicyStore
-    
+    @EnvironmentObject var centerStore: CenterStore
     @State private var isShowingAlert = false
     
     var body: some View {
@@ -22,12 +21,10 @@ struct YouthCenterTab: View {
                         .frame(width: 90, height: 27)
                         .foregroundColor(.orange).grayscale(1.0)
                         .overlay {
-                            
                             HStack {
                                 Image(systemName: "location.fill")
                                     .foregroundColor(.purple.opacity(0.8))
                                     .padding(-5)
-//                                Text("천안시")
                                 Text(policyStore.selectedLocation.first?.key ?? "")
                                     .foregroundColor(.white)
                                     .font(.headline)
@@ -55,14 +52,12 @@ struct YouthCenterTab: View {
                 .padding()
                 .foregroundColor(.primary)
                 
-                // YouthCenterCell -> YouthCenterDetailView
-                ForEach(1...2, id: \.self) {_ in
-                    
-//                    NavigationLink {
-//                        YouthCenterDetailView()
+                // YouthCenterCell -> 센터 웹
+                ForEach(centerStore.centers, id: \.self) { center in
                     Button {
-                        isShowingAlert.toggle()
-                        print("업데이트 예정입니다.")
+                        buttonAction("\(center.url)", .link)
+//                        isShowingAlert.toggle()
+                        print("센터 웹으로 넘어간다")
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
@@ -87,7 +82,7 @@ struct YouthCenterTab: View {
                                     )
                                     
                                     VStack {
-                                        Text("천안청년센터 불당이음")
+                                        Text("\(center.spcname)")
                                             .padding(.top, 50)
                                             .foregroundColor(.blue)
                                         
@@ -119,18 +114,53 @@ struct YouthCenterTab: View {
                 }
                 .padding(.bottom, 10)
             }
-            .toast(isPresenting: $isShowingAlert) {
-                
-                // `.alert` is the default displayMode
-    //            AlertToast(type: .regular, title: "Message Sent!")
-                
-                //Choose .hud to toast alert from the top of the screen
-    //            AlertToast(displayMode: .hud, type: .systemImage("hare", Color.red), title: "Message Sent!")
-                AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
-            }
+//            .toast(isPresenting: $isShowingAlert) {
+//                AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
+//            }
 //            .navigationTitle("청년 센터")
         }
     }
+    
+    // MARK: - URL 링크용
+    private enum Coordinator {
+        static func topViewController(
+          _ viewController: UIViewController? = nil
+        ) -> UIViewController? {
+          let vc = viewController ?? UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
+          
+          if let navigationController = vc as? UINavigationController {
+            return topViewController(navigationController.topViewController)
+          } else if let tabBarController = vc as? UITabBarController {
+            return tabBarController.presentedViewController != nil ?
+            topViewController(
+              tabBarController.presentedViewController
+            ) : topViewController(
+              tabBarController.selectedViewController
+            )
+          } else if let presentedViewController = vc?.presentedViewController {
+            return topViewController(presentedViewController)
+          }
+          return vc
+        }
+      }
+      
+      private enum Method: String {
+        case share
+        case link
+      }
+      
+      private func buttonAction(_ stringToURL: String, _ method: Method) {
+        let shareURL: URL = URL(string: stringToURL)!
+        
+        if method == .share {
+          let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: nil)
+          let viewController = Coordinator.topViewController()
+          activityViewController.popoverPresentationController?.sourceView = viewController?.view
+          viewController?.present(activityViewController, animated: true, completion: nil)
+        } else {
+          UIApplication.shared.open(URL(string: stringToURL)!)
+        }
+      }
 }
 
 struct YouthCenterTab_Previews: PreviewProvider {

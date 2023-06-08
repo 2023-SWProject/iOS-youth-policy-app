@@ -11,6 +11,8 @@
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
 		EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */; };
 		EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */; };
+		EB5622182A324D3300683AD2 /* CenterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5622172A324D3300683AD2 /* CenterStore.swift */; };
+		EB56221A2A324D3A00683AD2 /* Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5622192A324D3A00683AD2 /* Center.swift */; };
 		EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111642A04DFB700D2B769 /* LocationSelectView.swift */; };
 		EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */; };
 		EB6111692A050B0800D2B769 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111682A050B0800D2B769 /* SelectView.swift */; };
@@ -45,6 +47,8 @@
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
 		EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectView.swift; sourceTree = "<group>"; };
 		EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTab.swift; sourceTree = "<group>"; };
+		EB5622172A324D3300683AD2 /* CenterStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterStore.swift; sourceTree = "<group>"; };
+		EB5622192A324D3A00683AD2 /* Center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Center.swift; sourceTree = "<group>"; };
 		EB6111642A04DFB700D2B769 /* LocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111682A050B0800D2B769 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				EBBA99DE29EBAE3500829511 /* Policy.swift */,
+				EB5622192A324D3A00683AD2 /* Center.swift */,
 				EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */,
 			);
 			path = Model;
@@ -226,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				EBBA99E229EBAEEB00829511 /* PolicyStore.swift */,
+				EB5622172A324D3300683AD2 /* CenterStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -331,11 +337,13 @@
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
+				EB56221A2A324D3A00683AD2 /* Center.swift in Sources */,
 				EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,
 				EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */,
 				EB78FAD32A0643A700094D00 /* SettingView.swift in Sources */,
 				EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */,
+				EB5622182A324D3300683AD2 /* CenterStore.swift in Sources */,
 				EBBA99DF29EBAE3500829511 /* Policy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
