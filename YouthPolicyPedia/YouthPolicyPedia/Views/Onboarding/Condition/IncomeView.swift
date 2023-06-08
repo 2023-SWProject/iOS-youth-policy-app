@@ -54,7 +54,7 @@ struct IncomeView: View {
                     Spacer()
                 }
                 HStack {
-                    ForEach(Range(0...2)) { i in
+                    ForEach(0...2, id: \.self) { i in
                         Button {
                             if incName[name[i]] == "" {
                                 incName[name[i]] = "1"
@@ -77,7 +77,7 @@ struct IncomeView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(3...5)) { i in
+                    ForEach(3...5, id: \.self) { i in
                         Button {
                             if incName[name[i]] == "" {
                                 incName[name[i]] = "1"
@@ -100,7 +100,7 @@ struct IncomeView: View {
                 }
                 
                 HStack {
-                    ForEach(Range(6...6)) { i in
+                    ForEach(6...6, id: \.self) { i in
                         Button {
                             if incName[name[i]] == "" {
                                 incName[name[i]] = "1"
