@@ -116,10 +116,16 @@ struct EducationView: View {
                             Button {
                                 isPushEduArr[i].toggle()
                                 if isPushEduArr[i] { // 누르면 추가
-                                    eduSelectArr.append(eduNum[i])
+                                    if i != 8 {
+                                        eduSelectArr.append(eduNum[i])
+                                    }
+                                    
                                     selectCount += 1
                                 } else { // 다시 누르면 삭제
-                                    eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
+                                    if i != 8 {
+                                        eduSelectArr.remove(at: eduSelectArr.firstIndex(of: eduNum[i]) ?? 0)
+                                    }
+                                    
                                     selectCount -= 1
                                 }
                                 isOver12 = checkSelectCountOver12()
@@ -203,10 +209,16 @@ struct EducationView: View {
                             Button {
                                 isPushEmpArr[i].toggle()
                                 if isPushEmpArr[i] { // 누르면 추가
-                                    empSelectArr.append(empNum[i])
+                                    if i != 8 {
+                                        empSelectArr.append(empNum[i])
+                                    }
+                                    
                                     selectCount += 1
                                 } else { // 다시 누르면 삭제
-                                    empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    if i != 8 {
+                                        empSelectArr.remove(at: empSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    }
+                                    
                                     selectCount -= 1
                                 }
                                 isOver12 = checkSelectCountOver12()
@@ -290,10 +302,16 @@ struct EducationView: View {
                             Button {
                                 isPushSpeArr[i].toggle()
                                 if isPushSpeArr[i] { // 누르면 추가
-                                    speSelectArr.append(speNum[i])
+                                    if i != 7 {
+                                        speSelectArr.append(speNum[i])
+                                    }
+                                    
                                     selectCount += 1
                                 } else { // 다시 누르면 삭제
-                                    speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    if i != 7 {
+                                        speSelectArr.remove(at: speSelectArr.firstIndex(of: empNum[i]) ?? 0)
+                                    }
+                                    
                                     selectCount -= 1
                                 }
                                 isOver12 = checkSelectCountOver12()
