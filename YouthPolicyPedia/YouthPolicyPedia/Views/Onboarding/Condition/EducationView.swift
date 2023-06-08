@@ -237,10 +237,10 @@ struct EducationView: View {
                 }
             }
             
-            // MARK: - 특화 분야
+            // MARK: - 추가 사항
             Group {
                 HStack {
-                    Text("특화 분야")
+                    Text("추가 사항")
                         .bold()
                         .padding()
                     Spacer()
