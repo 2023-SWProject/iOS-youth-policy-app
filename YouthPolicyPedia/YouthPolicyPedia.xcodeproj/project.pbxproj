@@ -25,6 +25,9 @@
 		EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */; };
 		EB78FAD32A0643A700094D00 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78FAD22A0643A700094D00 /* SettingView.swift */; };
 		EB7ACF922A330F230082DD62 /* CIRCLETESTVIEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7ACF912A330F230082DD62 /* CIRCLETESTVIEW.swift */; };
+		EB7ACF942A3345170082DD62 /* AckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7ACF932A3345170082DD62 /* AckView.swift */; };
+		EB7ACF962A3347A30082DD62 /* PersonalInformationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7ACF952A3347A30082DD62 /* PersonalInformationControlView.swift */; };
+		EB7ACF982A3362CA0082DD62 /* CenterCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7ACF972A3362CA0082DD62 /* CenterCellView.swift */; };
 		EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */; };
 		EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */; };
 		EB7CB91A29FC4F2800BF7BFC /* LottieUI in Frameworks */ = {isa = PBXBuildFile; productRef = EB7CB91929FC4F2800BF7BFC /* LottieUI */; };
@@ -63,6 +66,9 @@
 		EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyGlossaryTab.swift; sourceTree = "<group>"; };
 		EB78FAD22A0643A700094D00 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		EB7ACF912A330F230082DD62 /* CIRCLETESTVIEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIRCLETESTVIEW.swift; sourceTree = "<group>"; };
+		EB7ACF932A3345170082DD62 /* AckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AckView.swift; sourceTree = "<group>"; };
+		EB7ACF952A3347A30082DD62 /* PersonalInformationControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInformationControlView.swift; sourceTree = "<group>"; };
+		EB7ACF972A3362CA0082DD62 /* CenterCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterCellView.swift; sourceTree = "<group>"; };
 		EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingView.swift; sourceTree = "<group>"; };
 		EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingText.swift; sourceTree = "<group>"; };
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
@@ -167,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				EB78FAD22A0643A700094D00 /* SettingView.swift */,
+				EB7ACF932A3345170082DD62 /* AckView.swift */,
+				EB7ACF952A3347A30082DD62 /* PersonalInformationControlView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -175,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */,
+				EB7ACF972A3362CA0082DD62 /* CenterCellView.swift */,
 				EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */,
 			);
 			path = CenterViews;
@@ -327,6 +336,7 @@
 				EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */,
 				EB73524F29D737450045A713 /* ContentView.swift in Sources */,
 				EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */,
+				EB7ACF982A3362CA0082DD62 /* CenterCellView.swift in Sources */,
 				EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */,
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */,
@@ -340,6 +350,8 @@
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */,
 				EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */,
+				EB7ACF962A3347A30082DD62 /* PersonalInformationControlView.swift in Sources */,
+				EB7ACF942A3345170082DD62 /* AckView.swift in Sources */,
 				EB56221A2A324D3A00683AD2 /* Center.swift in Sources */,
 				EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,

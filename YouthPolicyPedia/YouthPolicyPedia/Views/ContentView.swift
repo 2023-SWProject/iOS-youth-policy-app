@@ -42,6 +42,7 @@ struct ContentView : View {
 //                        }
                 }
                 .onAppear {
+                    print("컨텐트뷰컨텐트뷰컨텐트뷰컨텐트뷰컨텐트뷰컨텐트뷰컨텐트뷰컨텐트뷰컨텐트뷰 ")
                     print("USER AGE: \(policyStore.userAge)")
                     policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
                     

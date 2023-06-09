@@ -22,6 +22,7 @@ struct SettingView: View {
                 Spacer()
                 Image(systemName: "arrow.right")
             }
+            .contentShape(Rectangle())
             .onTapGesture {
                 policyStore.pageNumber = 0
                 
@@ -41,6 +42,38 @@ struct SettingView: View {
                 let userAgeInformation = 0
                 UserDefaults.standard.set(userAgeInformation, forKey: "myAge")
                 policyStore.userAge = 0
+            }
+
+            ZStack {
+                NavigationLink {
+                    AckView()
+                } label: {
+                    
+                }
+                .opacity(0.0)
+                .buttonStyle(PlainButtonStyle())
+                
+                HStack {
+                    Text("라이선스")
+                        .foregroundColor(.black)
+                    Spacer()
+                }
+            }
+            
+            ZStack {
+                NavigationLink {
+                    PersonalInformationControlView()
+                } label: {
+                    
+                }
+                .opacity(0.0)
+                .buttonStyle(PlainButtonStyle())
+                
+                HStack {
+                    Text("개인정보 취급방침")
+                        .foregroundColor(.black)
+                    Spacer()
+                }
             }
             .navigationBarTitle("", displayMode: .inline)
         }

@@ -1,5 +1,5 @@
 //
-//  CIRCLETESTVIEW.swift
+//  CenterCellView.swift
 //  YouthPolicyPedia
 //
 //  Created by 김태성 on 2023/06/09.
@@ -7,34 +7,12 @@
 
 import SwiftUI
 
-struct CIRCLETESTVIEW: View {
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
-    var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 30) {
-                ForEach(1...5, id: \.self) {_ in
-                    TESTCELL()
-                }
-            }
-        }
-    }
-}
-
-struct CIRCLETESTVIEW_Previews: PreviewProvider {
-    static var previews: some View {
-        CIRCLETESTVIEW()
-    }
-}
-
-struct TESTCELL: View {
+struct CenterCellView: View {
+    var center: Center
     var body: some View {
         HStack {
             Button {
-                //            buttonAction("\(center.url)", .link)
+                buttonAction("\(center.url)", .link)
                 //                        isShowingAlert.toggle()
             } label: {
                 VStack {
@@ -66,7 +44,7 @@ struct TESTCELL: View {
                             .cornerRadius(10)
                             .padding(.top, 100)
 
-                        Text("우리두리지역아동센터") // name
+                        Text("\(center.spcname)") // name
                             .lineLimit(2)
                             .foregroundColor(.black)
                             .bold()
@@ -80,4 +58,52 @@ struct TESTCELL: View {
             }
         }
     }
+    
+    // MARK: - URL 링크용
+    private enum Coordinator {
+        static func topViewController(
+          _ viewController: UIViewController? = nil
+        ) -> UIViewController? {
+          let vc = viewController ?? UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
+          
+          if let navigationController = vc as? UINavigationController {
+            return topViewController(navigationController.topViewController)
+          } else if let tabBarController = vc as? UITabBarController {
+            return tabBarController.presentedViewController != nil ?
+            topViewController(
+              tabBarController.presentedViewController
+            ) : topViewController(
+              tabBarController.selectedViewController
+            )
+          } else if let presentedViewController = vc?.presentedViewController {
+            return topViewController(presentedViewController)
+          }
+          return vc
+        }
+      }
+      
+      private enum Method: String {
+        case share
+        case link
+      }
+      
+      private func buttonAction(_ stringToURL: String, _ method: Method) {
+        let shareURL: URL = URL(string: stringToURL)!
+        
+        if method == .share {
+          let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: nil)
+          let viewController = Coordinator.topViewController()
+          activityViewController.popoverPresentationController?.sourceView = viewController?.view
+          viewController?.present(activityViewController, animated: true, completion: nil)
+        } else {
+          UIApplication.shared.open(URL(string: stringToURL)!)
+        }
+      }
 }
+
+
+//struct CenterCellView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CenterCellView()
+//    }
+//}
