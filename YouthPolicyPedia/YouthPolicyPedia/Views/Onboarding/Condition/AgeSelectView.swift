@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AgeSelectView: View {
     @EnvironmentObject var policyStore: PolicyStore
+    @EnvironmentObject var centerStore: CenterStore
     @State private var birthDate = Date()
     @State private var age: DateComponents = DateComponents()
     @State private var 계산할나이: DateComponents = DateComponents()
@@ -27,18 +28,12 @@ struct AgeSelectView: View {
                     // TODO: 만약 앱을 여기서 강제종료하면 앱이 복구 불가능 하다.
                     // 처음 앱을 켰을때 쿼리 변수가 안골라져 있다면 다 초기화 해버리기? 해바라기
                     // 초기화
-                    policyStore.pageNumber = 2
+                    policyStore.pageNumber = 3
                     // MARK: - 유저 디폴트, 스토어에 쿼리 변수 초기화
-                    let myEdu: [String] = []
-                    UserDefaults.standard.set(myEdu, forKey: "myEdu")
-                    let myEmp: [String] = []
-                    UserDefaults.standard.set(myEmp, forKey: "myEmp")
-                    let mySpe: [String] = []
-                    UserDefaults.standard.set(mySpe, forKey: "mySpe")
+                    let myIncome: [String] = []
+                    UserDefaults.standard.set(myIncome, forKey: "myIncome")
                     
-                    policyStore.eduQuery = myEdu
-                    policyStore.empQuery = myEmp
-                    policyStore.speQuery = mySpe
+                    policyStore.incomeQuery = myIncome
                 } label: {
                     Image(systemName: "chevron.left")
                         .bold()
@@ -78,7 +73,7 @@ struct AgeSelectView: View {
                 Button {
                     policyStore.userAge = 계산할나이.year ?? 0
                     
-                    // MARK: - 유저디폴트에 정보 저장
+                    // MARK: - 유저디폴트에 정보 저장/////////////////
                     let userLocationInformation = policyStore.selectedLocation
                     UserDefaults.standard.set(userLocationInformation, forKey: "myLocation")
                     
@@ -90,6 +85,23 @@ struct AgeSelectView: View {
                     
                     UserDefaults.standard.set(false, forKey: "isShowingSelectView")
                     isShowingSelectView = false
+                    
+                    
+                    //
+                    policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
+                    
+                    // policyStore.ArrayForLocationQuery 쿼리 패치 완료 후 패치하기 위한 조건문
+                    if policyStore.ArrayForLocationQuery != [] {
+                        centerStore.fetchCenters()
+                        policyStore.fetchPolicies(userAge: policyStore.userAge)
+                        print("센터 코드 : \(centerStore.selectedLocation)")
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                        print("정책 개수 : \(policyStore.policies.count)개")
+                        print("센터 개수 : \(centerStore.centers.count)개")
+                    }
+                    
                 } label: {
                     Text("나이 입력하기")
                         .bold()

@@ -9,7 +9,7 @@ import SwiftUI
 import AlertToast
 
 struct YouthPolicyGlossaryTab: View {
-    
+    let tempUrl = "https://www.youthcenter.go.kr/jynEmpEasy/jynEmpEasyDetail.do?easyPolyId=201912120001"
     @State var searchText = ""
 
     @State private var isShowingAlert = false
@@ -21,8 +21,9 @@ struct YouthPolicyGlossaryTab: View {
 //                    NavigationLink {
 //                        GlossaryDetailView()
                     Button {
-                        isShowingAlert.toggle()
-                        print("업데이트 예정입니다.")
+//                        isShowingAlert.toggle()
+//                        print("업데이트 예정입니다.")
+                        buttonAction("\(tempUrl)", .link)
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
@@ -90,6 +91,47 @@ struct YouthPolicyGlossaryTab: View {
             AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
         }
     }
+    
+    // MARK: - URL 링크용
+    private enum Coordinator {
+        static func topViewController(
+          _ viewController: UIViewController? = nil
+        ) -> UIViewController? {
+          let vc = viewController ?? UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
+          
+          if let navigationController = vc as? UINavigationController {
+            return topViewController(navigationController.topViewController)
+          } else if let tabBarController = vc as? UITabBarController {
+            return tabBarController.presentedViewController != nil ?
+            topViewController(
+              tabBarController.presentedViewController
+            ) : topViewController(
+              tabBarController.selectedViewController
+            )
+          } else if let presentedViewController = vc?.presentedViewController {
+            return topViewController(presentedViewController)
+          }
+          return vc
+        }
+      }
+      
+      private enum Method: String {
+        case share
+        case link
+      }
+      
+      private func buttonAction(_ stringToURL: String, _ method: Method) {
+        let shareURL: URL = URL(string: stringToURL)!
+        
+        if method == .share {
+          let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: nil)
+          let viewController = Coordinator.topViewController()
+          activityViewController.popoverPresentationController?.sourceView = viewController?.view
+          viewController?.present(activityViewController, animated: true, completion: nil)
+        } else {
+          UIApplication.shared.open(URL(string: stringToURL)!)
+        }
+      }
 }
 
 struct YouthPolicyGlossaryTab_Previews: PreviewProvider {

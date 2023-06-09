@@ -24,6 +24,7 @@ class PolicyStore: ObservableObject {
     @Published var eduQuery: [String] = ((UserDefaults.standard.array(forKey: "myEdu") ?? []) as? [String] ?? [])
     @Published var empQuery: [String] = ((UserDefaults.standard.array(forKey: "myEmp") ?? []) as? [String] ?? [])
     @Published var speQuery: [String] = ((UserDefaults.standard.array(forKey: "mySpe") ?? []) as? [String] ?? [])
+    @Published var incomeQuery: [String] = ((UserDefaults.standard.array(forKey: "myIncome") ?? []) as? [String] ?? [])
     
     @Published var 무주택자: String = ""
     @Published var 년제학교: String = ""
@@ -86,523 +87,1061 @@ class PolicyStore: ObservableObject {
         let eduCount = eduQuery.count
         let empCount = empQuery.count
         let speCount = speQuery.count
+        let incomeCount = incomeQuery.count
         
-        if speCount > 0 && empCount > 0 && eduCount > 0 {
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+        if incomeCount >= 2 { // 소득분위 안골랐을 경우 -> "-" 값만 있을경우
+            // 쿼리 추가해줘야됨
+            if speCount > 0 && empCount > 0 && eduCount > 0 {
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if eduCount > 0 && empCount == 0 && speCount == 0 { // edu만 골랐을 경우
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-//                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-//                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if eduCount > 0 && empCount == 0 && speCount == 0 { // edu만 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+    //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if empCount > 0 && eduCount == 0 && speCount == 0 { // emp만 골랐을 경우
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-//                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-//                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if empCount > 0 && eduCount == 0 && speCount == 0 { // emp만 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+    //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if speCount > 0 && eduCount == 0 && empCount == 0 { // spe만 골랐을 경우
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-//                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-//                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if speCount > 0 && eduCount == 0 && empCount == 0 { // spe만 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+    //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+    //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if eduCount == 0 && empCount > 0 && speCount > 0 { // edu만 안 골랐을 경우
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-//                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if eduCount == 0 && empCount > 0 && speCount > 0 { // edu만 안 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+    //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if empCount == 0 && eduCount > 0 && speCount > 0 { // emp만 안 골랐을 경우
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-//                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if empCount == 0 && eduCount > 0 && speCount > 0 { // emp만 안 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+    //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if speCount == 0 && empCount > 0 && eduCount > 0 { // spe만 안 골랐을 경우
-            var innerEduQuery = eduQuery
-            var innerEmpQuery = empQuery
-            var innerSpeQuery = speQuery
-            innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
-            innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
-            innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .whereFilter(Filter.orFilter([
-                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
-                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
-//                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                            ]))
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if speCount == 0 && empCount > 0 && eduCount > 0 { // spe만 안 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
-        } else if speCount == 0 && empCount == 0 && eduCount == 0 { // 모두 안골랐을 경우
-            
-            database.collection("PolicyData_603")
-                .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
-                .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
-                .getDocuments { (snapshot, error) in
-                    self.policies.removeAll()
-                    
-                    if let snapshot {
-                        for document in snapshot.documents {
-    //                        let id: String = document.documentID
-                            let docData = document.data()
-                            
-                            let detailType: String = docData["bizTycdSel"] as? String ?? ""
-                            let bizid: String = docData["bizid"] as? String ?? ""
-    //                        var polybizty: String = docData["polybizty"] as? String ?? ""
-                            let title: String = docData["polybizsjnm"] as? String ?? ""
-                            let introduction: String = docData["polyitcncn"] as? String ?? ""
-                            let type: String = docData["plcytpnm"] as? String ?? ""
-    //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
-                            let content: String = docData["sporcn"] as? String ?? ""
-                            let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
-                            let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
-                            let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
-                            let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
-                            let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
-    //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
-                            let period: String = docData["rqutprdcn"] as? String ?? ""
-                            let procedure: String = docData["qutproccn"] as? String ?? ""
-    //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
-                            let siteURL: String = docData["rquturla"] as? String ?? ""
-                            let locationCode: String = docData["polyBizSecd"] as? String ?? ""
-                            let 신혼부부: String = docData["신혼부부"] as? String ?? ""
-                            let tags: String = docData["plcytpnm"] as? String ?? ""
-                            let 일인가구: String = docData["1인가구여부"] as? String ?? ""
-                            let 농업인: String = docData["농업인"] as? String ?? ""
-                            let 소상공인: String = docData["소상공인"] as? String ?? ""
-                            let 차상위계층: String = docData["차상위계층"] as? String ?? ""
-                            let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
-                            let 무주택자: String = docData["homelessWhether"] as? String ?? ""
-                            
-                            // 임시 쿼리 확인차 선언
-//                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
-                            let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
-                            
-                            let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+            } else if speCount == 0 && empCount == 0 && eduCount == 0 { // 모두 안골랐을 경우
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+//                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+//                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
 
-                            print(splzrlmrqiscnTt)
-                            self.policies.append(policiesData)
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
                         }
                     }
-                }
+            } else {
+                fatalError("ERR")
+            }
+        } else if incomeCount <= 1 {
+            // 그대로 하면됨
+            if speCount > 0 && empCount > 0 && eduCount > 0 {
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if eduCount > 0 && empCount == 0 && speCount == 0 { // edu만 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+    //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if empCount > 0 && eduCount == 0 && speCount == 0 { // emp만 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+    //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if speCount > 0 && eduCount == 0 && empCount == 0 { // spe만 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+    //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+    //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if eduCount == 0 && empCount > 0 && speCount > 0 { // edu만 안 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+    //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if empCount == 0 && eduCount > 0 && speCount > 0 { // emp만 안 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+    //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+                        Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if speCount == 0 && empCount > 0 && eduCount > 0 { // spe만 안 골랐을 경우
+                var innerEduQuery = eduQuery
+                var innerEmpQuery = empQuery
+                var innerSpeQuery = speQuery
+                innerEduQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerEmpQuery.append("8") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                innerSpeQuery.append("7") // "제한없음"에 해당하는 것들 무조건 포함 시키기 위해 추가 7
+                innerEduQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerEmpQuery.append("9") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 9
+                innerSpeQuery.append("8") // "???"에 해당하는 것들 무조건 포함 시키기 위해 추가 8
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .whereFilter(Filter.orFilter([
+                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
+                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
+    //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
+                                ]))
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else if speCount == 0 && empCount == 0 && eduCount == 0 { // 모두 안골랐을 경우
+                
+                database.collection("PolicyData_603")
+                    .whereField("polyBizSecd", in: ArrayForLocationQuery.compactMap { Int($0) }) // 지역 필터링
+                    .whereField("ageinfoTt", isGreaterThanOrEqualTo: userAge) // 나이 필터링
+                    .getDocuments { (snapshot, error) in
+                        self.policies.removeAll()
+                        
+                        if let snapshot {
+                            for document in snapshot.documents {
+        //                        let id: String = document.documentID
+                                let docData = document.data()
+                                
+                                let detailType: String = docData["bizTycdSel"] as? String ?? ""
+                                let bizid: String = docData["bizid"] as? String ?? ""
+        //                        var polybizty: String = docData["polybizty"] as? String ?? ""
+                                let title: String = docData["polybizsjnm"] as? String ?? ""
+                                let introduction: String = docData["polyitcncn"] as? String ?? ""
+                                let type: String = docData["plcytpnm"] as? String ?? ""
+        //                        var sporscvl: String = docData["sporscvl"] as? String ?? ""
+                                let content: String = docData["sporcn"] as? String ?? ""
+                                let reqAge: String = docData["ageinfo"] as? String ?? ""                      // 나이
+                                let reqEmploymentStatus: String = docData["empmsttscn"] as? String ?? ""
+                                let reqEducation: String = docData["accrrqiscn"] as? String ?? ""
+                                let reqMajor: String = docData["majrrqiscn"] as? String ?? ""
+                                let reqSpecializedField: String = docData["splzrlmrqiscn"] as? String ?? ""
+        //                        var cnsgnmor: String = docData["cnsgnmor"] as? String ?? ""
+                                let period: String = docData["rqutprdcn"] as? String ?? ""
+                                let procedure: String = docData["qutproccn"] as? String ?? ""
+        //                        var jdgnprescn: String = docData["jdgnprescn"] as? String ?? ""
+                                let siteURL: String = docData["rquturla"] as? String ?? ""
+                                let locationCode: String = docData["polyBizSecd"] as? String ?? ""
+                                let 신혼부부: String = docData["신혼부부"] as? String ?? ""
+                                let tags: String = docData["plcytpnm"] as? String ?? ""
+                                let 일인가구: String = docData["1인가구여부"] as? String ?? ""
+                                let 농업인: String = docData["농업인"] as? String ?? ""
+                                let 소상공인: String = docData["소상공인"] as? String ?? ""
+                                let 차상위계층: String = docData["차상위계층"] as? String ?? ""
+                                let 기초생활및생계급여: String = docData["기초생활및생계급여"] as? String ?? ""
+                                let 무주택자: String = docData["homelessWhether"] as? String ?? ""
+                                
+                                // 임시 쿼리 확인차 선언
+    //                            let 일인가구여부: String = docData["1인가구여부"] as? String ?? "nil"
+                                let splzrlmrqiscnTt: [String] = docData["splzrlmrqiscnTt"] as? [String] ?? ["nil"]
+                                
+                                let policiesData: Policy = Policy(detailType: detailType, bizid: bizid, title: title, introduction: introduction, type: type,  content: content, reqAge: reqAge, reqEmploymentStatus: reqEmploymentStatus, reqEducation: reqEducation, reqMajor: reqMajor, reqSpecializedField: reqSpecializedField, period: period, procedure: procedure, siteURL: siteURL, locationCode: locationCode, 신혼부부: 신혼부부, tags: tags, 일인가구: 일인가구, 농업인: 농업인, 소상공인: 소상공인, 차상위계층: 차상위계층, 기초생활및생계급여: 기초생활및생계급여, 무주택자: 무주택자)
+
+                                print(splzrlmrqiscnTt)
+                                self.policies.append(policiesData)
+                            }
+                        }
+                    }
+            } else {
+                fatalError("ERR")
+            }
         } else {
-            fatalError("ERR")
+            print("소득분위 페치 ERR")
         }
     }
 }

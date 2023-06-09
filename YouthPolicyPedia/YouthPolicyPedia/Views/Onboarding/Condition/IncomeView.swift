@@ -90,7 +90,7 @@ struct IncomeView: View {
                     Text("비공개").tag(IncomeQuintile.x)
                 }
             }.pickerStyle(.inline)
-//            Text("나는 \(selectedIncome.rawValue) 분위입니다")
+            Text("나는 \(selectedIncomeQuintile.id) 분위입니다")
             
             Spacer()
             
@@ -98,6 +98,20 @@ struct IncomeView: View {
                 print("다음으로 고")
                 policyStore.pageNumber = 100 // 추가 항목으로 넘어가기
                 
+                // MARK: - 유저 디폴트, 스토어에 쿼리 변수 저장
+                var myIncome: [String] = []
+                
+                // 11 일 경우 비공개를 고른것이다
+                // 그러면 추가 안함
+                if selectedIncomeQuintile.id != 11 {
+                    myIncome.append(String(selectedIncomeQuintile.rawValue))
+                }
+                
+                myIncome.append("-")
+                UserDefaults.standard.set(myIncome, forKey: "myIncome")
+                policyStore.incomeQuery = myIncome
+                
+                print("소득분위 체크: \(policyStore.incomeQuery)")
             } label: {
                 Text("다음으로 넘어가기")
                     .bold()

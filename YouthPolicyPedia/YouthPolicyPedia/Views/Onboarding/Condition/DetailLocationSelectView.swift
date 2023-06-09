@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailLocationSelectView: View {
     @EnvironmentObject var policyStore: PolicyStore
-    
+    @EnvironmentObject var centerStore: CenterStore
     @State private var selectedCount = 0
     
     var body: some View {
@@ -57,6 +57,9 @@ struct DetailLocationSelectView: View {
             // MARK: - 다음으로 넘어가는 버튼
             if selectedCount > 0 {
                 Button {
+                    print("DetailLocationSelectView의 지역코드 :\(policyStore.selectedLocation)")
+                    // 센터와 정책 지역코드 동기화
+                    centerStore.selectedLocation = policyStore.selectedLocation
                     policyStore.ArrayForLocationQuery = policyStore.locationStringToCode(policyStore.selectedLocation, selectedDetailLocation: policyStore.selectedDetailLocation)
                     policyStore.pageNumber = 2
                 } label: {

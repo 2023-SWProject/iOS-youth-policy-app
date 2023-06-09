@@ -63,7 +63,8 @@ struct ContentView : View {
             print("\(policyStore.empQuery) emp : \(policyStore.empQuery.count)")
             print("\(policyStore.speQuery) spe : \(policyStore.speQuery.count)")
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                print(policyStore.policies.count)
+                print("정책 개수 : \(policyStore.policies.count)개")
+                print("센터 개수 : \(centerStore.centers.count)개")
             }
         }
         

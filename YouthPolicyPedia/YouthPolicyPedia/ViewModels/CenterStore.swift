@@ -20,7 +20,7 @@ class CenterStore: ObservableObject {
             .whereField("srcPolyBizSecd", isEqualTo: selectedLocation.first?.value ?? "") // 지역 필터링
             .getDocuments { (snapshot, error) in
                 self.centers.removeAll()
-                
+                print("페치 함수 안의 센터코드 : \(self.selectedLocation.first?.value ?? "")")
                 if let snapshot {
                     for document in snapshot.documents {
                         let docData = document.data()
