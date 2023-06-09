@@ -90,7 +90,7 @@ struct IncomeView: View {
                     Text("비공개").tag(IncomeQuintile.x)
                 }
             }.pickerStyle(.inline)
-            Text("나는 \(selectedIncomeQuintile.id) 분위입니다")
+//            Text("나는 \(selectedIncomeQuintile.id) 분위입니다")
             
             Spacer()
             

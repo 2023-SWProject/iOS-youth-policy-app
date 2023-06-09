@@ -88,8 +88,9 @@ class PolicyStore: ObservableObject {
         let empCount = empQuery.count
         let speCount = speQuery.count
         let incomeCount = incomeQuery.count
+        print("고른 소득분위 배열 : \(incomeQuery)")
         
-        if incomeCount >= 2 { // 소득분위 안골랐을 경우 -> "-" 값만 있을경우
+        if incomeCount >= 2 { // 소득분위 골랐을 경우 ex) ["1", "-"]
             // 쿼리 추가해줘야됨
             if speCount > 0 && empCount > 0 && eduCount > 0 {
                 var innerEduQuery = eduQuery
@@ -176,7 +177,7 @@ class PolicyStore: ObservableObject {
                         Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
     //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
     //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()
@@ -243,7 +244,7 @@ class PolicyStore: ObservableObject {
     //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
                         Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
     //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()
@@ -310,7 +311,7 @@ class PolicyStore: ObservableObject {
     //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
     //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
                         Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()
@@ -377,7 +378,7 @@ class PolicyStore: ObservableObject {
     //                    Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
                         Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
                         Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()
@@ -444,7 +445,7 @@ class PolicyStore: ObservableObject {
                         Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
     //                    Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
                         Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()
@@ -511,7 +512,7 @@ class PolicyStore: ObservableObject {
                         Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
                         Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
     //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()
@@ -569,7 +570,7 @@ class PolicyStore: ObservableObject {
 //                        Filter.whereField("accrrqiscnTt", arrayContainsAny: innerEduQuery), // 학력
 //                        Filter.whereField("empmsttscnTt", arrayContainsAny: innerEmpQuery), // 고용
     //                    Filter.whereField("splzrlmrqiscnTt", arrayContainsAny: innerSpeQuery), // 특화
-                        Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
+                        //Filter.whereField("aidSection", arrayContainsAny: incomeQuery) // 소득분위
                                 ]))
                     .getDocuments { (snapshot, error) in
                         self.policies.removeAll()

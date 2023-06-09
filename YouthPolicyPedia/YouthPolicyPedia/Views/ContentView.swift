@@ -20,7 +20,7 @@ struct ContentView : View {
                 SelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
             } else {
                 TabView {
-                    YouthCenterTab()
+                    YouthCenterTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                         .tabItem {
                             Image(systemName: "door.right.hand.closed")
                             Text("청년 공간")
@@ -30,16 +30,16 @@ struct ContentView : View {
                             Image(systemName: "square.on.square.badge.person.crop.fill")
                             Text("청년 정책")
                         }
-                    YouthPolicyGlossaryTab()
+                    YouthPolicyGlossaryTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                         .tabItem {
                             Image(systemName: "character.book.closed")
                             Text("정책 용어")
                         }
-                    MyPageTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
-                        .tabItem {
-                            Image(systemName: "person.circle")
-                            Text("내 정보")
-                        }
+//                    MyPageTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+//                        .tabItem {
+//                            Image(systemName: "person.circle")
+//                            Text("내 정보")
+//                        }
                 }
                 .onAppear {
                     print("USER AGE: \(policyStore.userAge)")

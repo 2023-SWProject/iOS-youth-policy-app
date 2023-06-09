@@ -16,13 +16,13 @@ struct YouthPolicyTab: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                showRowFilteredBy(\.신혼부부, "신혼부부")
                 showRowFilteredBy(\.일인가구, "일인가구")
+                showRowFilteredBy(\.기초생활및생계급여, "기초생활및생계급여")
                 showRowFilteredBy(\.농업인, "농업인")
                 showRowFilteredBy(\.소상공인, "소상공인")
                 showRowFilteredBy(\.차상위계층, "차상위계층")
-                showRowFilteredBy(\.기초생활및생계급여, "기초생활및생계급여")
                 showRowFilteredBy(\.무주택자, "무주택자")
+                showRowFilteredBy(\.신혼부부, "신혼부부")
                 
                 HStack {
                     Text("신청가능성이 있는 **\(policyStore.policies.count)개** 정책")
@@ -63,8 +63,19 @@ struct YouthPolicyTab: View {
                     }
                 }
                 .padding(.bottom, 10)
+                .navigationTitle("미정이의 추천 정책")
             }
-            .navigationTitle("미정이의 추천 정책")
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .foregroundColor(.black)
+                    }
+                }
+            }
             .toolbar {
                 NavigationLink {
                     SearchView()

@@ -24,6 +24,7 @@
 		EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */; };
 		EB73526229D73C700045A713 /* YouthPolicyGlossaryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */; };
 		EB78FAD32A0643A700094D00 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB78FAD22A0643A700094D00 /* SettingView.swift */; };
+		EB7ACF922A330F230082DD62 /* CIRCLETESTVIEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7ACF912A330F230082DD62 /* CIRCLETESTVIEW.swift */; };
 		EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */; };
 		EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */; };
 		EB7CB91A29FC4F2800BF7BFC /* LottieUI in Frameworks */ = {isa = PBXBuildFile; productRef = EB7CB91929FC4F2800BF7BFC /* LottieUI */; };
@@ -61,6 +62,7 @@
 		EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyTab.swift; sourceTree = "<group>"; };
 		EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyGlossaryTab.swift; sourceTree = "<group>"; };
 		EB78FAD22A0643A700094D00 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		EB7ACF912A330F230082DD62 /* CIRCLETESTVIEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIRCLETESTVIEW.swift; sourceTree = "<group>"; };
 		EB7CB90D29FC334C00BF7BFC /* FirstOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnboardingView.swift; sourceTree = "<group>"; };
 		EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingText.swift; sourceTree = "<group>"; };
 		EB99AF1B29FC18040002EE20 /* PolicyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyDetailView.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				EBB35E232A2C73D80049ED0A /* CELLTESTVIEW.swift */,
+				EB7ACF912A330F230082DD62 /* CIRCLETESTVIEW.swift */,
 			);
 			path = VIEWTEST;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				EB78FAD32A0643A700094D00 /* SettingView.swift in Sources */,
 				EB7CB90E29FC334C00BF7BFC /* FirstOnboardingView.swift in Sources */,
 				EB5622182A324D3300683AD2 /* CenterStore.swift in Sources */,
+				EB7ACF922A330F230082DD62 /* CIRCLETESTVIEW.swift in Sources */,
 				EBBA99DF29EBAE3500829511 /* Policy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

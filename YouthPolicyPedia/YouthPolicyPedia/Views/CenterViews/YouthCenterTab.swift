@@ -12,27 +12,29 @@ struct YouthCenterTab: View {
     @EnvironmentObject var policyStore: PolicyStore
     @EnvironmentObject var centerStore: CenterStore
     @State private var isShowingAlert = false
+    @Binding var isShowingSelectView: Bool
+    @Binding var isShowingOnboardingView: Bool
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
-                HStack {
-                    Capsule()
-                        .frame(width: 90, height: 27)
-                        .foregroundColor(.orange).grayscale(1.0)
-                        .overlay {
-                            HStack {
-                                Image(systemName: "location.fill")
-                                    .foregroundColor(.purple.opacity(0.8))
-                                    .padding(-5)
-                                Text(policyStore.selectedLocation.first?.key ?? "")
-                                    .foregroundColor(.white)
-                                    .font(.headline)
-                            }
-                        }
-                    Spacer()
-                }
-                .padding()
+//                HStack {
+//                    Capsule()
+//                        .frame(width: 90, height: 27)
+//                        .foregroundColor(.orange).grayscale(1.0)
+//                        .overlay {
+//                            HStack {
+//                                Image(systemName: "location.fill")
+//                                    .foregroundColor(.purple.opacity(0.8))
+//                                    .padding(-5)
+//                                Text(policyStore.selectedLocation.first?.key ?? "")
+//                                    .foregroundColor(.white)
+//                                    .font(.headline)
+//                            }
+//                        }
+//                    Spacer()
+//                }
+//                .padding()
                 
                 VStack {
                     HStack {
@@ -118,6 +120,24 @@ struct YouthCenterTab: View {
 //                AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
 //            }
 //            .navigationTitle("청년 센터")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .foregroundColor(.black)
+                    }
+                }
+            }
+            .toolbar {
+                NavigationLink {
+                    SearchView()
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.black)
+                }
+            }
         }
     }
     
@@ -165,6 +185,6 @@ struct YouthCenterTab: View {
 
 struct YouthCenterTab_Previews: PreviewProvider {
     static var previews: some View {
-        YouthCenterTab()
+        YouthCenterTab(isShowingSelectView: .constant(false), isShowingOnboardingView: .constant(false))
     }
 }

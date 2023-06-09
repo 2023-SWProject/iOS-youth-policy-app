@@ -143,6 +143,15 @@ struct PolicyDetailView: View {
                     Spacer()
                 }
                 .padding()
+                .toolbar {
+                    Button {
+                        buttonAction("미정이의 추천 \"\(policy.title)\" 이 정책은 어떠신가요?\n\(policy.siteURL.prefix(1) == "h" ? "\(policy.siteURL)" : "https://www.google.com/search?q=\(policy.title.components(separatedBy: [" "]).joined())")", .share)
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.black)
+                    }
+                }
+                .navigationBarTitle("", displayMode: .inline)
             }
         }
     }
@@ -177,7 +186,7 @@ struct PolicyDetailView: View {
       }
       
       private func buttonAction(_ stringToURL: String, _ method: Method) {
-        let shareURL: URL = URL(string: stringToURL)!
+        let shareURL: String = stringToURL
         
         if method == .share {
           let activityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: nil)

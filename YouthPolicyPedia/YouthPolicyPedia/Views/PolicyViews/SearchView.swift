@@ -18,18 +18,23 @@ struct SearchView: View {
         } else {
             // 타이틀 검색
             let title = policyStore.policies.filter { p in
-                p.title.lowercased().hasPrefix(searchText.lowercased())
+                p.title.lowercased().contains(searchText.lowercased())
             }
             .map { $0 }
             
-            // 소개로 검색
-            let introduction = policyStore.policies.filter { p in
-                p.introduction.lowercased().hasPrefix(searchText.lowercased())
+            // 제목으로 검색이 되지 않았을 경우 소개로 검색.  why? 중복 검색 결과가 나오는 것을 방지하려고
+            if title.isEmpty {
+                // 소개로 검색
+                let introduction = policyStore.policies.filter { p in
+                    p.introduction.lowercased().contains(searchText.lowercased())
+                }
+                .map { $0 }
+                
+                return title + introduction
             }
-            .map { $0 }
-            
+
             // all searches
-            return title + introduction
+            return title
         }
     }
 

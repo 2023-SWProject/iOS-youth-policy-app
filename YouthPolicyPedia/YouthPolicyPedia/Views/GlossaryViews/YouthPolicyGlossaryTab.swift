@@ -12,6 +12,8 @@ struct YouthPolicyGlossaryTab: View {
     let tempUrl = "https://www.youthcenter.go.kr/jynEmpEasy/jynEmpEasyDetail.do?easyPolyId=201912120001"
     @State var searchText = ""
 
+    @Binding var isShowingSelectView: Bool
+    @Binding var isShowingOnboardingView: Bool
     @State private var isShowingAlert = false
     
     var body: some View {
@@ -74,12 +76,31 @@ struct YouthPolicyGlossaryTab: View {
             }
             .navigationTitle("정책 용어 모아 보기")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .foregroundColor(.black)
+                    }
+                }
+            }
+            .toolbar {
+                NavigationLink {
+                    SearchView()
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.black)
+                }
+            }
         }
-        .searchable(
-            text: $searchText,
-            placement: SearchFieldPlacement.automatic,
-            prompt: "궁금한 용어를 찾아보세요"
-        )
+//        .searchable(
+//            text: $searchText,
+//            placement: SearchFieldPlacement.automatic,
+//            prompt: "궁금한 용어를 찾아보세요"
+//        )
+        
         
         .toast(isPresenting: $isShowingAlert) {
             
@@ -136,6 +157,6 @@ struct YouthPolicyGlossaryTab: View {
 
 struct YouthPolicyGlossaryTab_Previews: PreviewProvider {
     static var previews: some View {
-        YouthPolicyGlossaryTab(searchText: "")
+        YouthPolicyGlossaryTab(isShowingSelectView: .constant(false), isShowingOnboardingView: .constant(false))
     }
 }

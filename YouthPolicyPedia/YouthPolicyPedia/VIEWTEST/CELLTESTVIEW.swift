@@ -47,6 +47,7 @@ struct CELLTESTVIEW: View {
                                         VStack {
                                             HStack {
                                                 Text("대학생 청소년 교육 지원 활동")
+                                                    .font(.system(size: 15))
                                                     .lineLimit(2)
                                                     .padding()
                                                     .padding(.leading, 5)
@@ -54,13 +55,23 @@ struct CELLTESTVIEW: View {
                                             Spacer()
                                             HStack {
                                                 Rectangle()
-                                                    .cornerRadius(100)
+                                                    .cornerRadius(5)
                                                     .foregroundColor(.white.opacity(0.6))
                                                     .frame(width: 60, height: 30)
                                                     .overlay {
-                                                        Text("#창업 지원")
-                                                            .font(.system(size: 12))
-                                                            .opacity(0.5)
+                                                        ZStack {
+                                                            Text("#창업 지원")
+                                                                .font(.system(size: 12))
+                                                                .opacity(0.5)
+                                                                .zIndex(1)
+                                                                .monospacedDigit()
+                                                            
+                                                            Rectangle()
+                                                                .foregroundColor(.red)
+                                                                .frame(width: 55, height: 24)
+                                                                .cornerRadius(5)
+                                                                .opacity(0.5)
+                                                        }
                                                     }
                                             }
                                             .padding(.bottom, 10)

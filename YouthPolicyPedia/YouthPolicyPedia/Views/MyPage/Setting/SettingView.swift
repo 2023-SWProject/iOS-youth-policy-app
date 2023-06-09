@@ -15,8 +15,14 @@ struct SettingView: View {
     @Binding var isShowingOnboardingView: Bool
     
     var body: some View {
-        VStack {
-            Button {
+        List {
+            HStack {
+                Text("정보 수정하기")
+                    .foregroundColor(.black)
+                Spacer()
+                Image(systemName: "arrow.right")
+            }
+            .onTapGesture {
                 policyStore.pageNumber = 0
                 
                 // MARK: - 유저디폴트 초기화
@@ -35,21 +41,10 @@ struct SettingView: View {
                 let userAgeInformation = 0
                 UserDefaults.standard.set(userAgeInformation, forKey: "myAge")
                 policyStore.userAge = 0
-            } label: {
-                HStack {
-                    Text("정보 수정하기")
-                        .foregroundColor(.black)
-                    Spacer()
-                    Image(systemName: "arrow.right")
-                }
             }
-            .padding()
-//            .simultaneousGesture(TapGesture().onEnded{
-//                policyStore.pageNumber = 0
-//            })
-            
-            Spacer()
+            .navigationBarTitle("", displayMode: .inline)
         }
+        .listStyle(.plain)
     }
 }
 

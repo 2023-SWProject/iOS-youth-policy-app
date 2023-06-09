@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyPageTab: View {
     @EnvironmentObject var policyStore: PolicyStore
+    @EnvironmentObject var centerStore: CenterStore
     
     @Binding var isShowingSelectView: Bool
     @Binding var isShowingOnboardingView: Bool
@@ -26,7 +27,7 @@ struct MyPageTab: View {
 //                            .scaledToFill()
 //                    }
                 Spacer()
-                Text("미정이")
+                Text("나의 지역")
                     .bold()
                 Spacer()
                 Spacer()
@@ -40,22 +41,22 @@ struct MyPageTab: View {
             
                 .navigationTitle("내 정보")
                 .navigationBarTitleDisplayMode(.inline)
-            
                 .toolbar {
-                    NavigationLink {
-                        SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .foregroundColor(.black)
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        NavigationLink {
+                            SettingView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
+                        } label: {
+                            Image(systemName: "gearshape")
+                                .foregroundColor(.black)
+                        }
                     }
-                    
                 }
         }
     }
 }
 
-//struct MyPageTab_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MyPageTab()
-//    }
-//}
+struct MyPageTab_Previews: PreviewProvider {
+    static var previews: some View {
+        MyPageTab(isShowingSelectView: .constant(false), isShowingOnboardingView: .constant(false))
+    }
+}
