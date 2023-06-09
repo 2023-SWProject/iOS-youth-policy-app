@@ -37,6 +37,7 @@ struct YouthPolicyTab: View {
                     Text("신청가능성이 있는 **\(policyStore.policies.count)개** 정책")
                     .bold()
                     .padding(.leading, 20)
+                    .padding(.vertical, 20)
                         
                     Spacer()
                 }
@@ -110,13 +111,13 @@ struct YouthPolicyTab: View {
                         case "농업인":
                             Text("농업인 아자아자 👩‍🌾🧑‍🌾🌾🥕")
                         case "소상공인":
-                            Text("소상공인?")
+                            Text("소상공인 힘내자")
                         case "차상위계층":
-                            Text("차상위계층 아자아자 🥕")
+                            Text("차상위계층 아자아자")
                         case "기초생활및생계급여":
-                            Text("기초생활및생계급여 아자아자 🥕")
+                            Text("기초생활및생계급여 아자아자")
                         case "무주택자":
-                            Text("무주택자 아자아자 🥕")
+                            Text("무주택자 아자아자")
                         default:
                             Text("ERR")
                         }
@@ -134,51 +135,9 @@ struct YouthPolicyTab: View {
                                 NavigationLink {
                                     PolicyDetailView(policy: p)
                                 } label: {
-                                    ZStack {
-                                        Rectangle()
-                                            .frame(width: 130, height: 150)
-                                            .foregroundColor(Color("myCellColor"))
-                                            .cornerRadius(10)
-                                            .padding(.leading, 15)
-                                            .padding(.bottom, 40)
-                                            .zIndex(1)
-                                            .overlay {
-                                                VStack {
-                                                    HStack {
-                                                        Text("\(p.title)")
-                                                            .foregroundColor(.black)
-                                                            .lineLimit(2)
-                                                            .padding()
-                                                            .padding(.leading, 5)
-                                                    }
-                                                    Spacer()
-                                                    HStack {
-                                                        Rectangle()
-                                                            .cornerRadius(100)
-                                                            .foregroundColor(.white.opacity(0.6))
-                                                            .frame(width: 60, height: 30)
-                                                            .overlay {
-                                                                Text("#\(p.tags)")
-                                                                    .font(.system(size: 12))
-                                                                    .opacity(0.5)
-                                                            }
-                                                    }
-                                                    .padding(.bottom, 10)
-                                                    .padding(.trailing, 30)
-                                                    
-                                                    Spacer()
-                                                }
-                                            }
-                                        
-                                        Rectangle()
-                                            .frame(width: 130, height: 150)
-                                            .foregroundColor(.gray.opacity(0.2))
-                                            .cornerRadius(10)
-                                            .padding(.leading, 15)
-                                            .padding(.bottom, 40)
-                                            .offset(x: 5, y: 5)
-                                            .zIndex(0)
-                                    }
+                                    PolicyCellView(policy: p)
+                                        .padding(.leading, 20)
+                                        .padding(.bottom, 20)
                                 }
                             }
                         }

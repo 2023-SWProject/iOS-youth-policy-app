@@ -11,7 +11,6 @@ import AlertToast
 struct YouthCenterTab: View {
     @EnvironmentObject var policyStore: PolicyStore
     @EnvironmentObject var centerStore: CenterStore
-    @State private var isShowingAlert = false
     @Binding var isShowingSelectView: Bool
     @Binding var isShowingOnboardingView: Bool
     

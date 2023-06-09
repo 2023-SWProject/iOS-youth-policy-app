@@ -13,11 +13,9 @@ struct CenterCellView: View {
         HStack {
             Button {
                 buttonAction("\(center.url)", .link)
-                //                        isShowingAlert.toggle()
             } label: {
                 VStack {
                     ZStack {
-                        // 사진
                         AsyncImage(
                             url: URL(string: "https://www.youthcenter.go.kr/framework/filedownload/getImage.do?filePathName=K43kYCzEpw54N3DsTLz6bPgd%2FOPUmucKCGZDlA2w%2BAJd3lxlxhKZVaY6cVGLvIKxIAbgyajbMvnaT5yo8VVeEg%3D%3D"),
                             content: { image in
@@ -54,7 +52,15 @@ struct CenterCellView: View {
                             .frame(maxWidth: 150)
                     }
                 }
-                
+                .overlay(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.clear, Color.green.opacity(0.4), Color.clear]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .opacity(0.3)
+                    .cornerRadius(8)
+                )
             }
         }
     }
