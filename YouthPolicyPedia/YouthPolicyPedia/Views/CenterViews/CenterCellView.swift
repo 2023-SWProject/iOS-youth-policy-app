@@ -37,7 +37,7 @@ struct CenterCellView: View {
                             )
                         
                         Rectangle()
-                            .foregroundColor(.green.opacity(0.8))
+                            .foregroundColor(Color("jhColor").opacity(0.8))
                             .frame(width: 150, height: 110)
                             .cornerRadius(10)
                             .padding(.top, 100)
@@ -54,7 +54,7 @@ struct CenterCellView: View {
                 }
                 .overlay(
                     LinearGradient(
-                        gradient: Gradient(colors: [Color.clear, Color.green.opacity(0.4), Color.clear]),
+                        gradient: Gradient(colors: [Color.clear, Color("jhColor").opacity(0.4), Color.clear]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
