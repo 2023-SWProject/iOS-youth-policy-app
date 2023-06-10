@@ -14,4 +14,5 @@ struct Center: Codable, Identifiable, Hashable {
     var spcname: String
     var scrPolyBizSecd: String
     var url: String
+    var imageUrl: String
 }

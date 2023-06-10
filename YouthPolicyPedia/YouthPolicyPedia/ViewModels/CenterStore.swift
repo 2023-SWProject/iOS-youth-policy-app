@@ -29,8 +29,9 @@ class CenterStore: ObservableObject {
                         let spcname: String = docData["spcname"] as? String ?? ""
                         let scrPolyBizSecd: String = docData["scrPolyBizSecd"] as? String ?? ""
                         let url: String = docData["url"] as? String ?? ""
+                        let imageUrl: String = docData["imageUrl"] as? String ?? ""
                         
-                        let center: Center = Center(adress: adress, spcid: spcid, spcname: spcname, scrPolyBizSecd: scrPolyBizSecd, url: url)
+                        let center: Center = Center(adress: adress, spcid: spcid, spcname: spcname, scrPolyBizSecd: scrPolyBizSecd, url: url, imageUrl: imageUrl)
                         self.centers.append(center)
                     }
                 }

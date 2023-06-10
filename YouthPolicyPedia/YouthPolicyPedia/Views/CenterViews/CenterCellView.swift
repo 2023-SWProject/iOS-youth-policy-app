@@ -17,7 +17,7 @@ struct CenterCellView: View {
                 VStack {
                     ZStack {
                         AsyncImage(
-                            url: URL(string: "https://www.youthcenter.go.kr/framework/filedownload/getImage.do?filePathName=K43kYCzEpw54N3DsTLz6bPgd%2FOPUmucKCGZDlA2w%2BAJd3lxlxhKZVaY6cVGLvIKxIAbgyajbMvnaT5yo8VVeEg%3D%3D"),
+                            url: URL(string: center.imageUrl),
                             content: { image in
                                 image.resizable()
                                     .cornerRadius(10)

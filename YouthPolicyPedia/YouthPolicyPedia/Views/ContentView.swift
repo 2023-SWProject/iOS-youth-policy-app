@@ -13,28 +13,32 @@ struct ContentView : View {
     @EnvironmentObject var centerStore: CenterStore
     @State var isShowingOnboardingView: Bool = UserDefaults.standard.object(forKey: "isShowingOnboardingView") as? Bool ?? true
     @State var isShowingSelectView: Bool = UserDefaults.standard.object(forKey: "isShowingSelectView") as? Bool ?? true
+    @State private var selection = 2
     
     var body: some View {
         ZStack {
             if isShowingSelectView {
                 SelectView(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
             } else {
-                TabView {
+                TabView(selection:$selection) {
                     YouthCenterTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                         .tabItem {
                             Image(systemName: "door.right.hand.closed")
                             Text("청년 공간")
                         }
+                        .tag(1)
                     YouthPolicyTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                         .tabItem {
                             Image(systemName: "square.on.square.badge.person.crop.fill")
                             Text("청년 정책")
                         }
+                        .tag(2)
                     YouthPolicyGlossaryTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
                         .tabItem {
                             Image(systemName: "character.book.closed")
                             Text("정책 용어")
                         }
+                        .tag(3)
 //                    MyPageTab(isShowingSelectView: $isShowingSelectView, isShowingOnboardingView: $isShowingOnboardingView)
 //                        .tabItem {
 //                            Image(systemName: "person.circle")

@@ -9,59 +9,41 @@ import SwiftUI
 import AlertToast
 
 struct YouthPolicyGlossaryTab: View {
-    let tempUrl = "https://www.youthcenter.go.kr/jynEmpEasy/jynEmpEasyDetail.do?easyPolyId=201912120001"
-    @State var searchText = ""
+//    let tempUrl = "https://www.youthcenter.go.kr/jynEmpEasy/jynEmpEasyDetail.do?easyPolyId=202010200003"
+//    @State var searchText = ""
 
     @Binding var isShowingSelectView: Bool
     @Binding var isShowingOnboardingView: Bool
-    @State private var isShowingAlert = false
+//    @State private var isShowingAlert = false
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(1...10, id: \.self) {_ in
+                ForEach(0..<termNames.count, id: \.self) { i in
 //                    NavigationLink {
 //                        GlossaryDetailView()
                     Button {
 //                        isShowingAlert.toggle()
 //                        print("업데이트 예정입니다.")
-                        buttonAction("\(tempUrl)", .link)
+                        buttonAction("\(termUrls[i])", .link)
                     } label: {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
-                            .frame(width: UIScreen.main.bounds.width - 40, height: 100)
+                            .frame(width: UIScreen.main.bounds.width - 40, height: 50)
                             .cornerRadius(10)
-                            .padding(10)
                             .overlay {
                                 
                                 HStack {
-                                    AsyncImage(
-                                        url: URL(string: "https://www.youthcenter.go.kr/framework/filedownload/getImage.do?filePathName=z5VpaHt9JBV54fwiQTLnrsVtvJZNROufggzoVlU5%2BHUnQ8mDcSIwbS2N7VOLI2jbvNAWNd4HUIegRaPy%2F0S6aA%3D%3D"),
-                                        content: { image in
-                                            image.resizable()
-//                                                .aspectRatio(contentMode: .fit)
-                                                .cornerRadius(10)
-                                                .padding(.leading, 10)
-                                                .frame(width: 130, height: 100)
-                                            //                                        .frame(maxWidth: 400, maxHeight: 110)
-                                        },
-                                        placeholder: {
-                                            ProgressView()
-                                        }
-                                    )
-                                    
-                                    VStack {
-                                        Text("무급가족종사자")
-                                            .padding(.top, 50)
+                                    HStack {
+                                        Text("\(termNames[i])")
+//                                            .padding(.top, 100)
                                             .foregroundColor(.black)
+                                            .padding(.leading, 20)
 
-                                        HStack {
-                                            Spacer()
+                                        Spacer()
                                             
                                             Image(systemName: "chevron.right")
-                                                .foregroundColor(.blue)
-                                        }
-                                        .padding(.bottom, 40)
+                                                .foregroundColor(.black)
                                         .padding()
                                         
                                     }
@@ -88,7 +70,7 @@ struct YouthPolicyGlossaryTab: View {
             }
             .toolbar {
                 NavigationLink {
-                    SearchView()
+                    TermSearchView()
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.black)
@@ -102,14 +84,14 @@ struct YouthPolicyGlossaryTab: View {
 //        )
         
         
-        .toast(isPresenting: $isShowingAlert) {
+//        .toast(isPresenting: $isShowingAlert) {
             
             // `.alert` is the default displayMode
 //            AlertToast(type: .regular, title: "Message Sent!")
             
             //Choose .hud to toast alert from the top of the screen
 //            AlertToast(displayMode: .hud, type: .systemImage("hare", Color.red), title: "Message Sent!")
-            AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
+//            AlertToast(type: .image("dd", Color.red), subTitle: "추후 업데이트 예정입니다!")
         }
     }
     
@@ -152,7 +134,6 @@ struct YouthPolicyGlossaryTab: View {
         } else {
           UIApplication.shared.open(URL(string: stringToURL)!)
         }
-      }
 }
 
 struct YouthPolicyGlossaryTab_Previews: PreviewProvider {

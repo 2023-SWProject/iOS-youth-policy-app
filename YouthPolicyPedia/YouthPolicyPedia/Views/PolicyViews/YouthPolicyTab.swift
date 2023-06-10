@@ -12,6 +12,7 @@ struct YouthPolicyTab: View {
     
     @Binding var isShowingSelectView: Bool
     @Binding var isShowingOnboardingView: Bool
+    @State private var policyCount: Int = 0
     
     var body: some View {
         NavigationStack {
@@ -111,13 +112,13 @@ struct YouthPolicyTab: View {
                         case "농업인":
                             Text("농업인 아자아자 👩‍🌾🧑‍🌾🌾🥕")
                         case "소상공인":
-                            Text("소상공인 힘내자")
+                            Text("소상공인")
                         case "차상위계층":
-                            Text("차상위계층 아자아자")
+                            Text("차상위계층")
                         case "기초생활및생계급여":
-                            Text("기초생활및생계급여 아자아자")
+                            Text("기초생활 및 생계급여")
                         case "무주택자":
-                            Text("무주택자 아자아자")
+                            Text("무주택자")
                         default:
                             Text("ERR")
                         }

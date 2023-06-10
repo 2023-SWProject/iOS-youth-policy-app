@@ -37,7 +37,11 @@ struct AckView: View {
             Group {
                 Text("Image:")
                     .fontWeight(.semibold)
-                Text("온라인청년센터")
+                Text("youthcenter.go.kr")
+                    .tint(.gray)
+                Text("flaticon.com")
+                    .tint(.gray)
+                Text("lottiefiles.com")
                     .tint(.gray)
             }
             .foregroundColor(.gray)

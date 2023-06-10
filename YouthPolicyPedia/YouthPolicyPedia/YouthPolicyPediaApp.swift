@@ -25,6 +25,7 @@ struct YouthPolicyPediaApp: App {
     
     init() {
         FirebaseApp.configure()
+        Thread.sleep(forTimeInterval: 1)
     }
     
     var body: some Scene {

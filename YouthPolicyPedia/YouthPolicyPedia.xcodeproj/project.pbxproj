@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB1798172A34107A0019F9F5 /* TermCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1798162A34107A0019F9F5 /* TermCellView.swift */; };
+		EB1798192A3425F30019F9F5 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1798182A3425F30019F9F5 /* Term.swift */; };
+		EB17981B2A342AFC0019F9F5 /* TermSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17981A2A342AFC0019F9F5 /* TermSearchView.swift */; };
 		EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */; };
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
+		EB18B86C2A33A1E200A93C92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB73525029D737450045A713 /* Assets.xcassets */; };
 		EB2D51362A00DF6700E00E84 /* AgeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */; };
 		EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */; };
 		EB5622182A324D3300683AD2 /* CenterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5622172A324D3300683AD2 /* CenterStore.swift */; };
@@ -18,7 +22,6 @@
 		EB6111692A050B0800D2B769 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111682A050B0800D2B769 /* SelectView.swift */; };
 		EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */; };
 		EB73524F29D737450045A713 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73524E29D737450045A713 /* ContentView.swift */; };
-		EB73525129D737450045A713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB73525029D737450045A713 /* Assets.xcassets */; };
 		EB73525429D737450045A713 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB73525329D737450045A713 /* Preview Assets.xcassets */; };
 		EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */; };
 		EB73525E29D73B5D0045A713 /* YouthPolicyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73525D29D73B5D0045A713 /* YouthPolicyTab.swift */; };
@@ -48,8 +51,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EB1798162A34107A0019F9F5 /* TermCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermCellView.swift; sourceTree = "<group>"; };
+		EB1798182A3425F30019F9F5 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
+		EB17981A2A342AFC0019F9F5 /* TermSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermSearchView.swift; sourceTree = "<group>"; };
 		EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterDetailView.swift; sourceTree = "<group>"; };
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
+		EB18B86B2A339EBA00A93C92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EB2D51352A00DF6700E00E84 /* AgeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectView.swift; sourceTree = "<group>"; };
 		EB30AFFB2A231DD600DBF3FF /* MyPageTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTab.swift; sourceTree = "<group>"; };
 		EB5622172A324D3300683AD2 /* CenterStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterStore.swift; sourceTree = "<group>"; };
@@ -128,6 +135,7 @@
 		EB73524B29D737450045A713 /* YouthPolicyPedia */ = {
 			isa = PBXGroup;
 			children = (
+				EB18B86B2A339EBA00A93C92 /* Info.plist */,
 				EBBA99D129EBAD5000829511 /* GoogleService-Info.plist */,
 				EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */,
 				EBB35E222A2C73BE0049ED0A /* VIEWTEST */,
@@ -195,6 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				EB73526129D73C700045A713 /* YouthPolicyGlossaryTab.swift */,
+				EB1798162A34107A0019F9F5 /* TermCellView.swift */,
+				EB17981A2A342AFC0019F9F5 /* TermSearchView.swift */,
 				EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */,
 			);
 			path = GlossaryViews;
@@ -237,6 +247,7 @@
 			children = (
 				EBBA99DE29EBAE3500829511 /* Policy.swift */,
 				EB5622192A324D3A00683AD2 /* Center.swift */,
+				EB1798182A3425F30019F9F5 /* Term.swift */,
 				EB7CB90F29FC35FE00BF7BFC /* OnboardingText.swift */,
 			);
 			path = Model;
@@ -324,7 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB73525429D737450045A713 /* Preview Assets.xcassets in Resources */,
-				EB73525129D737450045A713 /* Assets.xcassets in Resources */,
+				EB18B86C2A33A1E200A93C92 /* Assets.xcassets in Resources */,
 				EBBA99D229EBAD5000829511 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,11 +355,13 @@
 				EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */,
 				EB7CB91029FC35FE00BF7BFC /* OnboardingText.swift in Sources */,
 				EB30AFFC2A231DD600DBF3FF /* MyPageTab.swift in Sources */,
+				EB1798172A34107A0019F9F5 /* TermCellView.swift in Sources */,
 				EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */,
 				EBB35E242A2C73D80049ED0A /* CELLTESTVIEW.swift in Sources */,
 				EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */,
 				EBCEF8F32A2F3A2100638235 /* SearchView.swift in Sources */,
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,
+				EB1798192A3425F30019F9F5 /* Term.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
 				EBB35E282A2C9F780049ED0A /* IncomeView.swift in Sources */,
@@ -358,6 +371,7 @@
 				EB56221A2A324D3A00683AD2 /* Center.swift in Sources */,
 				EBB35E212A2C04CE0049ED0A /* EducationView.swift in Sources */,
 				EB7ACF9A2A3366320082DD62 /* PolicyCellView.swift in Sources */,
+				EB17981B2A342AFC0019F9F5 /* TermSearchView.swift in Sources */,
 				EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */,
 				EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */,
 				EB78FAD32A0643A700094D00 /* SettingView.swift in Sources */,
@@ -421,6 +435,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "미정이";
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -475,6 +491,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "미정이";
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -496,9 +514,10 @@
 				DEVELOPMENT_TEAM = 4JL8SRWP2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YouthPolicyPedia/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "미정이";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -530,9 +549,10 @@
 				DEVELOPMENT_TEAM = 4JL8SRWP2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YouthPolicyPedia/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "미정이";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
