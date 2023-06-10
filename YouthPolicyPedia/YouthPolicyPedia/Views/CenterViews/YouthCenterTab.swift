@@ -59,7 +59,7 @@ struct YouthCenterTab: View {
             }
             .toolbar {
                 NavigationLink {
-                    SearchView()
+                    CenterSearchView()
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.black)

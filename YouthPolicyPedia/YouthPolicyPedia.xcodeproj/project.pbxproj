@@ -10,6 +10,7 @@
 		EB1798172A34107A0019F9F5 /* TermCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1798162A34107A0019F9F5 /* TermCellView.swift */; };
 		EB1798192A3425F30019F9F5 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1798182A3425F30019F9F5 /* Term.swift */; };
 		EB17981B2A342AFC0019F9F5 /* TermSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17981A2A342AFC0019F9F5 /* TermSearchView.swift */; };
+		EB17981D2A343ECD0019F9F5 /* CenterSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17981C2A343ECD0019F9F5 /* CenterSearchView.swift */; };
 		EB17E39229D7548D0022B4C8 /* YouthCenterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */; };
 		EB17E39429D75C0D0022B4C8 /* GlossaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */; };
 		EB18B86C2A33A1E200A93C92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB73525029D737450045A713 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		EB1798162A34107A0019F9F5 /* TermCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermCellView.swift; sourceTree = "<group>"; };
 		EB1798182A3425F30019F9F5 /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		EB17981A2A342AFC0019F9F5 /* TermSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermSearchView.swift; sourceTree = "<group>"; };
+		EB17981C2A343ECD0019F9F5 /* CenterSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterSearchView.swift; sourceTree = "<group>"; };
 		EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthCenterDetailView.swift; sourceTree = "<group>"; };
 		EB17E39329D75C0D0022B4C8 /* GlossaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossaryDetailView.swift; sourceTree = "<group>"; };
 		EB18B86B2A339EBA00A93C92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			children = (
 				EB73525B29D73AAA0045A713 /* YouthCenterTab.swift */,
 				EB7ACF972A3362CA0082DD62 /* CenterCellView.swift */,
+				EB17981C2A343ECD0019F9F5 /* CenterSearchView.swift */,
 				EB17E39129D7548D0022B4C8 /* YouthCenterDetailView.swift */,
 			);
 			path = CenterViews;
@@ -361,6 +364,7 @@
 				EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */,
 				EBCEF8F32A2F3A2100638235 /* SearchView.swift in Sources */,
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,
+				EB17981D2A343ECD0019F9F5 /* CenterSearchView.swift in Sources */,
 				EB1798192A3425F30019F9F5 /* Term.swift in Sources */,
 				EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */,
 				EBBA99E329EBAEEB00829511 /* PolicyStore.swift in Sources */,
