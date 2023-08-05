@@ -20,19 +20,12 @@ struct YouthPolicyGlossaryTab: View {
         NavigationStack {
             ScrollView {
                 ForEach(0..<termNames.count, id: \.self) { i in
-//                    NavigationLink {
-//                        GlossaryDetailView()
-                    Button {
-//                        isShowingAlert.toggle()
-//                        print("업데이트 예정입니다.")
-                        buttonAction("\(termUrls[i])", .link)
-                    } label: {
+                    NavigationLink(destination: MyWebView(urlToLoad: "\(termUrls[i])")) {
                         Rectangle()
                             .foregroundColor(.yellow.opacity(0.2))
                             .frame(width: UIScreen.main.bounds.width - 40, height: 50)
                             .cornerRadius(10)
                             .overlay {
-                                
                                 HStack {
                                     HStack {
                                         Text("\(termNames[i])")
@@ -45,13 +38,44 @@ struct YouthPolicyGlossaryTab: View {
                                             Image(systemName: "chevron.right")
                                                 .foregroundColor(.black)
                                         .padding()
-                                        
                                     }
                                     Spacer()
                                 }
-                                
                             }
                     }
+                    
+//                    NavigationLink {
+//                        GlossaryDetailView()
+//                    Button {
+////                        isShowingAlert.toggle()
+////                        print("업데이트 예정입니다.")
+//                        buttonAction("\(termUrls[i])", .link)
+//                    } label: {
+//                        Rectangle()
+//                            .foregroundColor(.yellow.opacity(0.2))
+//                            .frame(width: UIScreen.main.bounds.width - 40, height: 50)
+//                            .cornerRadius(10)
+//                            .overlay {
+//                                
+//                                HStack {
+//                                    HStack {
+//                                        Text("\(termNames[i])")
+////                                            .padding(.top, 100)
+//                                            .foregroundColor(.black)
+//                                            .padding(.leading, 20)
+//
+//                                        Spacer()
+//                                            
+//                                            Image(systemName: "chevron.right")
+//                                                .foregroundColor(.black)
+//                                        .padding()
+//                                        
+//                                    }
+//                                    Spacer()
+//                                }
+//                                
+//                            }
+//                    }
 
                 }
                 .padding(.bottom, 30)

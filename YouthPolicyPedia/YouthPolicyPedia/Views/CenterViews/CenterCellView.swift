@@ -11,9 +11,7 @@ struct CenterCellView: View {
     var center: Center
     var body: some View {
         HStack {
-            Button {
-                buttonAction("\(center.url)", .link)
-            } label: {
+            NavigationLink(destination: MyWebView(urlToLoad: "\(center.url)")) {
                 VStack {
                     ZStack {
                         AsyncImage(
@@ -62,6 +60,58 @@ struct CenterCellView: View {
                     .cornerRadius(8)
                 )
             }
+            
+//            Button {
+//                buttonAction("\(center.url)", .link)
+//            } label: {
+//                VStack {
+//                    ZStack {
+//                        AsyncImage(
+//                            url: URL(string: center.imageUrl),
+//                            content: { image in
+//                                image.resizable()
+//                                    .cornerRadius(10)
+//                                    .frame(maxWidth: 400, maxHeight: 110)
+//                            },
+//                            placeholder: {
+//                                ProgressView()
+//                            }
+//                        )
+//                            .frame(width: 150, height: 110)
+//                            .cornerRadius(10)
+//                            .zIndex(1)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 10.0)
+//                                    .fill(Color.white)
+//                                    .shadow(radius: 3, x: 1, y: 1)
+//                            )
+//                        
+//                        Rectangle()
+//                            .foregroundColor(Color("jhColor").opacity(0.8))
+//                            .frame(width: 150, height: 110)
+//                            .cornerRadius(10)
+//                            .padding(.top, 100)
+//
+//                        Text("\(center.spcname)") // name
+//                            .lineLimit(2)
+//                            .foregroundColor(.black)
+//                            .bold()
+//                            .font(.system(size: 16))
+//                            .zIndex(2)
+//                            .padding(.top, 150)
+//                            .frame(maxWidth: 150)
+//                    }
+//                }
+//                .overlay(
+//                    LinearGradient(
+//                        gradient: Gradient(colors: [Color.clear, Color("jhColor").opacity(0.4), Color.clear]),
+//                        startPoint: .topLeading,
+//                        endPoint: .bottomTrailing
+//                    )
+//                    .opacity(0.3)
+//                    .cornerRadius(8)
+//                )
+//            }
         }
     }
     

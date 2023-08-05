@@ -21,6 +21,7 @@
 		EB6111652A04DFB700D2B769 /* LocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111642A04DFB700D2B769 /* LocationSelectView.swift */; };
 		EB6111672A04F6B500D2B769 /* DetailLocationSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */; };
 		EB6111692A050B0800D2B769 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6111682A050B0800D2B769 /* SelectView.swift */; };
+		EB69FA962A7E7CA100A97C25 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB69FA952A7E7CA100A97C25 /* WebView.swift */; };
 		EB73524D29D737450045A713 /* YouthPolicyPediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */; };
 		EB73524F29D737450045A713 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73524E29D737450045A713 /* ContentView.swift */; };
 		EB73525429D737450045A713 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB73525329D737450045A713 /* Preview Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		EB6111642A04DFB700D2B769 /* LocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111662A04F6B500D2B769 /* DetailLocationSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailLocationSelectView.swift; sourceTree = "<group>"; };
 		EB6111682A050B0800D2B769 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
+		EB69FA952A7E7CA100A97C25 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		EB73524929D737450045A713 /* YouthPolicyPedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouthPolicyPedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB73524C29D737450045A713 /* YouthPolicyPediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouthPolicyPediaApp.swift; sourceTree = "<group>"; };
 		EB73524E29D737450045A713 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				EB7CB90C29FC2D0600BF7BFC /* PolicyViews */,
 				EB7CB90B29FC2D0400BF7BFC /* GlossaryViews */,
 				EB30AFFA2A231D9800DBF3FF /* MyPage */,
+				EB69FA952A7E7CA100A97C25 /* WebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				EB1798172A34107A0019F9F5 /* TermCellView.swift in Sources */,
 				EB73525C29D73AAA0045A713 /* YouthCenterTab.swift in Sources */,
 				EBB35E242A2C73D80049ED0A /* CELLTESTVIEW.swift in Sources */,
+				EB69FA962A7E7CA100A97C25 /* WebView.swift in Sources */,
 				EB99AF1C29FC18040002EE20 /* PolicyDetailView.swift in Sources */,
 				EBCEF8F32A2F3A2100638235 /* SearchView.swift in Sources */,
 				EB6111692A050B0800D2B769 /* SelectView.swift in Sources */,
@@ -513,7 +517,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"YouthPolicyPedia/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JL8SRWP2X;
 				ENABLE_PREVIEWS = YES;
@@ -530,7 +534,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.KTS224.YouthPolicyPedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -548,7 +552,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"YouthPolicyPedia/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JL8SRWP2X;
 				ENABLE_PREVIEWS = YES;
@@ -565,7 +569,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.KTS224.YouthPolicyPedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
